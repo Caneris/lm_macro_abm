@@ -5,12 +5,12 @@ from goods_market import gm_matching
 from unemp_benefits import *
 from public_worker_tools import *
 
-T = 1000
+T = 400
 rd.seed(135)
 m = Model(lambda_LM=0.5, chi_L=0.2, chi_C=0.2, T=T,
           lambda_exp=0.25, share_nr=0.33, H=200, g=0,
           sigma_FN=0.01, w_init=1, F = 20, beta=1,
-          mu_r=8.8, mu_nr=17.8, nu=0.001, Af_init=12, alpha_1=0.698762626262,
+          mu_r=8.8, mu_nr=17.8, nu=0.1, Af_init=12, alpha_1=0.698762626262,
           alpha_2=0.25, min_real_w=0, shock_t=0, tau=0,
           delta=0, div_rate=1, sigma=0.5, psi=0, period=6,
           AG_init= 0, phi_w=0, s_init = 26, Ah_init=1.581199999)
@@ -198,7 +198,7 @@ for t in range(m.T):
     m.t += 1
 
 
-f1, f2 = plot_lm(m, 1000, 400)
+f1, f2 = plot_lm(m, 400, 100)
 f1.show()
 f2.show()
 
