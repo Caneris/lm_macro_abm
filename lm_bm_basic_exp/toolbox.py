@@ -120,13 +120,9 @@ def update_Ah(h_arr):
         h.A += (h.w + h.div) - h.income_tax
 
 
-def update_d_c(h_arr, alpha_1, alpha_2, mean_p, tau):
+def update_d_c(h_arr, alpha_1, alpha_2):
     for h in h_arr:
-        h.d_c = alpha_1*(1-tau)*((h.w + h.div)/h.p) + alpha_2*(h.A/h.p)
-        # if h.d_c < 0:
-        #     print("HERE: {}, {}".format(h.id, h.A))
-        # h.d_c = np.minimum((h.A/h.p_e)**0.8, h.A/h.p_e)
-        # print("HI:{}, {}".format(h.d_c, h.A/h.p_e))
+        h.d_c = alpha_1*((h.w + h.div)/h.p) + alpha_2*(h.A/h.p)
 
 
 def update_p_e(h_arr, lambda_exp):
@@ -196,7 +192,7 @@ def fired_workers_loose_job(h_arr, f_arr, t):
 
 
 
-def update_d_N(f_arr, mean_rw, mean_nrw, mu_r, mu_nr, sigma):
+def update_d_N(f_arr, mu_r, mu_nr, sigma):
     for f in f_arr:
         # 1. Case
         Omega = get_Omega(f.Wr_e, f.Wnr_e, mu_r, mu_nr, sigma)
@@ -315,22 +311,6 @@ def update_m2(f_arr, param):
 
 
 def update_uc_arr(f_arr, t):
-    for f in f_arr:
-        C = (f.Wr_e*f.d_Nr + f.Wnr_e*f.d_Nnr)
-        f.uc_arr[t] = (C + f.uc_arr[t-1]*f.inv)/(f.d_y + f.inv)
-        if f.uc_arr[t] == 0:
-            f.uc_arr[t] = f.uc_arr[t-1]
-
-
-def update_uc_arr3(f_arr, t):
-    for f in f_arr:
-        C = (f.Wr_e*f.d_Nr + f.Wnr_e*f.d_Nnr)
-        f.uc_arr[t] = (C)/(f.d_y + f.inv)
-        if f.uc_arr[t] == 0:
-            f.uc_arr[t] = f.uc_arr[t-1]
-
-
-def update_uc_arr2(f_arr, t):
     for f in f_arr:
         C = (f.Wr_e*f.d_Nr + f.Wnr_e*f.d_Nnr)
         f.uc_arr[t] = C/f.d_y

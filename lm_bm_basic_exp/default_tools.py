@@ -35,7 +35,7 @@ def pay_refin_cost(h_arr, weights, tol, tot_refin_cost):
             h.A = 0
 
 
-def refin_firms(Af_init, def_firms, surviving_firms, h_arr, gov, n_refin, tol, t):
+def refin_firms(Af_init, def_firms, surviving_firms, h_arr, n_refin, tol, t):
 
     wealth_arr = np.array([np.maximum(h.A, 0) for h in h_arr])
     wealth_tot = np.sum(wealth_arr)
@@ -59,12 +59,3 @@ def refin_firms(Af_init, def_firms, surviving_firms, h_arr, gov, n_refin, tol, t
             n_refin[t] += 1
 
             pay_refin_cost(h_arr, weights, tol, refin)
-
-        elif gov.A - gov.paid_benefits >= refin:
-            def_firms[id].A += refin
-            def_firms[id].default = False
-            n_refin[t] += 1
-
-            gov.A -= refin
-            if np.abs(gov.A) < tol:
-                gov.A = 0

@@ -20,16 +20,13 @@ class Model:
         self.sigma_FN, self.chi_L, self.chi_C = sigma_FN, chi_L, chi_C
         self.lambda_LM = lambda_LM
         self.share_nr =  share_nr
-        self.min_d_w, self.lambda_exp = min_d_w, lambda_exp
+        self.lambda_exp = lambda_exp
         self.sigma = sigma
         self.Af_init, self.Ah_init = Af_init, Ah_init
         self.alpha_1, self.alpha_2 = alpha_1, alpha_2
+        self.min_w = 0
 
         self.psi, self.period = psi, period
-        self.g = g
-
-        # tax rates
-        self.tau, self.tau_bar = tau, tau_bar
 
         # discount factor for desired wages and dividend rate
         self.beta, self.div_rate = beta, div_rate
@@ -40,10 +37,6 @@ class Model:
         # percentage change in min_w
         self.delta = delta
 
-        # minimum "real" wage
-        self.min_real_w = min_real_w
-        self.min_w = 0
-
         # labor productivites
         self.mu_r, self.mu_nr = mu_r, mu_nr
 
@@ -53,9 +46,8 @@ class Model:
         self.w_init = w_init
 
         # Number of routine resp. non-routine households
-        self.H_r = int(np.round(self.H*(1-self.g)*(1-self.share_nr)))
-        self.H_nr = int(np.round(self.H*(1-self.g)*self.share_nr))
-        self.H_pw = int(np.round(self.H*self.g))
+        self.H_r = int(np.round(self.H*(1-self.share_nr)))
+        self.H_nr = int(np.round(self.H*self.share_nr))
 
         routine = True
         non_routine = False
@@ -71,16 +63,9 @@ class Model:
         self.h_arr = np.append(self.h_arr, np.array([Household(j, self.Ah_init, T,
                                                                non_routine, self.w_init) for j in range(self.H_r, self.H_r + self.H_nr)]))
 
-        # create public workers
-        self.pw_arr = np.array([PublicWorker(j, self.Ah_init, T) for j in range(self.H_r + self.H_nr, self.H)])
-        self.htot_arr = np.concatenate((self.h_arr, self.pw_arr), axis=None)
-
-        # create government
-        self.gov = Government(0, AG_init, T, tau, tau_bar)
-
         # select routine resp. non routine workers
-        self.routine_arr = np.array([h.routine for h in self.htot_arr])
-        self.non_routine_arr = np.array([(not h.routine) and ((not h.public_worker)) for h in self.htot_arr])
+        self.routine_arr = np.array([h.routine for h in self.h_arr])
+        self.non_routine_arr = np.array([(not h.routine) and ((not h.public_worker)) for h in self.h_arr])
 
         # Data
 
@@ -88,10 +73,6 @@ class Model:
         self.mean_w, mean_w_e, self.u_n = w_init, w_init, 0
         self.mean_r_w, self.mean_nr_w, self.mean_w_arr = np.zeros(T), np.zeros(T), np.zeros(T)
         self.mean_r_w[-1], self.mean_nr_w[-1] = w_init, w_init
-
-        # Pathdependend variables
-        self.wr_bar, self.wnr_bar = w_init, w_init
-        self.phi_w = phi_w
 
         # unemployment
         self.u_r, self.mean_p_arr = 0, np.zeros(T)
@@ -124,9 +105,9 @@ class Model:
 
     def data_collector(self):
 
-        ur_n = np.sum(np.array([h.u[self.t] for h in self.htot_arr[self.routine_arr]]))
-        unr_n = np.sum(np.array([h.u[self.t] for h in self.htot_arr[self.non_routine_arr]]))
-        u_n = np.sum(np.array([h.u[self.t] for h in self.htot_arr]))
+        ur_n = np.sum(np.array([h.u[self.t] for h in self.h_arr[self.routine_arr]]))
+        unr_n = np.sum(np.array([h.u[self.t] for h in self.h_arr[self.non_routine_arr]]))
+        u_n = np.sum(np.array([h.u[self.t] for h in self.h_arr]))
 
         self.u_n = u_n
 
@@ -146,23 +127,17 @@ class Model:
         self.mean_w_arr[self.t] = (np.sum(np.array([h.w for h in self.h_arr]))/(self.H-u_n))/self.mean_p_arr[self.t]
         self.mean_nominal_w_arr[self.t] = (np.sum(np.array([h.w for h in self.h_arr])) / (self.H - u_n))
 
-        self.mean_r_w = np.sum(np.array([h.w for h in self.htot_arr[self.routine_arr]]))/(self.H_r-ur_n)
+        self.mean_r_w = np.sum(np.array([h.w for h in self.h_arr[self.routine_arr]]))/(self.H_r-ur_n)
         self.mean_r_w_arr[self.t] = self.mean_r_w/self.mean_p_arr[self.t]
 
-        self.mean_nr_w = np.sum(np.array([h.w for h in self.htot_arr[self.non_routine_arr]]))/(self.H_nr-unr_n)
+        self.mean_nr_w = np.sum(np.array([h.w for h in self.h_arr[self.non_routine_arr]]))/(self.H_nr-unr_n)
         self.mean_nr_w_arr[self.t] = self.mean_nr_w/self.mean_p_arr[self.t]
 
         # get GDP
-        self.GDP[self.t] = np.sum(np.array([h.w/self.mean_p_arr[self.t] for h in self.htot_arr]))
+        self.GDP[self.t] = np.sum(np.array([h.w/self.mean_p_arr[self.t] for h in self.h_arr]))
 
         # open vacancies
         self.open_vs[self.t] = np.sum(np.array([(f.v_r>0)*f.v_r + (f.v_nr>0)*f.v_nr for f in self.f_arr ]))
-
-        # sare of non-routine worker in routine jobs
-        n_nr_in_r = np.sum(np.array([1 if (not h.nr_job) and (not h.routine) and (not bool(h.u[self.t]))
-                                     else 0 for h in self.h_arr]))
-
-        self.share_nr_in_r[self.t] = n_nr_in_r / self.H_nr
 
         # share of default firms
         n_def = np.sum(self.default_fs)
