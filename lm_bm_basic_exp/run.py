@@ -51,7 +51,7 @@ for t in range(m.T):
     update_w_e(m.h_arr, m.lambda_exp)
 
     # households update expected prices
-    update_p_e(m.h_arr, 3*lambda_exp)
+    update_p_e(m.h_arr, lambda_exp)
 
     # households make consumption decision
     update_d_c(m.h_arr, m.alpha_1, m.alpha_2)
