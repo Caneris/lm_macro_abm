@@ -98,7 +98,6 @@ for t in range(m.T):
     update_N(m.f_arr)
     set_W_fs(m.f_arr, m.h_arr)
 
-    update_xi(m.h_arr, t) # parameter for being unemployed in a row
     clear_applications(m.f_arr)
 
     # firms produce goods
