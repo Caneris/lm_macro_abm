@@ -5,17 +5,22 @@ from hire_fire_non_routine import *
 import numpy as np
 import matplotlib.pyplot as plt
 
+
+# rewrite the class such that you only have to type in following parameters:
+
+# u_r, mu_r, gamma_nr, H, F, W_r, m, sigma, delta, alpha_2, G, nu_Af
+
+
 class Model:
 
-    def __init__(self, H=200, F=20, sigma_FN = 0.1, chi_L = 0.5, chi_C = 0.25, T = 200,
-                 share_nr = 0.5, mu_r = 1, mu_nr = 2, s_init = 5, g = 0.333,
-                 lambda_LM = 0.01, min_d_w = 0.1, lambda_exp = 0.25,
-                 w_init = 1, nu = 0.2, beta = 0.9, Af_init = 10,
-                 Ah_init = 1, AG_init = 1000, alpha_1 = 0.8, alpha_2 = 0.2, tol = 1e-10,
-                 min_real_w = 0.11, delta = 0.1, shock_t = 100, div_rate = 0.4,
-                 sigma = 0.5, tau = 0.3, tau_bar = 0.5, psi = 1, period = 4, phi_w = 0.5):
+    def __init__(self, H = 200, F = 20, u_r = 0.08, mu_r = 1, W_r = 1, gamma_nr = 0.33,
+                 m, sigma, delta, alpha_2, G, nu_Af, T, tol):
 
-        self.H, self.F, self.T, self.t = H, F, T, 0
+        # Steady state calibration of exogenous variables
+        self.H, self.F = H, F
+        self.u_r, self.gamma_nr = u_r, gamma_nr
+
+        self.T, self.t = T, 0
         self.tol = tol
         self.sigma_FN, self.chi_L, self.chi_C = sigma_FN, chi_L, chi_C
         self.lambda_LM = lambda_LM

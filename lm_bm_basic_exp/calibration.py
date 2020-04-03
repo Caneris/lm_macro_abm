@@ -3,7 +3,7 @@ import numpy as np
 
 
 
-def calibrate_model(u_r, gamma_nr, H, F, W_r, m, sigma, delta, alpha_2, G, nu_Af):
+def calibrate_model(u_r, mu_r, gamma_nr, H, F, W_r, m, sigma, delta, alpha_2, G, nu_Af):
 
     # get elasticity parameter
     rho = (sigma-1)/sigma
@@ -11,8 +11,7 @@ def calibrate_model(u_r, gamma_nr, H, F, W_r, m, sigma, delta, alpha_2, G, nu_Af
     koeff1 = 2**((rho-1)/rho)
     koeff2 = 2**(1/rho)
 
-    # Steady state W_r equal to price
-    mu_r = 2*(1+m)*koeff1
+    mu_r = mu_r
 
     # 1. get Omega, mu_nr, W_nr
     Omega = (1-gamma_nr)/gamma_nr
@@ -51,7 +50,7 @@ def calibrate_model(u_r, gamma_nr, H, F, W_r, m, sigma, delta, alpha_2, G, nu_Af
     print(Nr, Nnr)
 
 
-calibrate_model(0.10, 0.33, 200, 20, 1, 0.1, 0.5, 1, 0.25, 0.3, 0)
+calibrate_model(0.10, 1, 0.33, 200, 20, 1, 0.1, 0.5, 1, 0.25, 0.3, 0)
 
 
 
