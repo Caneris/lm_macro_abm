@@ -157,7 +157,7 @@ for t in range(m.T):
     rhs = np.sum([f.Wnr_tot + f.Wr_tot for f in m.f_arr])
     lhs = np.sum([h.w for h in m.h_arr])
 
-    print(np.array([(f.uc_arr[m.t-1], f.m, f.p) for f in m.f_arr]))
+    # print(np.array([(f.uc_arr[m.t-1], f.m, f.p) for f in m.f_arr]))
 
     # firms loose employees
     for f in m.f_arr[m.default_fs]:
@@ -168,6 +168,6 @@ for t in range(m.T):
 
     m.t += 1
 
-f1, f2 = plot_lm(m, 1000, 1000)
+f1, f2 = plot_lm(m, 1000, 200)
 f1.show()
 f2.show()
