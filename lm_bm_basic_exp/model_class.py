@@ -1,5 +1,5 @@
 from agent_class import *
-from initialize_tools import *
+# from initialize_tools import *
 from calibration import calibrate_model
 from hire_fire_routine import *
 from hire_fire_non_routine import *
@@ -20,7 +20,7 @@ class Model:
 
     def __init__(self,
                  # exogenously chosen steady state parameters
-                 H = 200, F = 20, Ah = 1, u_r = 0.08, mu_r = 1, W_r = 1, gamma_nr = 0.33,
+                 H = 200, F = 20, Ar = 1, u_r = 0.08, mu_r = 1, W_r = 1, gamma_nr = 0.33,
                  m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25,
                  # exogenous model parameters
                  lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, min_realw_t = 0,
@@ -41,20 +41,20 @@ class Model:
         self.tol = tol
 
         # exogenously chosen steady state parameters
-        self.H, self.F, self.Ah = H, F, Ah
+        self.H, self.F, self.Ar = H, F, Ar
         self.mu_r, self.u_r, self.W_r, self.gamma_nr  = mu_r, u_r, W_r, gamma_nr
         self.m, self.sigma, self.delta, self.alpha_2 = m, sigma, delta, alpha_2
 
         # steady state calibration
-        calibration = calibrate_model(H=H, F=F, Ah=Ah, u_r=u_r, mu_r=mu_r, W_r=W_r, gamma_nr=gamma_nr,
+        calibration = calibrate_model(H=H, F=F, Ar=Ar, u_r=u_r, mu_r=mu_r, W_r=W_r, gamma_nr=gamma_nr,
                                       m=m, sigma=sigma, delta=delta, alpha_2=alpha_2)
 
         # parameters derived from steady state model
 
-        mu_nr, W_nr, Af, p, y, pi_f, DIV_h, DIV_f, C_h, alpha_1, Nr, Nnr = calibration
+        mu_nr, W_nr, Anr, Af, p, y, pi_f, DIV_r, DIV_nr, DIV_f, c_r, c_nr, alpha_1, Nr, Nnr = calibration
 
-        self.mu_nr, self.W_nr, self.Af, self.p, self.y = mu_nr, W_nr, Af, p, y
-        self.pi_f, self.DIV_h, self.DIV_f, self.C_h =pi_f, DIV_h, DIV_f, C_h
+        self.mu_nr, self.W_nr, self.Anr, self.Af, self.p, self.y = mu_nr, W_nr, Anr, Af, p, y
+        self.pi_f, self.DIV_r, self.DIV_nr, self.DIV_f, self.c_r, self.c_nr = pi_f, DIV_r, DIV_nr, DIV_f, c_r, c_nr
         self.alpha_1, self.Nr, self.Nnr = alpha_1, Nr, Nnr
 
         # Number of routine resp. non-routine households
@@ -69,11 +69,11 @@ class Model:
                                     self.delta, self.p, self.m, self.pi_f, self.DIV_f) for j in range(F)])
 
         # create households
-        self.h_arr = np.array([Household(j, self.Ah, T,
-                                         routine, self.W_r, self.p, self.C_h, self.DIV_f) for j in range(self.H_r)])
+        self.h_arr = np.array([Household(j, self.Ar, T,
+                                         routine, self.W_r, self.p, self.c_r, self.DIV_r) for j in range(self.H_r)])
 
-        self.h_arr = np.append(self.h_arr, np.array([Household(j, self.Ah, T,
-                                                               non_routine, self.W_nr, self.p, self.C_h, self.DIV_f)
+        self.h_arr = np.append(self.h_arr, np.array([Household(j, self.Anr, T,
+                                                               non_routine, self.W_nr, self.p, self.c_nr, self.DIV_nr)
                                                      for j in range(self.H_r, self.H_r + self.H_nr)]))
 
         # select routine resp. non routine workers
@@ -83,16 +83,16 @@ class Model:
         # Data
 
         # mean wages
-        self.mean_w, mean_w_e, self.u_n = w_init, w_init, 0
-        self.mean_r_w, self.mean_nr_w, self.mean_w_arr = np.zeros(T), np.zeros(T), np.zeros(T)
-        self.mean_r_w[-1], self.mean_nr_w[-1] = w_init, w_init
+        mean_w = (1 - gamma_nr)*W_r + gamma_nr*W_nr
+        self.mean_w, self.u_n = mean_w, 0
+        self.mean_r_w, self.mean_nr_w, self.mean_w_arr = W_r, W_nr, np.zeros(T)
 
         # unemployment
         self.u_r, self.mean_p_arr = 0, np.zeros(T)
         self.mean_p_arr[-1] = np.mean([f.p for f in self.f_arr])
         self.u_r_arr, self.mean_r_w_arr, self.mean_nr_w_arr = np.zeros(T), np.zeros(T), np.zeros(T)
         self.mean_nominal_w_arr = np.zeros(T)
-        self.mean_r_w_arr[-1], self.mean_nr_w_arr[-1] = w_init, w_init
+        self.mean_r_w_arr[-1], self.mean_nr_w_arr[-1] = W_r, W_nr
         self.ur_r_arr, self.unr_r_arr = np.zeros(T), np.zeros(T)
         self.u_n = 0
 
