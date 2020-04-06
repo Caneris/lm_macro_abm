@@ -461,19 +461,19 @@ def update_pi_bar(f_arr):
 def update_div_f(f_arr):
     for f in f_arr:
         if f.pi_bar > 0:
-            f.div = f.div_rate*f.pi_bar
+            f.div = f.delta*f.pi_bar
         else:
             f.div = 0
 
 
-def update_div_rate(f_arr, sigma_FN):
+def update_delta(f_arr, sigma_FN):
     for f in f_arr:
         if f.d_y_diff > 0:
-            f.div_rate = f.div_rate * (1 - np.abs(rd.randn() * sigma_FN))
+            f.delta = f.delta * (1 - np.abs(rd.randn() * sigma_FN))
         elif f.d_y_diff < 0:
-            f.div_rate = f.div_rate * (1 + np.abs(rd.randn() * sigma_FN))
+            f.delta = f.delta * (1 + np.abs(rd.randn() * sigma_FN))
 
-        f.div_rate = np.maximum(np.minimum(1, f.div_rate), 0)
+        f.delta = np.maximum(np.minimum(1, f.delta), 0)
 
 
 def update_f_default(f_arr):

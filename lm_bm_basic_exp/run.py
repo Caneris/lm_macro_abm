@@ -24,7 +24,7 @@ for t in range(m.T):
     print("Period: {}".format(t))
 
     if t == m.shock_t:
-        m.min_real_w = m.min_w_t
+        m.min_real_w = m.min_realw_t
 
     # count unemployed households
     if t>0:

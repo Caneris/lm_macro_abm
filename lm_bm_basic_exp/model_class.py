@@ -18,17 +18,20 @@ import matplotlib.pyplot as plt
 
 class Model:
 
-    def __init__(self, H = 200, F = 20, u_r = 0.08, mu_r = 1, W_r = 1, gamma_nr = 0.33,
-                 m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25, T = 500, tol = 1e-10):
+    def __init__(self,
+                 # exogenously chosen steady state parameters
+                 H = 200, F = 20, Ah = 1, u_r = 0.08, mu_r = 1, W_r = 1, gamma_nr = 0.33,
+                 m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25,
+                 # exogenous model parameters
+                 lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, min_realw_t = 0,
+                 shock_t = 0, sigma_FN = 0.01, chi_L = 0.1, chi_C = 0.2, T = 500, tol = 1e-10):
 
 
         # exogenous parameters
         self.sigma_FN, self.chi_L, self.chi_C = sigma_FN, chi_L, chi_C
         self.lambda_LM = lambda_LM
-        self.share_nr = share_nr
         self.lambda_exp = lambda_exp
         self.beta = beta
-        self.delta = delta
         self.nu = nu
 
         self.min_realw_t = min_realw_t
@@ -38,15 +41,21 @@ class Model:
         self.tol = tol
 
         # exogenously chosen steady state parameters
-        self.H, self.F = H, F
+        self.H, self.F, self.Ah = H, F, Ah
         self.mu_r, self.u_r, self.W_r, self.gamma_nr  = mu_r, u_r, W_r, gamma_nr
         self.m, self.sigma, self.delta, self.alpha_2 = m, sigma, delta, alpha_2
 
         # steady state calibration
-        calibration = calibrate_model(H=H, F=F, Ah=Ah, u_r=u_r, mu_r=mu_r, W_r=W_r, gamma_nr=gamma_nr, m=m, sigma=sigma, delta=delta,
-                        alpha_2=alpha_2)
+        calibration = calibrate_model(H=H, F=F, Ah=Ah, u_r=u_r, mu_r=mu_r, W_r=W_r, gamma_nr=gamma_nr,
+                                      m=m, sigma=sigma, delta=delta, alpha_2=alpha_2)
 
-        self.s_init = s_init
+        # parameters derived from steady state model
+
+        mu_nr, W_nr, Af, p, y, pi_f, DIV_h, DIV_f, C_h, alpha_1, Nr, Nnr = calibration
+
+        self.mu_nr, self.W_nr, self.Af, self.p, self.y = mu_nr, W_nr, Af, p, y
+        self.pi_f, self.DIV_h, self.DIV_f, self.C_h =pi_f, DIV_h, DIV_f, C_h
+        self.alpha_1, self.Nr, self.Nnr = alpha_1, Nr, Nnr
 
         # Number of routine resp. non-routine households
         self.H_r = int(np.round(self.H*(1-self.gamma_nr)))
@@ -56,12 +65,12 @@ class Model:
         non_routine = False
 
         # create firms
-        self.f_arr = np.array([Firm(j, Af_init, T,
-                                    self.s_init, self.s_init, nu, self.w_init, self.div_rate) for j in range(F)])
+        self.f_arr = np.array([Firm(j, self.Af, T, self.y, self.nu, self.W_r, self.W_nr, self.delta, self.p, self.m)
+                               for j in range(F)])
 
         # create households
-        self.h_arr = np.array([Household(j, self.Ah_init, T,
-                                         routine, self.w_init) for j in range(self.H_r)])
+        self.h_arr = np.array([Household(j, self.Ah, T,
+                                         routine, self.W_r, self.W_nr, self.p) for j in range(self.H_r)])
 
         self.h_arr = np.append(self.h_arr, np.array([Household(j, self.Ah_init, T,
                                                                non_routine, self.w_init) for j in range(self.H_r, self.H_r + self.H_nr)]))

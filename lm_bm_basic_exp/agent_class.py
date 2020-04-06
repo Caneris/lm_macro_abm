@@ -24,15 +24,14 @@ class Agent(object):
 
 class Firm(Agent):
 
-    def __init__(self, _id, A_init, T, s_init, s_e_init, nu, W_f, div_rate):
+    def __init__(self, _id, A_init, T, y, nu, Wr_f, Wnr_f, delta, p, m, pi, div):
         super(Firm, self).__init__(_id, A_init, T)
 
         # employees, number of employees n_f, total wage bill
-        self.W_f = 0
         self.r_employees, self.nr_employees = np.array([]), np.array([])
 
         # sold goods, expected sales
-        self.s, self.s_e = s_init, s_init
+        self.s, self.s_e = y, y
 
         # number of employees and desired number of umployees
         self.Nr, self.d_Nr = 0, 0
@@ -40,8 +39,8 @@ class Firm(Agent):
         self.n_r_fired, self.n_nr_fired = 0, 0
 
         # average wage to pay
-        self.Wr, self.Wnr = W_f, 2.03*W_f
-        self.Wr_e, self.Wnr_e = W_f, 2.03*W_f
+        self.Wr, self.Wnr = Wr_f, Wnr_f
+        self.Wr_e, self.Wnr_e = Wr_f, Wnr_f
 
         # total wage bill
         self.Wr_tot, self.Wnr_tot = 0, 0
@@ -49,7 +48,7 @@ class Firm(Agent):
         self.apps_r, self.apps_nr = np.array([]), np.array([])
 
         # desired production, production and price
-        self.d_y, self.y, self.p = s_init, s_init, 0.5
+        self.d_y, self.y, self.p = y, y, p
         self.d_y_diff = 0
         self.uc_arr = np.zeros(T)
         self.uc_arr[-1] = 0.4
@@ -58,11 +57,11 @@ class Firm(Agent):
         self.v_r, self.v_nr = 0, 0
 
         # inventories share, inventories and mark up
-        self.nu, self.m = nu, 0.1
-        self.inv = nu*s_init + rd.randn()*0.01
+        self.nu, self.m = nu, m
+        self.inv = nu*y
 
         # profits, profits after dividends and dividend rate
-        self.pi, self.div, self.div_rate = 0, 0, div_rate
+        self.pi, self.div, self.delta = pi, div, delta
         self.pi2, self.neg_pi, self.pos_pi = 0, 0, 0
         self.pi_bar = 0
 
@@ -74,7 +73,7 @@ class Firm(Agent):
 
 class Household(Agent):
 
-    def __init__(self, _id, A_init, T, routine, w_init):
+    def __init__(self, _id, A_init, T, routine, W_r, W_nr, p):
         super(Household, self).__init__(_id, A_init, T)
 
         # dummy if TRUE -> routine type else -> non-routine
@@ -101,17 +100,17 @@ class Household(Agent):
         self.xi = 0
         # desired wage and actual wage
         if routine:
-            self.d_w, self.w = w_init, 0
-            self.w_e = w_init
-            self.last_w = w_init
+            self.d_w, self.w = W_r, 0
+            self.w_e = W_r
+            self.last_w = W_r
         else:
-            self.d_w, self.w = 2.03*w_init, 0
-            self.w_e = 2.03*w_init
-            self.last_w = 2.03*w_init
+            self.d_w, self.w = W_nr, 0
+            self.w_e = W_nr
+            self.last_w = W_nr
         # expected wealth
         self.A_e = A_init
         # price expectations, average price paid
-        self.p_e, self.p = 0.5, 0.5
+        self.p = p
         # desired consumption, consumption
         if routine:
             self.d_c, self.c = 2, 2
