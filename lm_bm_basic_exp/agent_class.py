@@ -70,7 +70,7 @@ class Firm(Agent):
 
 class Household(Agent):
 
-    def __init__(self, _id, A_init, T, routine, w, p):
+    def __init__(self, _id, A_init, T, routine, w, p, c, div):
         super(Household, self).__init__(_id, A_init, T)
 
         # dummy if TRUE -> routine type else -> non-routine
@@ -93,24 +93,21 @@ class Household(Agent):
         self.u = np.zeros(T)
         self.u[0] = 1
         self.exp, self.employer_id = 0, None
-        # number of periods unemployed in a row
-        self.xi = 0
+
         # desired wage and actual wage
         self.d_w, self.w = w, w
         self.w_e = w
         self.last_w = w
 
-        # expected wealth
-        self.A_e = A_init
-        # price expectations, average price paid
+        # average price paid
         self.p = p
+
         # desired consumption, consumption
-        if routine:
-            self.d_c, self.c = 2, 2
-        else:
-            self.d_c, self.c = 3, 3
+        self.d_c, self.c = c, c
+
         # consumption expenditure
-        self.expenditure = 1
+        self.expenditure = c*p
+
         # dividend income
-        self.div = 0.12
-        self.div_e = 0.12
+        self.div = div
+        self.div_e = div

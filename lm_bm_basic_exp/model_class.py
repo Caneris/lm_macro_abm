@@ -70,10 +70,11 @@ class Model:
 
         # create households
         self.h_arr = np.array([Household(j, self.Ah, T,
-                                         routine, self.W_r, self.p) for j in range(self.H_r)])
+                                         routine, self.W_r, self.p, self.C_h, self.DIV_f) for j in range(self.H_r)])
 
         self.h_arr = np.append(self.h_arr, np.array([Household(j, self.Ah, T,
-                                                               non_routine, self.W_nr, self.p) for j in range(self.H_r, self.H_r + self.H_nr)]))
+                                                               non_routine, self.W_nr, self.p, self.C_h, self.DIV_f)
+                                                     for j in range(self.H_r, self.H_r + self.H_nr)]))
 
         # select routine resp. non routine workers
         self.routine_arr = np.array([h.routine for h in self.h_arr])
