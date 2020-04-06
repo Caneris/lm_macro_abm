@@ -1,5 +1,6 @@
 from agent_class import *
 from initialize_tools import *
+from calibration import calibrate_model
 from hire_fire_routine import *
 from hire_fire_non_routine import *
 import numpy as np
@@ -8,51 +9,48 @@ import matplotlib.pyplot as plt
 
 # rewrite the class such that you only have to type in following parameters:
 
+# input
 # u_r, mu_r, gamma_nr, H, F, W_r, m, sigma, delta, alpha_2, G, nu_Af
+
+# output
+# mu_nr, W_nr, Ah, Af, p, y, pi_f, DIV_h, DIV_f, C_h, alpha_1, Nr, Nnr
 
 
 class Model:
 
     def __init__(self, H = 200, F = 20, u_r = 0.08, mu_r = 1, W_r = 1, gamma_nr = 0.33,
-                 m, sigma, delta, alpha_2, G, nu_Af, T, tol):
+                 m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25, T = 500, tol = 1e-10):
 
-        # Steady state calibration of exogenous variables
-        self.H, self.F = H, F
-        self.u_r, self.gamma_nr = u_r, gamma_nr
+
+        # exogenous parameters
+        self.sigma_FN, self.chi_L, self.chi_C = sigma_FN, chi_L, chi_C
+        self.lambda_LM = lambda_LM
+        self.share_nr = share_nr
+        self.lambda_exp = lambda_exp
+        self.beta = beta
+        self.delta = delta
+        self.nu = nu
+
+        self.min_realw_t = min_realw_t
+        self.shock_t = shock_t
 
         self.T, self.t = T, 0
         self.tol = tol
-        self.sigma_FN, self.chi_L, self.chi_C = sigma_FN, chi_L, chi_C
-        self.lambda_LM = lambda_LM
-        self.share_nr =  share_nr
-        self.lambda_exp = lambda_exp
-        self.sigma = sigma
-        self.Af_init, self.Ah_init = Af_init, Ah_init
-        self.alpha_1, self.alpha_2 = alpha_1, alpha_2
-        self.min_w = 0
 
-        self.psi, self.period = psi, period
+        # exogenously chosen steady state parameters
+        self.H, self.F = H, F
+        self.mu_r, self.u_r, self.W_r, self.gamma_nr  = mu_r, u_r, W_r, gamma_nr
+        self.m, self.sigma, self.delta, self.alpha_2 = m, sigma, delta, alpha_2
 
-        # discount factor for desired wages and dividend rate
-        self.beta, self.div_rate = beta, div_rate
+        # steady state calibration
+        calibration = calibrate_model(H=H, F=F, Ah=Ah, u_r=u_r, mu_r=mu_r, W_r=W_r, gamma_nr=gamma_nr, m=m, sigma=sigma, delta=delta,
+                        alpha_2=alpha_2)
 
-        #  time of shock
-        self.shock_t = shock_t
-
-        # percentage change in min_w
-        self.delta = delta
-
-        # labor productivites
-        self.mu_r, self.mu_nr = mu_r, mu_nr
-
-        # share of sales hold back as inventories by firms
-        self.nu = nu
         self.s_init = s_init
-        self.w_init = w_init
 
         # Number of routine resp. non-routine households
-        self.H_r = int(np.round(self.H*(1-self.share_nr)))
-        self.H_nr = int(np.round(self.H*self.share_nr))
+        self.H_r = int(np.round(self.H*(1-self.gamma_nr)))
+        self.H_nr = int(np.round(self.H*self.gamma_nr))
 
         routine = True
         non_routine = False
@@ -70,7 +68,7 @@ class Model:
 
         # select routine resp. non routine workers
         self.routine_arr = np.array([h.routine for h in self.h_arr])
-        self.non_routine_arr = np.array([(not h.routine) and ((not h.public_worker)) for h in self.h_arr])
+        self.non_routine_arr = np.array([not h.routine for h in self.h_arr])
 
         # Data
 

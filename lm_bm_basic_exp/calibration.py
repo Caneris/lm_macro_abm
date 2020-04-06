@@ -2,12 +2,14 @@ import numpy as np
 
 
 
+# H = 200, F = 20, u_r = 0.08, mu_r = 1, W_r = 1, gamma_nr = 0.33,
+#                  m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25
 
-def calibrate_model(u_r, mu_r, gamma_nr, H, F, W_r, m, sigma, delta, alpha_2, G, nu_Af):
+def calibrate_model(H = 200, F = 20, Ah = 1, u_r = 0.08, mu_r = 1, W_r = 1, gamma_nr = 0.33, m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25):
 
     # get elasticity parameter
     rho = (sigma-1)/sigma
-    print(rho)
+    # print(rho)
     koeff1 = 2**((rho-1)/rho)
     koeff2 = 2**(1/rho)
 
@@ -31,26 +33,31 @@ def calibrate_model(u_r, mu_r, gamma_nr, H, F, W_r, m, sigma, delta, alpha_2, G,
 
     # 5. get pi, DIV
     pi = 2*Nr*W_r*m
+    pi_f = pi/F
     DIV = delta*m*2*Nr*W_r
+
+    DIV_h = DIV/H
+    DIV_f = DIV/F
 
     # get I, c, C, alpha_1, AH, AF
     I, c = (1+delta*m)*2*Nr*W_r, y
     C = c*p
+    C_h = C/H
 
-    AH = G*(C/alpha_2)
-    Ah = AH/H
+    # AH = G*(C/alpha_2)
 
-    AF = uc*y*(1+nu_Af)
+    AF = uc*y
     Af = AF/F
 
+    AH = H * Ah
     alpha_1 = (C - alpha_2*AH)/I
 
 
-    print(mu_r, mu_nr, W_r, W_nr, p, y, p*y, pi, DIV, I, C, AH, Ah, alpha_1, AF, Af)
-    print(Nr, Nnr)
+    return mu_nr, W_nr, Af, p, y, pi_f, DIV_h, DIV_f, C_h, alpha_1, Nr, Nnr
 
 
-calibrate_model(0.10, 1, 0.33, 200, 20, 1, 0.1, 0.5, 1, 0.25, 0.3, 0)
+cal = calibrate_model()
+print(cal)
 
 
 

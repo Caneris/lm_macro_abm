@@ -10,8 +10,8 @@ m = Model(lambda_LM=0.5, chi_L=0.2, chi_C=0.2, T=T,
           lambda_exp=0.25, share_nr=0.33, H=200,
           sigma_FN=0.01, w_init=1, F = 20, beta=1,
           mu_r=8.8, mu_nr=17.8, nu=0.1, Af_init=12, alpha_1=0.698762626262,
-          alpha_2=0.25, min_real_w=0, shock_t=0, tau=0,
-          delta=0, div_rate=1, sigma=0.5, psi=0, period=6,
+          alpha_2=0.25, min_real_w_t=0, shock_t=0, tau=0,
+          div_rate=1, sigma=0.5, psi=0, period=6,
           AG_init= 0, phi_w=0, s_init = 26, Ah_init=1.581199999)
 
 # initialize employment
@@ -24,7 +24,7 @@ for t in range(m.T):
     print("Period: {}".format(t))
 
     if t == m.shock_t:
-        m.min_real_w = m.delta
+        m.min_real_w = m.min_w_t
 
     # count unemployed households
     if t>0:
