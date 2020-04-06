@@ -65,15 +65,15 @@ class Model:
         non_routine = False
 
         # create firms
-        self.f_arr = np.array([Firm(j, self.Af, T, self.y, self.nu, self.W_r, self.W_nr, self.delta, self.p, self.m)
-                               for j in range(F)])
+        self.f_arr = np.array([Firm(j, self.Af, T, self.y, self.nu, self.W_r, self.W_nr,
+                                    self.delta, self.p, self.m, self.pi_f, self.DIV_f) for j in range(F)])
 
         # create households
         self.h_arr = np.array([Household(j, self.Ah, T,
-                                         routine, self.W_r, self.W_nr, self.p) for j in range(self.H_r)])
+                                         routine, self.W_r, self.p) for j in range(self.H_r)])
 
-        self.h_arr = np.append(self.h_arr, np.array([Household(j, self.Ah_init, T,
-                                                               non_routine, self.w_init) for j in range(self.H_r, self.H_r + self.H_nr)]))
+        self.h_arr = np.append(self.h_arr, np.array([Household(j, self.Ah, T,
+                                                               non_routine, self.W_nr, self.p) for j in range(self.H_r, self.H_r + self.H_nr)]))
 
         # select routine resp. non routine workers
         self.routine_arr = np.array([h.routine for h in self.h_arr])

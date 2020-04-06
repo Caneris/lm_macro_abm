@@ -53,7 +53,7 @@ class Firm(Agent):
         self.uc_arr = np.zeros(T)
         self.uc_arr[-1] = 0.4
 
-        # number of vancancies
+        # number of vacancies
         self.v_r, self.v_nr = 0, 0
 
         # inventories share, inventories and mark up
@@ -62,18 +62,15 @@ class Firm(Agent):
 
         # profits, profits after dividends and dividend rate
         self.pi, self.div, self.delta = pi, div, delta
-        self.pi2, self.neg_pi, self.pos_pi = 0, 0, 0
-        self.pi_bar = 0
 
         # boolean for default and
-        # parameter for share of wagebills paid if default
+        # parameter for share of wage bills paid if default
         self.default, self.par = False, 1
-        # self.inactive = False
 
 
 class Household(Agent):
 
-    def __init__(self, _id, A_init, T, routine, W_r, W_nr, p):
+    def __init__(self, _id, A_init, T, routine, w, p):
         super(Household, self).__init__(_id, A_init, T)
 
         # dummy if TRUE -> routine type else -> non-routine
@@ -99,14 +96,10 @@ class Household(Agent):
         # number of periods unemployed in a row
         self.xi = 0
         # desired wage and actual wage
-        if routine:
-            self.d_w, self.w = W_r, 0
-            self.w_e = W_r
-            self.last_w = W_r
-        else:
-            self.d_w, self.w = W_nr, 0
-            self.w_e = W_nr
-            self.last_w = W_nr
+        self.d_w, self.w = w, w
+        self.w_e = w
+        self.last_w = w
+
         # expected wealth
         self.A_e = A_init
         # price expectations, average price paid
