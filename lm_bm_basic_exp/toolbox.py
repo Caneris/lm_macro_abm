@@ -117,17 +117,12 @@ def update_w_e(h_arr, lambda_exp):
 
 def update_Ah(h_arr):
     for h in h_arr:
-        h.A += (h.w + h.div) - h.income_tax
+        h.A += (h.w + h.div)
 
 
 def update_d_c(h_arr, alpha_1, alpha_2):
     for h in h_arr:
         h.d_c = alpha_1*((h.w + h.div)/h.p) + alpha_2*(h.A/h.p)
-
-
-def update_p_e(h_arr, lambda_exp):
-    for h in h_arr:
-        h.p_e = expectation(h.p, h.p_e, lambda_exp)
 
 
 def clear_expenditure(h_arr):
@@ -439,29 +434,10 @@ def update_pi(f_arr):
         f.pi = f.p*f.s - f.Wr_tot - f.Wnr_tot
 
 
-def update_pi_2(f_arr):
-    for f in f_arr:
-        f.pi_2 = f.pi + f.neg_pi
-
-
-def update_neg_pi(f_arr):
-    for f in f_arr:
-        f.neg_pi = np.minimum(f.pi_2, 0)
-
-
-def update_pos_pi(f_arr):
-    for f in f_arr:
-        f.pos_pi = np.maximum(f.pi_2, 0)
-
-def update_pi_bar(f_arr):
-    for f in f_arr:
-        f.pi_bar = f.p*f.s - f.Wr_tot - f.Wnr_tot - f.income_tax
-
-
 def update_div_f(f_arr):
     for f in f_arr:
-        if f.pi_bar > 0:
-            f.div = f.delta*f.pi_bar
+        if f.pi > 0:
+            f.div = f.delta*f.pi
         else:
             f.div = 0
 
@@ -484,7 +460,7 @@ def update_f_default(f_arr):
 
 def update_Af(f_arr, tol):
     for f in f_arr:
-        f.A += f.s*f.p - (f.Wr_tot + f.Wnr_tot) - f.div - f.income_tax
+        f.A += f.s*f.p - (f.Wr_tot + f.Wnr_tot) - f.div
         if np.abs(f.A) <= tol:
             f.A = 0
 

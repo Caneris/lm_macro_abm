@@ -6,10 +6,10 @@ from goods_market import gm_matching
 
 T = 1000
 rd.seed(135)
-m = Model()
+m = Model(T=T)
 
 # initialize employment
-initialize_emp(m.h_arr, m.f_arr, m.F, m.Nr, m.Nnr)
+initialize_emp(m.h_arr, m.f_arr, m.F, int(m.Nr), int(m.Nnr))
 
 set_W_fs(m.f_arr, m.h_arr)
 val = 0
@@ -37,13 +37,6 @@ for t in range(m.T):
 
     # households update work experience
     update_exp(m.h_arr, m.t, 4)
-
-    # households update expected wages and dividends
-    # update_div_h_e(m.h_arr, lambda_exp)
-    update_w_e(m.h_arr, m.lambda_exp)
-
-    # households update expected prices
-    update_p_e(m.h_arr, lambda_exp)
 
     # households make consumption decision
     update_d_c(m.h_arr, m.alpha_1, m.alpha_2)
@@ -105,15 +98,9 @@ for t in range(m.T):
 
     # households update mean prices
     update_h_p(m.h_arr)
-
-    # agents pay income taxes
     update_pi(m.f_arr)
-    update_pi_2(m.f_arr)
-    update_neg_pi(m.f_arr)
-    update_pos_pi(m.f_arr)
 
     # firms calculate profits
-    update_pi_bar(m.f_arr[m.active_fs])
     update_div_f(m.f_arr[m.active_fs])
 
     # surviving firms pay dividends
@@ -122,10 +109,9 @@ for t in range(m.T):
     # households refinance firms
     m.active_fs = surviving_firms(m.f_arr)
     m.default_fs = default_firms(m.f_arr)
-    m.default_fs = default_firms(m.f_arr)
-    m.default_fs = default_firms(m.f_arr)
+
     mean_Af = np.mean(np.array([f.A for f in m.f_arr[m.active_fs]]))
-    refin_firms(m.Af_init, m.f_arr[m.default_fs], m.f_arr[m.active_fs], m.h_arr, m.n_refinanced, m.tol, m.t)
+    refin_firms(mean_Af, m.f_arr[m.default_fs], m.f_arr[m.active_fs], m.h_arr, m.n_refinanced, m.tol, m.t)
 
     m.active_fs = surviving_firms(m.f_arr)
     m.default_fs = default_firms(m.f_arr)
@@ -162,6 +148,6 @@ for t in range(m.T):
 
     m.t += 1
 
-f1, f2 = plot_lm(m, 1000, 200)
+f1, f2 = plot_lm(m, 1000, 1000)
 f1.show()
 f2.show()

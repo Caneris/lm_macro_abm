@@ -23,7 +23,7 @@ class Model:
                  H = 200, F = 20, Ar = 1, u_r = 0.08, mu_r = 1, W_r = 1, gamma_nr = 0.33,
                  m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25,
                  # exogenous model parameters
-                 lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, min_realw_t = 0,
+                 lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, min_w = 0, min_realw_t = 0,
                  shock_t = 0, sigma_FN = 0.01, chi_L = 0.1, chi_C = 0.2, T = 500, tol = 1e-10):
 
 
@@ -34,7 +34,7 @@ class Model:
         self.beta = beta
         self.nu = nu
 
-        self.min_realw_t = min_realw_t
+        self.min_w, self.min_realw_t = min_w, min_realw_t
         self.shock_t = shock_t
 
         self.T, self.t = T, 0
