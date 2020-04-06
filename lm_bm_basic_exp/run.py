@@ -4,9 +4,9 @@ from plot_tool import plot_lm
 from goods_market import gm_matching
 
 
-T = 1000
+T = 300
 rd.seed(135)
-m = Model(T=T)
+m = Model(T=T, alpha_2=0.1, chi_C=0.4)
 
 # initialize employment
 initialize_emp(m.h_arr, m.f_arr, m.F, int(m.Nr), int(m.Nnr))
@@ -47,7 +47,7 @@ for t in range(m.T):
     # Firms decide for desired production
     update_d_y(m.f_arr[m.active_fs], m.mu_r, m.mu_nr, m.sigma)
 
-    # update_div_rate(m.f_arr[m.active_fs], m.sigma_FN)
+    update_delta(m.f_arr[m.active_fs], 0.001)
 
     # Firms decide for labor demand
     update_d_N(m.f_arr[m.active_fs], m.mu_r, m.mu_nr, m.sigma)
@@ -148,6 +148,6 @@ for t in range(m.T):
 
     m.t += 1
 
-f1, f2 = plot_lm(m, 1000, 1000)
+f1, f2 = plot_lm(m, 300, 300)
 f1.show()
 f2.show()

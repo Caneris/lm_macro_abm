@@ -326,45 +326,10 @@ def update_d_y(f_arr, mu_r, mu_nr, sigma):
             min_Nr = Omega * min_Nnr
             min_d_y = CES_production(min_Nr, min_Nnr, mu_r, mu_nr, sigma)
             d_y = np.maximum(f.s_e * (1 + f.nu) - f.inv, min_d_y)
-            # d_y = np.round(np.maximum(f.s_e*(1+f.nu) - f.inv, CES_production(2,1,4,8, sigma)))
             f.d_y_diff = d_y - f.d_y
             f.d_y = d_y
         else:
             f.d_y = 0
-
-
-def update_d_y2(f_arr, sigma_FN):
-    for f in f_arr:
-        if not f.default:
-            if f.y - f.s == 0:
-                f.d_y = f.d_y*(1 + np.abs(rd.randn() * sigma_FN))
-            else:
-                f.d_y = f.d_y*(1 - np.abs(rd.randn() * sigma_FN))
-            print(f.d_y)
-            # f.d_y = max(f.d_y, 1)
-            # f.d_y_diff = d_y - f.d_y
-            # f.d_y = d_y
-
-
-def update_d_y3(f_arr):
-    for f in f_arr:
-        if not f.default:
-            d_y = np.round(f.s_e * (1 + f.nu))
-            # d_y = np.round(np.maximum(f.s_e*(1+f.nu) - f.inv, CES_production(2,1,4,8, sigma)))
-            f.d_y = d_y
-        else:
-            f.d_y = 0
-        print(f.d_y)
-
-
-# def update_p2(f_arr, sigma_FN):
-#     for f in f_arr:
-#         if f.y - f.s:
-#             f.p = f.p * (1 + np.abs(rd.randn() * sigma_FN))
-#         else:
-#             f.p = f.p * (1 - np.abs(rd.randn() * sigma_FN))
-#         av_cost = (f.Wr_e + f.Wnr_e*f.d_y)/f.d_y
-#         f.p = np.maximum(f.p, av_cost)
 
 ###### Production Decision ##########
 
