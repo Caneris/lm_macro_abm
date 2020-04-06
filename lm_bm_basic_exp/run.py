@@ -6,7 +6,7 @@ from goods_market import gm_matching
 
 T = 300
 rd.seed(135)
-m = Model(T=T, alpha_2=0.1, chi_C=0.4)
+m = Model(T=T, alpha_2=0.25, chi_C=0.2)
 
 # initialize employment
 initialize_emp(m.h_arr, m.f_arr, m.F, int(m.Nr), int(m.Nnr))
@@ -33,7 +33,7 @@ for t in range(m.T):
     set_W_fs(m.f_arr[m.active_fs], m.h_arr) # firms measure average wages paid to employees
     update_Wr_e(m.f_arr[m.active_fs], m.min_w, m.lambda_exp) # firms build wage expectations
     update_Wnr_e(m.f_arr[m.active_fs], m.min_w, m.lambda_exp)
-    update_d_w(m.h_arr, m.sigma_FN, m.mean_p_arr[m.t-1], m.t) # households decide for desired wages
+    update_d_w(m.h_arr, m.sigma_chi, m.mean_p_arr[m.t-1], m.t) # households decide for desired wages
 
     # households update work experience
     update_exp(m.h_arr, m.t, 4)
@@ -56,7 +56,7 @@ for t in range(m.T):
     update_v(m.f_arr)
 
     # price decisions
-    update_m(m.f_arr[m.active_fs], m.sigma_FN) # choose markup
+    update_m(m.f_arr[m.active_fs], m.sigma_chi) # choose markup
     update_uc_arr(m.f_arr, m.t)
     update_p(m.f_arr[m.active_fs], m.t)
 
@@ -148,6 +148,6 @@ for t in range(m.T):
 
     m.t += 1
 
-f1, f2 = plot_lm(m, 300, 300)
+f1, f2 = plot_lm(m, 300, 100)
 f1.show()
 f2.show()

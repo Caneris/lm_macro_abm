@@ -24,11 +24,11 @@ class Model:
                  m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25,
                  # exogenous model parameters
                  lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, min_w = 0, min_realw_t = 0,
-                 shock_t = 0, sigma_FN = 0.01, chi_L = 0.1, chi_C = 0.2, T = 500, tol = 1e-10):
+                 shock_t = 0, sigma_chi = 0.01, chi_L = 0.1, chi_C = 0.2, T = 500, tol = 1e-10):
 
 
         # exogenous parameters
-        self.sigma_FN, self.chi_L, self.chi_C = sigma_FN, chi_L, chi_C
+        self.sigma_chi, self.chi_L, self.chi_C = sigma_chi, chi_L, chi_C
         self.lambda_LM = lambda_LM
         self.lambda_exp = lambda_exp
         self.beta = beta

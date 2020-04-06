@@ -97,16 +97,16 @@ def update_exp(h_arr, t, diff):
             h.exp = np.sum(1 - h.u[t - 3: t + 1])
 
 
-def update_d_w(h_arr, sigma_FN, mean_p, t):
+def update_d_w(h_arr, sigma_chi, mean_p, t):
 
     for h in h_arr:
 
         if h.job_offer[t-1]==0:
-            h.d_w = h.d_w*(1-np.abs(sigma_FN*rd.randn()))
+            h.d_w = h.d_w*(1-rd.chisquare(1)*sigma_chi)
         else:
             # note that employed worker's d_w is
             # not increasing fom period to period
-            h.d_w = h.d_w*(1 + np.abs(sigma_FN*rd.randn()))
+            h.d_w = h.d_w*(1 + rd.chisquare(1)*sigma_chi)
         h.d_w = np.max([h.d_w, 0])
 
 
@@ -287,12 +287,12 @@ def update_Wnr_e(f_arr, min_w, lambda_exp):
             f.Wnr_e = np.maximum(f.Wnr_e, min_w)
 
 
-def update_m(f_arr, sigma_FN):
+def update_m(f_arr, sigma_chi):
     for f in f_arr:
         if f.inv < f.nu*f.s:
-            f.m = f.m*(1+np.abs(rd.randn()*sigma_FN))
+            f.m = f.m*(1+rd.chisquare(1)*sigma_chi)
         elif f.inv > f.nu*f.s:
-            f.m = f.m*(1-np.abs(rd.randn()*sigma_FN))
+            f.m = f.m*(1-rd.chisquare(1)*sigma_chi)
         f.m = np.maximum(1e-2, f.m)
 
 
@@ -407,12 +407,12 @@ def update_div_f(f_arr):
             f.div = 0
 
 
-def update_delta(f_arr, sigma_FN):
+def update_delta(f_arr, sigma_chi):
     for f in f_arr:
         if f.d_y_diff > 0:
-            f.delta = f.delta * (1 - np.abs(rd.randn() * sigma_FN))
+            f.delta = f.delta * (1 - rd.chisquare(1) * sigma_chi)
         elif f.d_y_diff < 0:
-            f.delta = f.delta * (1 + np.abs(rd.randn() * sigma_FN))
+            f.delta = f.delta * (1 + rd.chisquare(1) * sigma_chi)
 
         f.delta = np.maximum(np.minimum(1, f.delta), 0)
 
