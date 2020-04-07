@@ -1,19 +1,10 @@
 from agent_class import *
-# from initialize_tools import *
+from default_tools import *
 from calibration import calibrate_model
 from hire_fire_routine import *
 from hire_fire_non_routine import *
 import numpy as np
-import matplotlib.pyplot as plt
-
-
-# rewrite the class such that you only have to type in following parameters:
-
-# input
-# u_r, mu_r, gamma_nr, H, F, W_r, m, sigma, delta, alpha_2, G, nu_Af
-
-# output
-# mu_nr, W_nr, Ah, Af, p, y, pi_f, DIV_h, DIV_f, C_h, alpha_1, Nr, Nnr
+from goods_market import gm_matching
 
 
 class Model:
@@ -156,5 +147,142 @@ class Model:
         n_def = np.sum(self.default_fs)
         self.share_inactive[self.t] = n_def/self.F
 
+    def step_function(self):
+
+        initialize_emp(self.h_arr, self.f_arr, self.F, int(self.Nr), int(self.Nnr))
+
+        for t in range(self.T):
+            print("Period: {}".format(t))
+
+            if t == self.shock_t:
+                self.min_real_w = self.min_realw_t
+
+            # count unemployed households
+            if t > 0:
+                count_unemployed_hs(self.h_arr, self.t)
+
+            # fired workers loose job
+            count_fired_time(self.h_arr)
+            fired_workers_loose_job(self.h_arr, self.f_arr, self.t)
+
+            # wage decisions
+            update_N(self.f_arr)
+            set_W_fs(self.f_arr[self.active_fs], self.h_arr)  # firms measure average wages paid to employees
+            update_Wr_e(self.f_arr[self.active_fs], self.min_w, self.lambda_exp)  # firms build wage expectations
+            update_Wnr_e(self.f_arr[self.active_fs], self.min_w, self.lambda_exp)
+            update_d_w(self.h_arr, self.sigma_chi, self.mean_p_arr[self.t - 1], self.t)  # households decide for desired wages
+
+            # households update work experience
+            update_exp(self.h_arr, self.t, 4)
+
+            # households make consumption decision
+            update_d_c(self.h_arr, self.alpha_1, self.alpha_2)
+
+            # firms update sales expectations
+            update_s_e(self.f_arr[self.active_fs], lambda_exp)
+
+            # Firms decide for desired production
+            update_d_y(self.f_arr[self.active_fs], self.mu_r, self.mu_nr, self.sigma)
+
+            update_delta(self.f_arr[self.active_fs], 0.001)
+
+            # Firms decide for labor demand
+            update_d_N(self.f_arr[self.active_fs], self.mu_r, self.mu_nr, self.sigma)
+
+            # Firms choose whether to hire or fire
+            update_v(self.f_arr)
+
+            # price decisions
+            update_m(self.f_arr[self.active_fs], self.sigma_chi)  # choose markup
+            update_uc_arr(self.f_arr, self.t)
+            update_p(self.f_arr[self.active_fs], self.t)
+
+            ## Labor market matching
+            # get vacancies Fx2 matrix
+            v_mat = np.array([(f.id, f.v_r, f.v_nr) for f in self.f_arr[self.active_fs]])
+            firms_fire_r_workers(v_mat, self.h_arr, self.f_arr, self.t)
+            firms_fire_nr_workers(v_mat, self.h_arr, self.f_arr, self.t)
+            update_N(self.f_arr[self.active_fs])
+
+            # shuffle supply side (workers)
+            h_indices = np.array([h.id for h in self.h_arr])
+            h_shuffled = rd.choice(h_indices, self.H_r + self.H_nr, replace=False)
+            h_arr_shuffled = self.h_arr[h_shuffled]
+
+            # households apply
+            hs_send_nr_apps(self.f_arr, self.h_arr[self.non_routine_arr], self.chi_L, self.H_nr, self.H_r, self.beta)
+            hs_send_r_apps(self.f_arr, self.h_arr[self.routine_arr], self.chi_L, self.H_r, self.beta)
+
+            # firms hire
+            firms_employ_nr_applicants(self.f_arr, self.h_arr, self.lambda_LM, self.min_w, self.t)
+            update_N(self.f_arr)
+            set_W_fs(self.f_arr, self.h_arr)
+
+            firms_employ_r_applicants(self.f_arr, self.h_arr, self.lambda_LM, self.min_w, self.t)
+            update_N(self.f_arr)
+            set_W_fs(self.f_arr, self.h_arr)
+
+            clear_applications(self.f_arr)
+
+            # firms produce goods
+            firms_produce(self.f_arr, self.mu_r, self.mu_nr, self.sigma)
+
+            # firms sell goods
+            clear_s(self.f_arr)
+            clear_expenditure(self.h_arr)
+            gm_matching(self.f_arr, self.h_arr, self.chi_C, self.tol)
+            update_inv(self.f_arr[self.active_fs])
+
+            # households update mean prices
+            update_h_p(self.h_arr)
+            update_pi(self.f_arr)
+
+            # firms calculate profits
+            update_div_f(self.f_arr[self.active_fs])
+
+            # surviving firms pay dividends
+            distribute_dividends(self.h_arr, self.f_arr)
+
+            # households refinance firms
+            self.active_fs = surviving_firms(self.f_arr)
+            self.default_fs = default_firms(self.f_arr)
+
+            mean_Af = np.mean(np.array([f.A for f in self.f_arr[self.active_fs]]))
+            refin_firms(mean_Af, self.f_arr[self.default_fs], self.f_arr[self.active_fs], self.h_arr, self.n_refinanced, self.tol, self.t)
+
+            self.active_fs = surviving_firms(self.f_arr)
+            self.default_fs = default_firms(self.f_arr)
+
+            # defaulted firms, pay remaining wage bills
+            unemp_arr = default_firms_pay_employees(self.f_arr[self.default_fs], self.h_arr)
+            set_W_fs(self.f_arr, self.h_arr)
+
+            update_Af(self.f_arr, self.tol)
+            update_Ah(self.h_arr)
+
+            for h in self.h_arr[unemp_arr.astype(int)]:
+                get_unemployed(h, self.t)
+                h.fired = None
+                h.fired_time = 0
+                h.fired_time_max = 0
+
+            self.data_collector()
+
+            if t % 4 == 0:
+                self.min_w = get_min_w(self.mean_p_arr[self.t], self.min_real_w)
+
+            rhs = np.sum([f.Wnr_tot + f.Wr_tot for f in self.f_arr])
+            lhs = np.sum([h.w for h in self.h_arr])
+
+            # print(np.array([(f.uc_arr[self.t-1], f.m, f.p) for f in self.f_arr]))
+
+            # firms loose employees
+            for f in self.f_arr[self.default_fs]:
+                f.n_r_fired, f.n_nr_fired = 0, 0
+                employees = np.concatenate((f.r_employees, f.nr_employees), axis=None)
+                if len(employees) > 0:
+                    f.r_employees, f.nr_employees = np.array([]), np.array([])
+
+            self.t += 1
 
 
