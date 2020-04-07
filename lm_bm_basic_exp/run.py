@@ -13,8 +13,13 @@ initialize_emp(m.h_arr, m.f_arr, m.F, int(m.Nr), int(m.Nnr))
 
 for t in range(m.T):
     m.step_function()
+    dN_arr = np.array([(f.d_Nr, f.d_Nnr) for f in m.f_arr])
+    print(dN_arr)
+
     if m.mean_w_arr[t] < 0:
         break
+
+
 
 f1, f2 = plot_lm(m, m.t, m.t)
 f1.show()
@@ -41,5 +46,17 @@ print(dN_arr)
 
 fW_arr = np.array([(f.Wr, f.Wnr) for f in m.f_arr])
 print(fW_arr)
+
+fW_e_arr = np.array([(f.Wr_e, f.Wnr_e) for f in m.f_arr])
+print(fW_e_arr)
+
+Omega_arr = np.array([get_Omega(f.Wr_e, f.Wnr_e, m.mu_r, m.mu_nr, m.sigma)
+                      for f in m.f_arr])
+
+d_N_arr = np.array([get_d_Nnr_binding(f.A, f.Wr_e, f.Wnr_e, 2)
+                   for f in m.f_arr])
+print(d_N_arr)
+
+print(Omega_arr)
 
 print(m.mean_w_arr)

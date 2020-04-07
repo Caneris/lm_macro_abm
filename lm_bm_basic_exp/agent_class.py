@@ -100,7 +100,7 @@ class Household(Agent):
         self.last_w = w
 
         # average price paid
-        self.p = p
+        self.p, self.p_e = p, p
 
         # desired consumption, consumption
         self.d_c, self.c = c, c

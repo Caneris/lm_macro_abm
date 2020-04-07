@@ -122,7 +122,7 @@ def update_Ah(h_arr):
 
 def update_d_c(h_arr, alpha_1, alpha_2):
     for h in h_arr:
-        h.d_c = alpha_1*((h.w + h.div)/h.p) + alpha_2*(h.A/h.p)
+        h.d_c = alpha_1*((h.w + h.div)/h.p_e) + alpha_2*(h.A/h.p_e)
 
 
 def clear_expenditure(h_arr):
@@ -178,6 +178,11 @@ def fired_workers_loose_job(h_arr, f_arr, t):
             h.fired = False
             h.fired_time = 0
             h.fired_time_max = 0
+
+
+def update_p_e(h_arr, lambda_exp):
+    for h in h_arr:
+        h.p_e = expectation(h.p, h.p_e, lambda_exp)
 
 
 #########################################################################################################
@@ -364,6 +369,8 @@ def get_Omega(Wr_e, Wnr_e, mu_r, mu_nr, sigma):
     rho = (sigma - 1)/sigma
     X_1, X_2, X_3 = Wr_e / mu_r, Wnr_e / mu_nr, mu_nr / mu_r
     Omega = ((X_1/X_2)**(1/rho-1))*X_3
+    if Omega < 0:
+        print(Omega)
     return Omega
 
 

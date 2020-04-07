@@ -21,6 +21,7 @@ def household_decisions(m):
     update_exp(m.h_arr, m.t, 4)
 
     # households make consumption decision
+    update_p_e(m.h_arr, m.lambda_exp)
     update_d_c(m.h_arr, m.alpha_1, m.alpha_2)
 
 
@@ -103,7 +104,7 @@ def hh_refin_firms(m):
     m.default_fs = default_firms(m.f_arr)
 
     mean_Af = np.mean(np.array([f.A for f in m.f_arr[m.active_fs]]))
-    refin_firms(mean_Af, m.f_arr[m.default_fs], m.f_arr[m.active_fs], m.h_arr, m.n_refinanced,
+    refin_firms(m.Af, m.f_arr[m.default_fs], m.f_arr[m.active_fs], m.h_arr, m.n_refinanced,
                 m.tol, m.t)
 
     m.active_fs = surviving_firms(m.f_arr)
