@@ -44,9 +44,9 @@ class Model:
 
         # parameters derived from steady state model
 
-        mu_nr, W_nr, Anr, Af, p, y, pi_f, DIV_r, DIV_nr, DIV_f, c_r, c_nr, alpha_1, Nr, Nnr = calibration
+        mu_nr, W_nr, Anr, Af, uc, p, y, pi_f, DIV_r, DIV_nr, DIV_f, c_r, c_nr, alpha_1, Nr, Nnr = calibration
 
-        self.mu_nr, self.W_nr, self.Anr, self.Af, self.p, self.y = mu_nr, W_nr, Anr, Af, p, y
+        self.mu_nr, self.W_nr, self.Anr, self.Af, self.uc , self.p, self.y = mu_nr, W_nr, Anr, Af, uc, p, y
         self.pi_f, self.DIV_r, self.DIV_nr, self.DIV_f, self.c_r, self.c_nr = pi_f, DIV_r, DIV_nr, DIV_f, c_r, c_nr
         self.alpha_1, self.Nr, self.Nnr = alpha_1, Nr, Nnr
 
@@ -59,7 +59,7 @@ class Model:
 
         # create firms
         self.f_arr = np.array([Firm(j, self.Af, T, self.y, self.nu, self.W_r, self.W_nr,
-                                    self.delta, self.p, self.m, self.pi_f, self.DIV_f) for j in range(F)])
+                                    self.delta, self.p, self.m, self.pi_f, self.DIV_f, self.uc) for j in range(F)])
 
         # create households
         self.h_arr = np.array([Household(j, self.Ar, T,

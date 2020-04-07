@@ -24,7 +24,7 @@ class Agent(object):
 
 class Firm(Agent):
 
-    def __init__(self, _id, A_init, T, y, nu, Wr_f, Wnr_f, delta, p, m, pi, div):
+    def __init__(self, _id, A_init, T, y, nu, Wr_f, Wnr_f, delta, p, m, pi, div, uc):
         super(Firm, self).__init__(_id, A_init, T)
 
         # employees, number of employees n_f, total wage bill
@@ -51,7 +51,7 @@ class Firm(Agent):
         self.d_y, self.y, self.p = y, y, p
         self.d_y_diff = 0
         self.uc_arr = np.zeros(T)
-        self.uc_arr[-1] = 0.4
+        self.uc_arr[-1] = uc
 
         # number of vacancies
         self.v_r, self.v_nr = 0, 0

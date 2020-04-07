@@ -25,6 +25,7 @@ def calibrate_model(H = 200, F = 20, Ar = 1, u_r = 0.08, mu_r = 1, W_r = 1, gamm
 
     # 3. get y
     y = koeff2*Omega*mu_r*Nnr
+    y_f = y/F
 
     # 4. get uc, p
     uc = koeff1*(W_r/mu_r)
@@ -53,7 +54,7 @@ def calibrate_model(H = 200, F = 20, Ar = 1, u_r = 0.08, mu_r = 1, W_r = 1, gamm
     AH = (1 - gamma_nr)*H*Ar + gamma_nr*H*Anr
     alpha_1 = (C - alpha_2*AH)/I
 
-    return mu_nr, W_nr, Anr, Af, p, y, pi_f, DIV_r, DIV_nr, DIV_f, c_r, c_nr, alpha_1, Nr, Nnr
+    return mu_nr, W_nr, Anr, Af, uc, p, y_f, pi_f, DIV_r, DIV_nr, DIV_f, c_r, c_nr, alpha_1, Nr, Nnr
 
 
 
