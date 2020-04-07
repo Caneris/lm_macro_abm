@@ -5,6 +5,7 @@ from hire_fire_routine import *
 from hire_fire_non_routine import *
 import numpy as np
 from goods_market import gm_matching
+from stepfunction_methods import *
 
 
 class Model:
@@ -15,11 +16,12 @@ class Model:
                  m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25,
                  # exogenous model parameters
                  lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, min_w = 0, min_realw_t = 0,
-                 shock_t = 0, sigma_chi = 0.01, chi_L = 0.1, chi_C = 0.2, T = 500, tol = 1e-10):
+                 shock_t = 0, sigma_chi = 0.01, sigma_delta = 0.001, chi_L = 0.1, chi_C = 0.2, T = 500, tol = 1e-10):
 
 
         # exogenous parameters
         self.sigma_chi, self.chi_L, self.chi_C = sigma_chi, chi_L, chi_C
+        self.sigma_delta = sigma_delta
         self.lambda_LM = lambda_LM
         self.lambda_exp = lambda_exp
         self.beta = beta
@@ -165,18 +167,8 @@ class Model:
             count_fired_time(self.h_arr)
             fired_workers_loose_job(self.h_arr, self.f_arr, self.t)
 
-            # wage decisions
-            update_N(self.f_arr)
-            set_W_fs(self.f_arr[self.active_fs], self.h_arr)  # firms measure average wages paid to employees
-            update_Wr_e(self.f_arr[self.active_fs], self.min_w, self.lambda_exp)  # firms build wage expectations
-            update_Wnr_e(self.f_arr[self.active_fs], self.min_w, self.lambda_exp)
-            update_d_w(self.h_arr, self.sigma_chi, self.mean_p_arr[self.t - 1], self.t)  # households decide for desired wages
-
-            # households update work experience
-            update_exp(self.h_arr, self.t, 4)
-
-            # households make consumption decision
-            update_d_c(self.h_arr, self.alpha_1, self.alpha_2)
+            wage_decisions(self)
+            household_decisions(self)
 
             # firms update sales expectations
             update_s_e(self.f_arr[self.active_fs], lambda_exp)
