@@ -15,7 +15,7 @@ for t in range(m.T):
     m.step_function()
     dN_arr = np.array([(f.d_Nr, f.d_Nnr) for f in m.f_arr])
     Af_arr = np.array([f.A for f in m.f_arr])
-    print(dN_arr)
+    # print(dN_arr)
     if np.any(dN_arr < 0):
         print("some element of dN_arr < 0")
         break

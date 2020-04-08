@@ -255,19 +255,27 @@ def update_s_e(f_arr, lambda_exp):
 
 def set_W_fs(f_arr, h_arr):
     for f in f_arr:
+        if f.id == 19:
+            print("Wr_tot before: {}".format(f.Wr_tot))
         if f.Nr > 0:
             r_emps = f.r_employees.astype(int)
             wages_r = np.array([h.w for h in h_arr[r_emps]])
             f.Wr_tot = np.sum(wages_r)
+            if f.id == 19:
+                print("Wr_tot after: {}".format(f.Wr_tot))
             f.Wr = np.sum(wages_r) / f.Nr
         else:
             f.Wr_tot, f.Wr = 0, 0
 
+        if f.id == 19:
+            print("Wnr_tot before: {}".format(f.Wnr_tot))
         if f.Nnr > 0:
             nr_emps = f.nr_employees.astype(int)
             wages_nr = np.array([h.w for h in h_arr[nr_emps]])
             f.Wnr = np.sum(wages_nr) / f.Nnr
             f.Wnr_tot = np.sum(wages_nr)
+            if f.id == 19:
+                print("Wnr_tot after: {}".format(f.Wnr_tot))
         else:
             f.Wnr_tot, f.Wnr = 0, 0
 
@@ -307,7 +315,6 @@ def update_m2(f_arr, param):
             f.m = f.m*(1+param*rd.uniform())
         elif f.inv > f.nu*f.s:
             f.m = f.m*(1-param*rd.uniform())
-            print(f.m)
 
 
 def update_uc_arr(f_arr, t):
@@ -369,8 +376,6 @@ def get_Omega(Wr_e, Wnr_e, mu_r, mu_nr, sigma):
     rho = (sigma - 1)/sigma
     X_1, X_2, X_3 = Wr_e / mu_r, Wnr_e / mu_nr, mu_nr / mu_r
     Omega = ((X_1/X_2)**(1/rho-1))*X_3
-    if Omega < 0:
-        print(Omega)
     return Omega
 
 
