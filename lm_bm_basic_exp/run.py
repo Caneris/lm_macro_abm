@@ -5,7 +5,7 @@ from plot_tool import plot_lm
 
 T = 500
 rd.seed(135)
-m = Model(T=T, alpha_2=0.25, chi_C=0.4)
+m = Model(T=T, alpha_2=0.1, chi_C=0.2)
 
 # initialize employment
 set_W_fs(m.f_arr, m.h_arr)
