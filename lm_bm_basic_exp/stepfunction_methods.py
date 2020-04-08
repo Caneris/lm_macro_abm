@@ -37,7 +37,6 @@ def firm_decisions(m):
 
     # Firms decide for labor demand
     update_d_N(m.f_arr[m.active_fs], m.mu_r, m.mu_nr, m.sigma)
-    # print(np.array([(f.A, f.Wr_e, f.Wnr_e) for f in m.f_arr]))
 
     # Firms choose whether to hire or fire
     update_v(m.f_arr)

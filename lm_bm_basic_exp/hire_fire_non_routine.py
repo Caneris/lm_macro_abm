@@ -146,7 +146,6 @@ def employ_nr_apps(h_arr, f_arr, f, lambda_LM, min_w, t):
         # either they already have a nr job
         if h.nr_job:
             Pr = Pr_LM(h.w, h.d_w, lambda_LM)
-            # print(h.d_w - h.w, Pr)
             switch = bool(draw_one(Pr))
             if switch:
                 f.v_nr -= 1

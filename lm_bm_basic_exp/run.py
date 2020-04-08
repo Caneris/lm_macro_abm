@@ -13,18 +13,6 @@ initialize_emp(m.h_arr, m.f_arr, m.F, int(m.Nr), int(m.Nnr))
 
 for t in range(m.T):
     m.step_function()
-    dN_arr = np.array([(f.d_Nr, f.d_Nnr) for f in m.f_arr])
-    Af_arr = np.array([f.A for f in m.f_arr])
-    # print(dN_arr)
-    if np.any(dN_arr < 0):
-        print("some element of dN_arr < 0")
-        break
-    elif m.mean_w_arr[t] < 0:
-        print("some element of m.mean_w_arr[t] < 0")
-        break
-    elif np.any(Af_arr < 0):
-        print("some element of Af_arr < 0")
-        break
 
 
 

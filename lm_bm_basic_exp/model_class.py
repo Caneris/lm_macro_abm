@@ -172,14 +172,13 @@ class Model:
         run_goods_market(self)
 
         firm_profits_and_dividends(self)
+        hh_refin_firms(self)
 
         # defaulted firms, pay remaining wage bills
         unemp_arr = default_firms_pay_employees(self.f_arr[self.default_fs], self.h_arr)
         set_W_fs(self.f_arr, self.h_arr)
 
-        print(self.f_arr[-1].A)
         update_Af(self.f_arr, self.tol)
-        print(self.f_arr[-1].A)
         update_Ah(self.h_arr)
 
         for h in self.h_arr[unemp_arr.astype(int)]:
