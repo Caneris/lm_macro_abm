@@ -17,6 +17,9 @@ class Agent(object):
         # tolerance level for setting values to zero
         self.tol = 10**(-10)
 
+        # percentage of wages paid respectively received
+        self.par = 1
+
     def change_cash(self, c):
         self.cash += c
         if np.abs(self.cash) < self.tol:

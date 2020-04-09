@@ -260,7 +260,7 @@ def set_W_fs(f_arr, h_arr):
             f.Wr_tot = np.sum(wages_r)
             f.Wr = np.sum(wages_r) / f.Nr
         else:
-            f.Wr_tot, f.Wr = 0, 0
+            f.Wr_tot = 0
 
         if f.Nnr > 0:
             nr_emps = f.nr_employees.astype(int)
@@ -268,7 +268,7 @@ def set_W_fs(f_arr, h_arr):
             f.Wnr = np.sum(wages_nr) / f.Nnr
             f.Wnr_tot = np.sum(wages_nr)
         else:
-            f.Wnr_tot, f.Wnr = 0, 0
+            f.Wnr_tot = 0
 
 
 def update_W_e(f_arr, lambda_exp):
