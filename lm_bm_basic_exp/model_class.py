@@ -16,7 +16,8 @@ class Model:
                  m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25,
                  # exogenous model parameters
                  lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, min_w = 0, min_realw_t = 0,
-                 shock_t = 0, sigma_chi = 0.01, sigma_delta = 0.001, chi_L = 0.1, chi_C = 0.2, T = 500, tol = 1e-10):
+                 shock_t = 0, sigma_chi = 0.01, sigma_delta = 0.001, chi_L = 0.1, chi_C = 0.2, T = 500,
+                 tol = 1e-10):
 
 
         # exogenous parameters
@@ -175,7 +176,7 @@ class Model:
         hh_refin_firms(self)
 
         # defaulted firms, pay remaining wage bills
-        unemp_arr = default_firms_pay_employees(self.f_arr[self.default_fs], self.h_arr)
+        unemp_arr = firms_pay_employees(self.f_arr, self.h_arr, self.default_fs)
         set_W_fs(self.f_arr, self.h_arr)
 
         update_Af(self.f_arr, self.tol)

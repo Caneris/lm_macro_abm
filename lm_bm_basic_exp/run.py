@@ -3,9 +3,9 @@ from plot_tool import plot_lm
 
 
 
-T = 500
+T = 300
 rd.seed(135)
-m = Model(T=T, alpha_2=0.1, chi_C=0.2)
+m = Model(T=T, alpha_2=0.25, chi_C=0.2, nu=0.20, lambda_LM=1, beta=1)
 
 # initialize employment
 set_W_fs(m.f_arr, m.h_arr)

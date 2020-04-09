@@ -117,7 +117,7 @@ def update_w_e(h_arr, lambda_exp):
 
 def update_Ah(h_arr):
     for h in h_arr:
-        h.A += (h.w + h.div)
+        h.A += (h.par * h.w + h.div)
 
 
 def update_d_c(h_arr, alpha_1, alpha_2):
@@ -428,7 +428,7 @@ def update_f_default(f_arr):
 
 def update_Af(f_arr, tol):
     for f in f_arr:
-        f.A += f.s*f.p - (f.Wr_tot + f.Wnr_tot) - f.div
+        f.A += f.s*f.p - f.par * (f.Wr_tot + f.Wnr_tot) - f.div
         if np.abs(f.A) <= tol:
             f.A = 0
 
