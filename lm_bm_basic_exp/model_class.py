@@ -141,7 +141,7 @@ class Model:
         self.mean_nr_w_arr[self.t] = self.mean_nr_w/self.mean_p_arr[self.t]
 
         # get GDP
-        self.GDP[self.t] = np.sum(np.array([h.w/self.mean_p_arr[self.t] for h in self.h_arr]))
+        self.GDP[self.t] = np.sum(np.array([f.y*f.p for f in self.f_arr]))
 
         # open vacancies
         self.open_vs[self.t] = np.sum(np.array([(f.v_r>0)*f.v_r + (f.v_nr>0)*f.v_nr for f in self.f_arr ]))
