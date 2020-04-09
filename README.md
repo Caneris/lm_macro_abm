@@ -8,5 +8,8 @@
     + all firms compute the "par" attribute (how much they can pay to employees)
     + you need a third input "default_fs" in order to identify default firms and 
     the households that loose their jobs
+4. **Correct update_Ah and update_Af**
+    + multiply wage (bills) with the par attribute
+    of the corresponding agent.
     
-Those three tasks should solve the problem of systematically downwards adjusted prices.
+Those four tasks should solve the problem of systematically downwards adjusted prices.
