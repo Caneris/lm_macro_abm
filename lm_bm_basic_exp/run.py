@@ -4,9 +4,9 @@ from plot_tool import plot_lm
 
 
 T = 1000
-rd.seed(13532532)
-m = Model(T=T, alpha_2=0.1, chi_L=0.4, chi_C=0.4, lambda_LM=10, sigma_chi=0.005,
-          nu=0.1, u_r=0.10, beta=1)
+rd.seed(112453)
+m = Model(T=T, alpha_2=0.1, chi_L=0.4, chi_C=0.4, lambda_LM=10, sigma_m=0.001, sigma_w= 0.005,
+          nu=0.1, u_r=0.10, beta=1, lambda_exp = 0.5)
 
 # initialize employment
 set_W_fs(m.f_arr, m.h_arr)
@@ -17,7 +17,7 @@ for t in range(m.T):
 
 
 
-f1, f2 = plot_lm(m, m.t, m.t)
+f1, f2 = plot_lm(m, 500, 200)
 f1.show()
 f2.show()
 

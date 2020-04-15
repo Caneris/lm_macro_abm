@@ -16,12 +16,12 @@ class Model:
                  m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25,
                  # exogenous model parameters
                  lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, min_w = 0, min_realw_t = 0,
-                 shock_t = 0, sigma_chi = 0.01, sigma_delta = 0.001, chi_L = 0.1, chi_C = 0.2, T = 500,
+                 shock_t = 0, sigma_m = 0.001, sigma_w = 0.005, sigma_delta = 0.001, chi_L = 0.1, chi_C = 0.2, T = 500,
                  tol = 1e-10):
 
 
         # exogenous parameters
-        self.sigma_chi, self.chi_L, self.chi_C = sigma_chi, chi_L, chi_C
+        self.sigma_m, self.sigma_w, self.chi_L, self.chi_C = sigma_m, sigma_w, chi_L, chi_C
         self.sigma_delta = sigma_delta
         self.lambda_LM = lambda_LM
         self.lambda_exp = lambda_exp
