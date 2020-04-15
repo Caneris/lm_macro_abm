@@ -152,7 +152,8 @@ class Model:
 
     def step_function(self):
 
-        print("Period: {}".format(self.t))
+        if self.t % 100 == 0:
+            print("Period: {}".format(self.t))
 
         if self.t == self.shock_t:
             self.min_real_w = self.min_realw_t
@@ -201,5 +202,14 @@ class Model:
                 f.r_employees, f.nr_employees = np.array([]), np.array([])
 
         self.t += 1
+
+    def run(self):
+
+        # initialize employment
+        set_W_fs(self.f_arr, self.h_arr)
+        initialize_emp(self.h_arr, self.f_arr, self.F, int(self.Nr), int(self.Nnr))
+
+        for t in range(self.T):
+            self.step_function()
 
 
