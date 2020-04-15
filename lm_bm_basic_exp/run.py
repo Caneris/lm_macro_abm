@@ -3,9 +3,10 @@ from plot_tool import plot_lm
 
 
 
-T = 300
-rd.seed(135)
-m = Model(T=T, alpha_2=0.25, chi_C=0.2, nu=0.20, lambda_LM=1, beta=1)
+T = 1000
+rd.seed(13532532)
+m = Model(T=T, alpha_2=0.1, chi_L=0.4, chi_C=0.4, lambda_LM=10, sigma_chi=0.005,
+          nu=0.1, u_r=0.10, beta=1)
 
 # initialize employment
 set_W_fs(m.f_arr, m.h_arr)
