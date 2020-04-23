@@ -33,6 +33,7 @@ def pay_refin_cost(h_arr, weights, tol, tot_refin_cost):
     for h in h_arr:
         cost = weights[h.id]*tot_refin_cost
         h.A -= cost
+        h.refin = cost
         if np.abs(h.A) < tol:
             h.A = 0
 

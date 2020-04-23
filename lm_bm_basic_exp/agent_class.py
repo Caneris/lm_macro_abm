@@ -114,3 +114,5 @@ class Household(Agent):
         # dividend income
         self.div = div
         self.div_e = div
+
+        self.refin = 0

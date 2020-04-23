@@ -12,6 +12,6 @@ m.run()
 
 
 
-f1, f2 = plot_lm(m, m.t, m.t)
+f1, f2 = plot_lm(m, m.t, 200)
 f1.show()
 f2.show()
