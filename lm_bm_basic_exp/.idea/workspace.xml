@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="572e5e4c-9c80-4d4a-ad7f-2656d4296208" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/run_setting_experiments.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/setting_generator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_tool.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_tool.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +40,9 @@
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../lm_bm_basic_fire/hire_fire_routine.py" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\PAPA_MAMA\Documents\phd_code\lm_bm_basic_exp" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$USER_HOME$/Desktop" />
       <recent name="C:\Users\atecan00\Dropbox" />
@@ -153,8 +156,16 @@
       <workItem from="1584095584532" duration="31671000" />
       <workItem from="1587652097132" duration="2000" />
       <workItem from="1587652119851" duration="1248000" />
-      <workItem from="1587656792824" duration="2148000" />
+      <workItem from="1587656792824" duration="5340000" />
     </task>
+    <task id="LOCAL-00001" summary="added small a small feature to plot_tool">
+      <created>1587658989572</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1587658989572</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -162,9 +173,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added refinancing costs in consumption decision" />
-    <option name="LAST_COMMIT_MESSAGE" value="added refinancing costs in consumption decision" />
+    <MESSAGE value="added small a small feature to plot_tool" />
+    <option name="LAST_COMMIT_MESSAGE" value="added small a small feature to plot_tool" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="895" y="295" key="CommitChangelistDialog2" timestamp="1587658987367">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="895" y="295" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1587658987367" />
     <state x="1061" y="456" key="FileChooserDialogImpl" timestamp="1587658726060">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -173,10 +189,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="782" y="343" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587652150825" />
-    <state x="873" y="434" key="Vcs.Push.Dialog.v2" timestamp="1587658325208">
+    <state x="873" y="434" key="Vcs.Push.Dialog.v2" timestamp="1587658994808">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587658325208" />
+    <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587658994808" />
     <state x="93" y="93" width="2375" height="1215" key="dock-window-2" timestamp="1587656825223">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
