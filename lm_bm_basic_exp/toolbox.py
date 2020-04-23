@@ -122,7 +122,7 @@ def update_Ah(h_arr):
 
 def update_d_c(h_arr, alpha_1, alpha_2):
     for h in h_arr:
-        h.d_c = alpha_1*((h.w + h.div + h.refin)/h.p_e) + alpha_2*(h.A/h.p_e)
+        h.d_c = alpha_1*((h.w + h.div - h.refin)/h.p_e) + alpha_2*(h.A/h.p_e)
 
 
 def clear_expenditure(h_arr):
