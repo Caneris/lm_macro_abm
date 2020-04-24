@@ -4,7 +4,6 @@
     <list default="true" id="572e5e4c-9c80-4d4a-ad7f-2656d4296208" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stepfunction_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/stepfunction_methods.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,7 +157,7 @@
       <workItem from="1587652097132" duration="2000" />
       <workItem from="1587652119851" duration="1248000" />
       <workItem from="1587656792824" duration="5340000" />
-      <workItem from="1587708870968" duration="28891000" />
+      <workItem from="1587708870968" duration="31784000" />
     </task>
     <task id="LOCAL-00001" summary="added small a small feature to plot_tool">
       <created>1587658989572</created>
@@ -174,7 +173,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587738384419</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="corrected update_delta(), calibrated model">
+      <created>1587740588868</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1587740588868</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,10 +193,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="corrected update_delta(), calibrated model" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="895" y="295" key="CommitChangelistDialog2" timestamp="1587738382630">
+    <state x="895" y="295" key="CommitChangelistDialog2" timestamp="1587740587590">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="895" y="295" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1587738382630" />
+    <state x="895" y="295" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1587740587590" />
     <state x="1061" y="456" key="FileChooserDialogImpl" timestamp="1587658726060">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -203,10 +209,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="782" y="343" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587652150825" />
-    <state x="873" y="434" key="Vcs.Push.Dialog.v2" timestamp="1587658994808">
+    <state x="873" y="434" key="Vcs.Push.Dialog.v2" timestamp="1587740596463">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587658994808" />
+    <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587740596463" />
     <state x="977" y="525" key="com.intellij.ide.util.TipDialog" timestamp="1587708871031">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
