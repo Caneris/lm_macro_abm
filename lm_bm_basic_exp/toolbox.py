@@ -97,7 +97,7 @@ def update_exp(h_arr, t, diff):
             h.exp = np.sum(1 - h.u[t - 3: t + 1])
 
 
-def update_d_w(h_arr, sigma_chi, mean_p, t):
+def update_d_w(h_arr, sigma_chi, t):
 
     for h in h_arr:
 
@@ -122,7 +122,7 @@ def update_Ah(h_arr):
 
 def update_d_c(h_arr, alpha_1, alpha_2):
     for h in h_arr:
-        h.d_c = alpha_1*((h.w + h.div - h.refin)/h.p_e) + alpha_2*(h.A/h.p_e)
+        h.d_c = alpha_1*(np.maximum((h.w + h.div - h.refin), 0)/h.p_e) + alpha_2*(h.A/h.p_e)
 
 
 def clear_expenditure(h_arr):
@@ -412,9 +412,9 @@ def update_div_f(f_arr):
 
 def update_delta(f_arr, sigma_chi):
     for f in f_arr:
-        if f.d_y_diff > 0:
+        if (f.s_e * (1 + f.nu) - f.inv) > f.d_y:
             f.delta = f.delta * (1 - rd.chisquare(1) * sigma_chi)
-        elif f.d_y_diff < 0:
+        elif (f.s_e * (1 + f.nu) - f.inv) < f.d_y:
             f.delta = f.delta * (1 + rd.chisquare(1) * sigma_chi)
 
         f.delta = np.maximum(np.minimum(1, f.delta), 0)

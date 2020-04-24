@@ -12,7 +12,7 @@ def wage_decisions(m):
     set_W_fs(m.f_arr[m.active_fs], m.h_arr)  # firms measure average wages paid to employees
     update_Wr_e(m.f_arr[m.active_fs], m.min_w, m.lambda_exp)  # firms build wage expectations
     update_Wnr_e(m.f_arr[m.active_fs], m.min_w, m.lambda_exp)
-    update_d_w(m.h_arr, m.sigma_w, m.mean_p_arr[m.t - 1], m.t)  # households decide for desired wages
+    update_d_w(m.h_arr, m.sigma_w, m.t)  # households decide for desired wages
 
 
 def household_decisions(m):
@@ -27,13 +27,8 @@ def household_decisions(m):
 
 def firm_decisions(m):
 
-    # firms update sales expectations
-    update_s_e(m.f_arr[m.active_fs], m.lambda_exp)
-
     # Firms decide for desired production
     update_d_y(m.f_arr[m.active_fs], m.mu_r, m.mu_nr, m.sigma)
-
-    update_delta(m.f_arr[m.active_fs], m.sigma_delta)
 
     # Firms decide for labor demand
     update_d_N(m.f_arr[m.active_fs], m.mu_r, m.mu_nr, m.sigma)
@@ -81,7 +76,11 @@ def run_goods_market(m):
     clear_s(m.f_arr)
     clear_expenditure(m.h_arr)
     gm_matching(m.f_arr, m.h_arr, m.chi_C, m.tol)
+
+    # firms update sales expectations
+    update_s_e(m.f_arr[m.active_fs], m.lambda_exp)
     update_inv(m.f_arr[m.active_fs])
+    update_delta(m.f_arr[m.active_fs], m.sigma_delta)
 
     # households update mean prices
     update_h_p(m.h_arr)

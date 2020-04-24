@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="572e5e4c-9c80-4d4a-ad7f-2656d4296208" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/run_setting_experiments.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/setting_generator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stepfunction_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/stepfunction_methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toolbox.py" beforeDir="false" afterPath="$PROJECT_DIR$/toolbox.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,10 +22,11 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="master" />
+        <entry key="$PROJECT_DIR$/.." value="set_up_mc_sim" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="ProjectId" id="1XM83KrYE1xmhNxyKC5Gh5glQAp" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -40,13 +42,13 @@
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../lm_bm_basic_fire/hire_fire_routine.py" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\PAPA_MAMA\Documents\phd_code\lm_bm_basic_exp" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$USER_HOME$/Desktop" />
       <recent name="C:\Users\atecan00\Dropbox" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\PAPA_MAMA\Documents\phd_code\lm_bm_basic_exp" />
     </key>
   </component>
   <component name="RunManager" selected="Python.run">
@@ -157,6 +159,7 @@
       <workItem from="1587652097132" duration="2000" />
       <workItem from="1587652119851" duration="1248000" />
       <workItem from="1587656792824" duration="5340000" />
+      <workItem from="1587708870968" duration="26826000" />
     </task>
     <task id="LOCAL-00001" summary="added small a small feature to plot_tool">
       <created>1587658989572</created>
@@ -185,6 +188,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1061" y="456" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1587658726060" />
+    <state x="1034" y="412" key="RollbackChangesDialog" timestamp="1587708933146">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1034" y="412" key="RollbackChangesDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587708933146" />
     <state x="782" y="343" key="SettingsEditor" timestamp="1587652150825">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -193,6 +200,14 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587658994808" />
+    <state x="977" y="525" key="com.intellij.ide.util.TipDialog" timestamp="1587708871031">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="977" y="525" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587708871031" />
+    <state x="1090" y="618" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587708946081">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1090" y="618" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587708946081" />
     <state x="93" y="93" width="2375" height="1215" key="dock-window-2" timestamp="1587656825223">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
