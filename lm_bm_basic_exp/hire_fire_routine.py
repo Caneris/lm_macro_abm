@@ -59,7 +59,7 @@ def get_r_fired_ids(f, emp_ids):
     return f.r_employees[emp_ids].astype(int)
 
 
-def f_fires_r_workers(h_arr, fired_ids, emp_ids, f, t):
+def f_fires_r_workers(h_arr, fired_ids, f):
     """
     Firm f fires routine type workers
     :param h_arr: List of all household objects
@@ -77,7 +77,7 @@ def f_fires_r_workers(h_arr, fired_ids, emp_ids, f, t):
         f.n_r_fired += 1
 
 
-def firms_fire_r_workers(v_mat, h_arr, f_arr, t):
+def firms_fire_r_workers(v_mat, h_arr, f_arr, emp_mat, nr_job_arr):
     """
     Firms fire routine workers.
     :param v_mat: Fx3 matrix (F is the number of firms) which
@@ -89,6 +89,7 @@ def firms_fire_r_workers(v_mat, h_arr, f_arr, t):
     :param t: Current period number
     """
     val = len(v_mat[v_mat[:, 1] < 0])
+    h_inds = np.arange(len(h_arr))
     if val > 0:
         fire_arr = v_mat[v_mat[:, 1] < 0]
         ids = fire_arr[:, 0]
@@ -96,14 +97,15 @@ def firms_fire_r_workers(v_mat, h_arr, f_arr, t):
         for i in range(len(ids)):
             # get id of the firm, and number of workers it wants to fire
             f_id, n = int(ids[i]), int(n_fire_arr[i])
+            emp_mask = emp_mat[f_id, :] > 0
             # get employees as object
-            emps = h_arr[f_arr[f_id].r_employees.astype(int)]
+            emp_ids = h_inds[np.logical_and(emp_mask, np.invert(nr_job_arr))]
             # look at wages of the employee
-            wages = np.array([h.w for h in emps])
+            wages = np.array([h.w for h in h_arr[emp_ids]])
             # take indices of employees with highest wages
-            emp_ids = np.argsort(wages)[-n:] # indices in emp array
-            fired_ids = get_r_fired_ids(f_arr[f_id], emp_ids) # id of agents
-            f_fires_r_workers(h_arr, fired_ids, emp_ids, f_arr[f_id], t)
+            mask = np.argsort(wages)[-n:] # indices in emp array
+            fired_ids = emp_ids[mask]
+            f_fires_r_workers(h_arr, fired_ids, f_arr[f_id])
 
 
 
@@ -168,7 +170,9 @@ def delete_from_old_r_job(h, f_arr):
     f_arr[f_id].r_employees = np.delete(emp_arr, h_i)
 
 
-def firms_employ_r_applicants(f_arr, h_arr, lambda_LM, min_w, t):
+def firms_employ_r_applicants(m):
+    f_arr, h_arr, lambda_LM, min_w, t = m.f_arr, m.h_arr, m.lambda_LM, m.min_w, m.t
+    emp_matrix, routine_arr, nr_job_arr = m.emp_matrix, m.routine_arr, m.nr_job_arr
     # 1. get vacancies
     # v_arr = np.array([f.v for f in f_arr])
 
@@ -200,7 +204,7 @@ def firms_employ_r_applicants(f_arr, h_arr, lambda_LM, min_w, t):
                 f_employs_r_applicants(h_arr[chosen_apps], f_arr,
                                        f_arr[id], lambda_LM, min_w, t)
 
-        update_N(f_arr)
+        update_N(f_arr, emp_matrix, nr_job_arr)
         update_v(f_arr)
         rand_f_ids = rd.choice(f_ids, len(f_ids), replace=False)
         rand_v_arr = np.array([f.v_r for f in f_arr[rand_f_ids]])

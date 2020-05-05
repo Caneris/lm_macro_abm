@@ -88,7 +88,7 @@ class Household(Agent):
         #       -> got no job offer at time t -> 0
         self.job_offer = np.zeros(T)
 
-        self.fired = None
+        self.fired = False
         self.fired_time = 0
         self.fired_time_max = 0
 

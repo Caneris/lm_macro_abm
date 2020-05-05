@@ -180,7 +180,9 @@ def delete_from_old_nr_job(h, f_arr):
     f_arr[f_id].nr_employees = np.delete(emp_arr, h_i)
 
 
-def firms_employ_nr_applicants(f_arr, h_arr, lambda_LM, min_w, t):
+def firms_employ_nr_applicants(m):
+    f_arr, h_arr, lambda_LM, min_w, t = m.f_arr, m.h_arr, m.lambda_LM, m.min_w, m.t
+    emp_matrix, routine_arr, nr_job_arr = m.emp_matrix, m.routine_arr, m.nr_job_arr
     # 1. get vacancies
     # v_arr = np.array([f.v for f in f_arr])
 
@@ -212,7 +214,7 @@ def firms_employ_nr_applicants(f_arr, h_arr, lambda_LM, min_w, t):
                                          lambda_LM, min_w, t)
                 remove_nr_apps_from_queues(f_arr[rand_f_ids], chosen_apps, emp_ids)
 
-        update_N(f_arr)
+        update_N(f_arr, emp_matrix, nr_job_arr)
         update_v(f_arr)
         rand_f_ids = rd.choice(f_ids, len(f_ids), replace=False)
         rand_v_arr = np.array([f.v_nr for f in f_arr[rand_f_ids]])

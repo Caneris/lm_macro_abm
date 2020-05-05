@@ -53,7 +53,7 @@ class Model:
 
         # Number of routine resp. non-routine households
         self.H_r = int(np.round(self.H*(1-self.gamma_nr)))
-        self.H_nr = int(np.round(self.H*self.gamma_nr))
+        self.H_nr = int(H - self.H_r)
 
         routine = True
         non_routine = False
@@ -73,6 +73,13 @@ class Model:
         # select routine resp. non routine workers
         self.routine_arr = np.array([h.routine for h in self.h_arr])
         self.non_routine_arr = np.array([not h.routine for h in self.h_arr])
+        self.nr_job_arr = self.non_routine_arr # can change for non-routine workers (if they take a routine job)
+
+        # create employment and application matrices
+        self.emp_matrix = init_emp_mat(F, H, u_r)
+        update_N(self.f_arr, self.emp_matrix, self.nr_job_arr)
+        self.app_r_matrix = np.zeros((F, H))
+        self.app_nr_matrix = np.zeros((F, H))
 
         # Data
 
@@ -171,21 +178,21 @@ class Model:
         firm_decisions(self)
 
         run_labor_market(self)
-        run_goods_market(self)
+        return
 
         firm_profits_and_dividends(self)
         hh_refin_firms(self)
 
         # defaulted firms, pay remaining wage bills
         unemp_arr = firms_pay_employees(self.f_arr, self.h_arr, self.default_fs)
-        set_W_fs(self.f_arr, self.h_arr)
+        set_W_fs(self.f_arr, self.emp_matrix, self.nr_job_arr, self.h_arr)
 
         update_Af(self.f_arr, self.tol)
         update_Ah(self.h_arr)
 
         for h in self.h_arr[unemp_arr.astype(int)]:
             get_unemployed(h, self.t)
-            h.fired = None
+            h.fired = False
             h.fired_time = 0
             h.fired_time_max = 0
 
@@ -206,8 +213,7 @@ class Model:
     def run(self):
 
         # initialize employment
-        set_W_fs(self.f_arr, self.h_arr)
-        initialize_emp(self.h_arr, self.f_arr, self.F, int(self.Nr), int(self.Nnr))
+        set_W_fs(self.f_arr, self.emp_matrix, self.nr_job_arr, self.h_arr)
 
         for t in range(self.T):
             self.step_function()

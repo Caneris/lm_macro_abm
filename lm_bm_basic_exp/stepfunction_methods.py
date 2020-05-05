@@ -8,8 +8,8 @@ from goods_market import gm_matching
 def wage_decisions(m):
 
     # wage decisions
-    update_N(m.f_arr)
-    set_W_fs(m.f_arr[m.active_fs], m.h_arr)  # firms measure average wages paid to employees
+    update_N(m.f_arr, m.emp_matrix, m.nr_job_arr)
+    set_W_fs(m.f_arr[m.active_fs], m.emp_matrix, m.nr_job_arr, m.h_arr)  # firms measure average wages paid to employees
     update_Wr_e(m.f_arr[m.active_fs], m.min_w, m.lambda_exp)  # firms build wage expectations
     update_Wnr_e(m.f_arr[m.active_fs], m.min_w, m.lambda_exp)
     update_d_w(m.h_arr, m.sigma_w, m.t)  # households decide for desired wages
@@ -47,22 +47,23 @@ def run_labor_market(m):
     ## Labor market matching
     # get vacancies Fx2 matrix
     v_mat = np.array([(f.id, f.v_r, f.v_nr) for f in m.f_arr[m.active_fs]])
-    firms_fire_r_workers(v_mat, m.h_arr, m.f_arr, m.t)
+    firms_fire_r_workers(v_mat, m.h_arr, m.f_arr, m.emp_matrix, m.nr_job_arr)
+    return
     firms_fire_nr_workers(v_mat, m.h_arr, m.f_arr, m.t)
-    update_N(m.f_arr[m.active_fs])
+    update_N(m.f_arr[m.active_fs], m.emp_matrix, m.nr_job_arr)
 
     # households apply
     hs_send_nr_apps(m.f_arr, m.h_arr[m.non_routine_arr], m.chi_L, m.H_nr, m.H_r, m.beta)
     hs_send_r_apps(m.f_arr, m.h_arr[m.routine_arr], m.chi_L, m.H_r, m.beta)
 
     # firms hire
-    firms_employ_nr_applicants(m.f_arr, m.h_arr, m.lambda_LM, m.min_w, m.t)
-    update_N(m.f_arr)
-    set_W_fs(m.f_arr, m.h_arr)
+    firms_employ_nr_applicants(m)
+    update_N(m.f_arr, m.emp_matrix, m.nr_job_arr)
+    set_W_fs(m.f_arr, m.emp_matrix, m.nr_job_arr, m.h_arr)
 
-    firms_employ_r_applicants(m.f_arr, m.h_arr, m.lambda_LM, m.min_w, m.t)
-    update_N(m.f_arr)
-    set_W_fs(m.f_arr, m.h_arr)
+    firms_employ_r_applicants(m)
+    update_N(m.f_arr, m.emp_matrix, m.nr_job_arr)
+    set_W_fs(m.f_arr, m.emp_matrix, m.nr_job_arr, m.h_arr)
 
     clear_applications(m.f_arr)
 

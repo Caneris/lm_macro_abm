@@ -55,6 +55,18 @@ def get_N_sub(chi, N):
         return 0
 
 
+def init_emp_mat(F, H, u_r):
+    N = np.int32(H*(1-u_r))
+    emp_matrix = np.zeros((F, H))
+    rand_f_ids = rd.permutation(N)
+    rand_h_ids = rd.choice(np.arange(H), N, replace = False)
+
+    for h_id, perm_num in zip(rand_h_ids, rand_f_ids):
+        f_id = perm_num % F
+        emp_matrix[f_id, h_id] = 1
+    return emp_matrix
+
+
 # test expectation function
 z = 4
 z_e = 6
@@ -189,6 +201,8 @@ def update_p_e(h_arr, lambda_exp):
 #########################################################################################################
 
 
+def get_employee_IDs(N_arr):
+    return np.nonzero(N_arr)[0]
 
 
 def update_d_N(f_arr, mu_r, mu_nr, sigma):
@@ -204,10 +218,12 @@ def update_d_N(f_arr, mu_r, mu_nr, sigma):
             f.d_Nnr = np.round(get_d_Nnr_binding(f.A, f.Wr_e, f.Wnr_e, Omega))
             f.d_Nr = np.round(get_d_Nr(f.d_Nnr, Omega))
 
-def update_N(f_arr):
+def update_N(f_arr, emp_matrix, nr_job_arr):
+    Nr_arr = np.sum(emp_matrix[:, np.invert(nr_job_arr)], axis=1)
+    Nnr_arr = np.sum(emp_matrix[:, nr_job_arr], axis=1)
     for f in f_arr:
-        f.Nr = len(f.r_employees)
-        f.Nnr = len(f.nr_employees)
+        f.Nr = Nr_arr[f.id]
+        f.Nnr = Nnr_arr[f.id]
 
 
 def update_v(f_arr):
@@ -216,65 +232,32 @@ def update_v(f_arr):
         f.v_nr = f.d_Nnr - (f.Nnr - f.n_nr_fired)
 
 
-def initialize_emp(h_arr, f_arr, F, R, NR):
-    ind = np.array([h.id for h in h_arr])
-    routine_arr = np.array([h.routine for h in h_arr])
-    non_routine_arr = np.array([not h.routine for h in h_arr])
-
-    r_inds = rd.choice(ind[routine_arr], R, replace=False)
-    nr_inds = rd.choice(ind[non_routine_arr], NR, replace=False)
-
-    for i in range(len(r_inds)):
-        ind_f = i%F
-        r_id = int(r_inds[i])
-        f_arr[ind_f].r_employees = np.append(f_arr[ind_f].r_employees,
-                                             r_id)
-        h_arr[r_id].employer_id = int(ind_f)
-        h_arr[r_id].w = h_arr[r_id].d_w
-        h_arr[r_id].u[0] = 0
-
-    for i in range(len(nr_inds)):
-        ind_f = i%F
-        nr_id = int(nr_inds[i])
-        f_arr[ind_f].nr_employees = np.append(f_arr[ind_f].nr_employees,
-                                             nr_id)
-        h_arr[nr_id].employer_id = int(ind_f)
-        h_arr[nr_id].nr_job = True
-        h_arr[nr_id].w = h_arr[nr_id].d_w
-        h_arr[nr_id].u[0] = 0
-
-    update_N(f_arr)
-    set_W_fs(f_arr, h_arr)
-
-
 def update_s_e(f_arr, lambda_exp):
     for f in f_arr:
         f.s_e = expectation(f.s, f.s_e, lambda_exp)
 
 
-def set_W_fs(f_arr, h_arr):
+def set_W_fs(f_arr, emp_mat, nr_job_arr, h_arr):
+    h_inds = np.arange(len(h_arr))
     for f in f_arr:
+        emp_mask = emp_mat[f.id, :] > 0
         if f.Nr > 0:
-            r_emps = f.r_employees.astype(int)
+            r_emps = h_inds[np.logical_and(emp_mask, np.invert(nr_job_arr))]
+            print("r_emps: {}".format(r_emps))
             wages_r = np.array([h.w for h in h_arr[r_emps]])
             f.Wr_tot = np.sum(wages_r)
-            f.Wr = np.sum(wages_r) / f.Nr
+            f.Wr = f.Wr_tot / f.Nr
         else:
             f.Wr_tot = 0
 
         if f.Nnr > 0:
-            nr_emps = f.nr_employees.astype(int)
+            nr_emps = h_inds[np.logical_and(emp_mask, nr_job_arr)]
+            print("nr_emps: {}".format(nr_emps))
             wages_nr = np.array([h.w for h in h_arr[nr_emps]])
-            f.Wnr = np.sum(wages_nr) / f.Nnr
             f.Wnr_tot = np.sum(wages_nr)
+            f.Wnr = f.Wnr_tot / f.Nnr
         else:
             f.Wnr_tot = 0
-
-
-def update_W_e(f_arr, lambda_exp):
-    for f in f_arr:
-        if not f.W == 0:
-            f.W_e = expectation(f.W, f.W_e, lambda_exp)
 
 
 def update_Wr_e(f_arr, min_w, lambda_exp):

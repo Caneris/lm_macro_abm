@@ -3,7 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="572e5e4c-9c80-4d4a-ad7f-2656d4296208" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/agent_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/agent_class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hire_fire_non_routine.py" beforeDir="false" afterPath="$PROJECT_DIR$/hire_fire_non_routine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hire_fire_routine.py" beforeDir="false" afterPath="$PROJECT_DIR$/hire_fire_routine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_class.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stepfunction_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/stepfunction_methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toolbox.py" beforeDir="false" afterPath="$PROJECT_DIR$/toolbox.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="set_up_mc_sim" />
+        <entry key="$PROJECT_DIR$/.." value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -34,9 +40,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../lm_bm_basic_fire/hire_fire_routine.py" />
   </component>
   <component name="RecentsManager">
@@ -49,7 +56,7 @@
       <recent name="C:\Users\PAPA_MAMA\Documents\phd_code\lm_bm_basic_exp" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.run">
+  <component name="RunManager" selected="Python.model_class">
     <configuration name="model_class" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="lm_macro_abm" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -158,6 +165,10 @@
       <workItem from="1587652119851" duration="1248000" />
       <workItem from="1587656792824" duration="5340000" />
       <workItem from="1587708870968" duration="31784000" />
+      <workItem from="1587974337558" duration="7699000" />
+      <workItem from="1588328436132" duration="165000" />
+      <workItem from="1588328616325" duration="5474000" />
+      <workItem from="1588691551961" duration="14638000" />
     </task>
     <task id="LOCAL-00001" summary="added small a small feature to plot_tool">
       <created>1587658989572</created>
@@ -197,34 +208,50 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="895" y="295" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1587740587590" />
-    <state x="1061" y="456" key="FileChooserDialogImpl" timestamp="1587658726060">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state x="796" y="339" key="FileChooserDialogImpl" timestamp="1588711784335">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="796" y="339" key="FileChooserDialogImpl/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588711784335" />
     <state x="1061" y="456" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1587658726060" />
-    <state x="1034" y="412" key="RollbackChangesDialog" timestamp="1587708933146">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state x="-1144" y="448" key="RollbackChangesDialog" timestamp="1588339073274">
+      <screen x="-1920" y="142" width="1920" height="1040" />
     </state>
+    <state x="-1144" y="448" key="RollbackChangesDialog/-1920.142.1920.1040/0.0.1920.1040@-1920.142.1920.1040" timestamp="1588339073274" />
     <state x="1034" y="412" key="RollbackChangesDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587708933146" />
-    <state x="782" y="343" key="SettingsEditor" timestamp="1587652150825">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state x="587" y="255" key="SettingsEditor" timestamp="1588711820345">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="587" y="255" key="SettingsEditor/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588711820345" />
     <state x="782" y="343" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587652150825" />
     <state x="873" y="434" key="Vcs.Push.Dialog.v2" timestamp="1587740596463">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587740596463" />
-    <state x="977" y="525" key="com.intellij.ide.util.TipDialog" timestamp="1587708871031">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state x="733" y="390" key="com.intellij.ide.util.TipDialog" timestamp="1588691551956">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="-1187" y="532" key="com.intellij.ide.util.TipDialog/-1920.142.1920.1040/0.0.1920.1040@-1920.142.1920.1040" timestamp="1588328748541" />
+    <state x="733" y="390" key="com.intellij.ide.util.TipDialog/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588691551956" />
     <state x="977" y="525" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587708871031" />
-    <state x="1090" y="618" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587708946081">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state x="814" y="435" key="com.intellij.ide.util.TipDialog/3200.-349.2560.1400/0.0.2133.1160@0.0.2133.1160" timestamp="1587974338913" />
+    <state x="817" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1588691988404">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="817" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588691988404" />
     <state x="1090" y="618" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587708946081" />
+    <state x="908" y="512" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/3200.-349.2560.1400/0.0.2133.1160@0.0.2133.1160" timestamp="1587939445101" />
     <state x="93" y="93" width="2375" height="1215" key="dock-window-2" timestamp="1587656825223">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="93" y="93" width="2375" height="1215" key="dock-window-2/0.0.2560.1400@0.0.2560.1400" timestamp="1587656825223" />
+    <state x="731" y="429" key="git4idea.ui.GitUnstashDialog" timestamp="1587939434332">
+      <screen x="0" y="0" width="2133" height="1160" />
+    </state>
+    <state x="731" y="429" key="git4idea.ui.GitUnstashDialog/3200.-349.2560.1400/0.0.2133.1160@0.0.2133.1160" timestamp="1587939434332" />
+    <state x="-1297" y="367" width="672" height="678" key="search.everywhere.popup" timestamp="1588329447061">
+      <screen x="-1920" y="142" width="1920" height="1040" />
+    </state>
+    <state x="-1297" y="367" width="672" height="678" key="search.everywhere.popup/-1920.142.1920.1040/0.0.1920.1040@-1920.142.1920.1040" timestamp="1588329447061" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/lm_bm_basic$run.coverage" NAME="run Coverage Results" MODIFIED="1583876013297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
