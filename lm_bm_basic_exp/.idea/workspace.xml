@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="572e5e4c-9c80-4d4a-ad7f-2656d4296208" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/PAPA_MAMA.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/agent_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/agent_class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/default_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/default_tools.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hire_fire_non_routine.py" beforeDir="false" afterPath="$PROJECT_DIR$/hire_fire_non_routine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hire_fire_routine.py" beforeDir="false" afterPath="$PROJECT_DIR$/hire_fire_routine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_class.py" afterDir="false" />
@@ -24,6 +26,19 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$/.." source="change_employment_mechanism" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$/.." value="master" />
@@ -40,7 +55,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
@@ -168,7 +183,8 @@
       <workItem from="1587974337558" duration="7699000" />
       <workItem from="1588328436132" duration="165000" />
       <workItem from="1588328616325" duration="5474000" />
-      <workItem from="1588691551961" duration="14638000" />
+      <workItem from="1588691551961" duration="15008000" />
+      <workItem from="1588742231044" duration="12441000" />
     </task>
     <task id="LOCAL-00001" summary="added small a small feature to plot_tool">
       <created>1587658989572</created>
@@ -191,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587740588868</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="improving employment mechanisms">
+      <created>1588715957750</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1588715957750</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,12 +224,14 @@
     <MESSAGE value="added refinancing costs in consumption decision" />
     <MESSAGE value="added small a small feature to plot_tool" />
     <MESSAGE value="corrected update_delta(), calibrated model" />
-    <option name="LAST_COMMIT_MESSAGE" value="corrected update_delta(), calibrated model" />
+    <MESSAGE value="improving employment mechanisms" />
+    <option name="LAST_COMMIT_MESSAGE" value="improving employment mechanisms" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="895" y="295" key="CommitChangelistDialog2" timestamp="1587740587590">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state x="671" y="219" key="CommitChangelistDialog2" timestamp="1588715955262">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="671" y="219" key="CommitChangelistDialog2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588715955262" />
     <state x="895" y="295" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1587740587590" />
     <state x="796" y="339" key="FileChooserDialogImpl" timestamp="1588711784335">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -218,20 +243,21 @@
     </state>
     <state x="-1144" y="448" key="RollbackChangesDialog/-1920.142.1920.1040/0.0.1920.1040@-1920.142.1920.1040" timestamp="1588339073274" />
     <state x="1034" y="412" key="RollbackChangesDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587708933146" />
-    <state x="587" y="255" key="SettingsEditor" timestamp="1588711820345">
+    <state x="587" y="255" key="SettingsEditor" timestamp="1588742539891">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="587" y="255" key="SettingsEditor/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588711820345" />
+    <state x="587" y="255" key="SettingsEditor/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588742539891" />
     <state x="782" y="343" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587652150825" />
-    <state x="873" y="434" key="Vcs.Push.Dialog.v2" timestamp="1587740596463">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state x="655" y="322" key="Vcs.Push.Dialog.v2" timestamp="1588715976463">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="655" y="322" key="Vcs.Push.Dialog.v2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588715976463" />
     <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587740596463" />
-    <state x="733" y="390" key="com.intellij.ide.util.TipDialog" timestamp="1588691551956">
+    <state x="733" y="390" key="com.intellij.ide.util.TipDialog" timestamp="1588742419488">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1187" y="532" key="com.intellij.ide.util.TipDialog/-1920.142.1920.1040/0.0.1920.1040@-1920.142.1920.1040" timestamp="1588328748541" />
-    <state x="733" y="390" key="com.intellij.ide.util.TipDialog/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588691551956" />
+    <state x="733" y="390" key="com.intellij.ide.util.TipDialog/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588742419488" />
     <state x="977" y="525" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587708871031" />
     <state x="814" y="435" key="com.intellij.ide.util.TipDialog/3200.-349.2560.1400/0.0.2133.1160@0.0.2133.1160" timestamp="1587974338913" />
     <state x="817" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1588691988404">
@@ -240,6 +266,10 @@
     <state x="817" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588691988404" />
     <state x="1090" y="618" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587708946081" />
     <state x="908" y="512" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/3200.-349.2560.1400/0.0.2133.1160@0.0.2133.1160" timestamp="1587939445101" />
+    <state x="-1033" y="142" width="877" height="748" maximized="true" key="dock-window-1" timestamp="1588743996554">
+      <screen x="-1920" y="142" width="1920" height="1040" />
+    </state>
+    <state x="-1033" y="142" width="877" height="748" maximized="true" key="dock-window-1/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588743996554" />
     <state x="93" y="93" width="2375" height="1215" key="dock-window-2" timestamp="1587656825223">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

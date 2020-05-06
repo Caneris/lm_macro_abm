@@ -55,7 +55,7 @@ def get_N_sub(chi, N):
         return 0
 
 
-def init_emp_mat(F, H, u_r):
+def init_emp_mat(F, H, u_r, h_arr):
     N = np.int32(H*(1-u_r))
     emp_matrix = np.zeros((F, H))
     rand_f_ids = rd.permutation(N)
@@ -64,6 +64,7 @@ def init_emp_mat(F, H, u_r):
     for h_id, perm_num in zip(rand_h_ids, rand_f_ids):
         f_id = perm_num % F
         emp_matrix[f_id, h_id] = 1
+        h_arr[h_id].u[0] = 0
     return emp_matrix
 
 
@@ -78,9 +79,10 @@ expectation(z, z_e, lambda_exp)
 #########################################################################################################
 
 
-def get_unemployed(h, t):
-    h.u[t], h.employer_id = 1, None
-    h.nr_job = False
+def get_unemployed(h, nr_job_arr, emp_mat, t):
+    emp_mat[:, h.id] = np.zeros(len(emp_mat[:, h.id]))
+    h.u[t] = 1
+    nr_job_arr[h.id] = False
     h.w = 0
     h.last_w = h.w
 
@@ -178,14 +180,13 @@ def count_fired_time(h_arr):
             h.fired_time += 1
 
 
-def fired_workers_loose_job(h_arr, f_arr, t):
+def fired_workers_loose_job(h_arr, f_arr, emp_mat, nr_job_arr, t):
     for h in h_arr:
         if h.fired and (h.fired_time == h.fired_time_max):
-            if h.nr_job:
-                delete_from_old_nr_job2(h, f_arr)
-            else:
-                delete_from_old_r_job2(h, f_arr)
-            get_unemployed(h, t)
+            # delete from old employer
+            f_id = np.nonzero(emp_mat[:, h.id])[0][0]
+            get_unemployed(h, nr_job_arr, emp_mat, t)
+            f_arr[f_id].n_nr_fired -= 1
             h.fired = False
             h.fired_time = 0
             h.fired_time_max = 0
@@ -243,7 +244,6 @@ def set_W_fs(f_arr, emp_mat, nr_job_arr, h_arr):
         emp_mask = emp_mat[f.id, :] > 0
         if f.Nr > 0:
             r_emps = h_inds[np.logical_and(emp_mask, np.invert(nr_job_arr))]
-            print("r_emps: {}".format(r_emps))
             wages_r = np.array([h.w for h in h_arr[r_emps]])
             f.Wr_tot = np.sum(wages_r)
             f.Wr = f.Wr_tot / f.Nr
@@ -252,7 +252,6 @@ def set_W_fs(f_arr, emp_mat, nr_job_arr, h_arr):
 
         if f.Nnr > 0:
             nr_emps = h_inds[np.logical_and(emp_mask, nr_job_arr)]
-            print("nr_emps: {}".format(nr_emps))
             wages_nr = np.array([h.w for h in h_arr[nr_emps]])
             f.Wnr_tot = np.sum(wages_nr)
             f.Wnr = f.Wnr_tot / f.Nnr

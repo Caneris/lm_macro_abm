@@ -60,17 +60,6 @@ def get_r_fired_ids(f, emp_ids):
 
 
 def f_fires_r_workers(h_arr, fired_ids, f):
-    """
-    Firm f fires routine type workers
-    :param h_arr: List of all household objects
-    :param fired_ids: List of the ids that firm f wants to fire
-    :param emp_ids: List of the indices of the fired workers in
-    firm f's "employee array"
-    :param f: Firm f as firm object
-    :param t: Current period number
-    """
-    # f.r_employees = np.delete(f.r_employees, emp_ids)
-    # f.fired_r_employees = fired_ids
     for h in h_arr[fired_ids]:
         h.fired = True
         h.fired_time_max = 2
@@ -78,20 +67,12 @@ def f_fires_r_workers(h_arr, fired_ids, f):
 
 
 def firms_fire_r_workers(v_mat, h_arr, f_arr, emp_mat, nr_job_arr):
-    """
-    Firms fire routine workers.
-    :param v_mat: Fx3 matrix (F is the number of firms) which
-    includes the firm ids (1. column), number of workers to
-    be hired (if positive) or fired (if negative) w.r.t.
-    routine (2. column) resp. non-routine workers (3.) column.
-    :param H_arr: List of household objects.
-    :param F_arr: List of firm objects.
-    :param t: Current period number
-    """
-    val = len(v_mat[v_mat[:, 1] < 0])
+
+    f_mask = v_mat[:, 1] < 0
+    val = np.sum(f_mask)
     h_inds = np.arange(len(h_arr))
     if val > 0:
-        fire_arr = v_mat[v_mat[:, 1] < 0]
+        fire_arr = v_mat[f_mask]
         ids = fire_arr[:, 0]
         n_fire_arr = fire_arr[:, 1] * (-1)
         for i in range(len(ids)):
@@ -115,12 +96,6 @@ def firms_fire_r_workers(v_mat, h_arr, f_arr, emp_mat, nr_job_arr):
 
 
 def remove_r_apps_from_queues(f_arr, chosen_apps):
-    """
-    Removes routine job applicants that were chosen by a firm for employment
-    from other firms' application queues.
-    :param f_arr: List of firms that want to hire
-    :param chosen_apps: List of household ids chosen for employment
-    """
     for f in f_arr:
         f_h_app_ids = f.apps_r[:, 0].astype(int)
         if len(f_h_app_ids) > 0:
@@ -128,17 +103,8 @@ def remove_r_apps_from_queues(f_arr, chosen_apps):
             f.apps_r = f.apps_r[bool_arr]
 
 
-def f_employs_r_applicants(h_arr, f_arr, f, lambda_LM, min_w, t):
-    """
-    Firm f employs routine job applicants.
-    :param h_arr: List of household objects
-    :param f: Firm object
-    :param lambda_LM: Sensitivity parameter for switch probability.
-    :param r_vacancies: Numbers of vacancies per firm for routine jobs. (array)
-    :param v_id: Index number of firm f's vacancy number in r_vacancies.
-    :param t: Current period number.
-    :return: Updated numbers of vacancies for routine jobs (r_vacancies).
-    """
+def employ_r_apps(h_arr, emp_mat, nr_job_arr, f, lambda_LM, min_w, t):
+
     for h in h_arr:
         h.job_offer[t] = 1
         if h.u[t] == 0:
@@ -146,21 +112,22 @@ def f_employs_r_applicants(h_arr, f_arr, f, lambda_LM, min_w, t):
             switch = bool(draw_one(Pr))
             if switch:
                 f.v_r -= 1
-                delete_from_old_r_job(h, f_arr)
-                h.employer_id = f.id
+                # delete from old r job
+                emp_mat[:, h.id] = np.zeros(len(emp_mat[:, h.id]))
+                # household gets employed
+                emp_mat[f.id, h.id] = 1
                 h.w = np.maximum(h.d_w, min_w)
-                if h.w > h.d_w:
-                    h.d_w = h.w
-                f.r_employees = np.append(f.r_employees, h.id)
+                # update_desired wage in case of a minimum wage
+                h.d_w = h.w
+                nr_job_arr[h.id] = False
         else:
             f.v_r -= 1
-            h.employer_id = f.id
-            h.w = np.maximum(h.d_w, min_w)
-            if h.w > h.d_w:
-                h.d_w = h.w
             h.u[t] = 0
-            f.r_employees = np.append(f.r_employees, h.id)
-    # return r_vacancies
+            # household gets employed
+            emp_mat[f.id, h.id] = 1
+            h.w = np.maximum(h.d_w, min_w)
+            # update_desired wage in case of a minimum wage
+            h.d_w = h.w
 
 
 def delete_from_old_r_job(h, f_arr):
@@ -201,8 +168,8 @@ def firms_employ_r_applicants(m):
                 h_app_ids = f_arr[id].apps_r[:, 0].astype(int)
                 chosen_apps = h_app_ids[0:v]
                 remove_r_apps_from_queues(f_arr[rand_f_ids], chosen_apps)
-                f_employs_r_applicants(h_arr[chosen_apps], f_arr,
-                                       f_arr[id], lambda_LM, min_w, t)
+                employ_r_apps(h_arr[chosen_apps], emp_matrix, nr_job_arr,
+                              f_arr[id], lambda_LM, min_w, t)
 
         update_N(f_arr, emp_matrix, nr_job_arr)
         update_v(f_arr)

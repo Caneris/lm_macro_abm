@@ -73,11 +73,14 @@ class Model:
         # select routine resp. non routine workers
         self.routine_arr = np.array([h.routine for h in self.h_arr])
         self.non_routine_arr = np.array([not h.routine for h in self.h_arr])
-        self.nr_job_arr = self.non_routine_arr # can change for non-routine workers (if they take a routine job)
 
         # create employment and application matrices
-        self.emp_matrix = init_emp_mat(F, H, u_r)
+        self.emp_matrix = init_emp_mat(F, H, u_r, self.h_arr)
+
+        employed = np.sum(self.emp_matrix, axis=0) > 0
+        self.nr_job_arr = np.logical_and(employed, self.non_routine_arr)
         update_N(self.f_arr, self.emp_matrix, self.nr_job_arr)
+
         self.app_r_matrix = np.zeros((F, H))
         self.app_nr_matrix = np.zeros((F, H))
 
@@ -89,7 +92,7 @@ class Model:
         self.mean_r_w, self.mean_nr_w, self.mean_w_arr = W_r, W_nr, np.zeros(T)
 
         # unemployment
-        self.u_r, self.mean_p_arr = 0, np.zeros(T)
+        self.mean_p_arr = np.zeros(T)
         self.mean_p_arr[-1] = np.mean([f.p for f in self.f_arr])
         self.u_r_arr, self.mean_r_w_arr, self.mean_nr_w_arr = np.zeros(T), np.zeros(T), np.zeros(T)
         self.mean_nominal_w_arr = np.zeros(T)
@@ -159,7 +162,7 @@ class Model:
 
     def step_function(self):
 
-        if self.t % 100 == 0:
+        if self.t % 20 == 0:
             print("Period: {}".format(self.t))
 
         if self.t == self.shock_t:
@@ -171,27 +174,27 @@ class Model:
 
         # fired workers loose job
         count_fired_time(self.h_arr)
-        fired_workers_loose_job(self.h_arr, self.f_arr, self.t)
+        fired_workers_loose_job(self.h_arr, self.f_arr, self.emp_matrix, self.nr_job_arr, self.t)
 
         wage_decisions(self)
         household_decisions(self)
         firm_decisions(self)
 
         run_labor_market(self)
-        return
+        run_goods_market(self)
 
         firm_profits_and_dividends(self)
         hh_refin_firms(self)
 
         # defaulted firms, pay remaining wage bills
-        unemp_arr = firms_pay_employees(self.f_arr, self.h_arr, self.default_fs)
+        unemp_arr = firms_pay_employees(self.f_arr, self.h_arr, self.default_fs, self.emp_matrix)
         set_W_fs(self.f_arr, self.emp_matrix, self.nr_job_arr, self.h_arr)
 
         update_Af(self.f_arr, self.tol)
         update_Ah(self.h_arr)
 
-        for h in self.h_arr[unemp_arr.astype(int)]:
-            get_unemployed(h, self.t)
+        for h in self.h_arr[unemp_arr]:
+            get_unemployed(h, self.nr_job_arr, self.emp_matrix, self.t)
             h.fired = False
             h.fired_time = 0
             h.fired_time_max = 0
@@ -204,9 +207,12 @@ class Model:
         # firms loose employees
         for f in self.f_arr[self.default_fs]:
             f.n_r_fired, f.n_nr_fired = 0, 0
-            employees = np.concatenate((f.r_employees, f.nr_employees), axis=None)
-            if len(employees) > 0:
-                f.r_employees, f.nr_employees = np.array([]), np.array([])
+
+        # bug-check
+        bug_check = np.sum(self.emp_matrix[self.default_fs, :]) > 0
+        if bug_check:
+            print("STOP! Here is a bug, defaulted firm still have employees!")
+            print("You should check 'default_firms()' and 'hh_refin_firms()'")
 
         self.t += 1
 

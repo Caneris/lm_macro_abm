@@ -48,9 +48,8 @@ def run_labor_market(m):
     # get vacancies Fx2 matrix
     v_mat = np.array([(f.id, f.v_r, f.v_nr) for f in m.f_arr[m.active_fs]])
     firms_fire_r_workers(v_mat, m.h_arr, m.f_arr, m.emp_matrix, m.nr_job_arr)
-    return
-    firms_fire_nr_workers(v_mat, m.h_arr, m.f_arr, m.t)
-    update_N(m.f_arr[m.active_fs], m.emp_matrix, m.nr_job_arr)
+    firms_fire_nr_workers(v_mat, m.h_arr, m.f_arr, m.emp_matrix, m.nr_job_arr)
+    update_N(m.f_arr, m.emp_matrix, m.nr_job_arr)
 
     # households apply
     hs_send_nr_apps(m.f_arr, m.h_arr[m.non_routine_arr], m.chi_L, m.H_nr, m.H_r, m.beta)
@@ -103,6 +102,7 @@ def hh_refin_firms(m):
     m.active_fs = surviving_firms(m.f_arr)
     m.default_fs = default_firms(m.f_arr)
 
+    # change this later
     mean_Af = np.mean(np.array([f.A for f in m.f_arr[m.active_fs]]))
     refin_firms(m.Af, m.f_arr[m.default_fs], m.f_arr[m.active_fs], m.h_arr, m.n_refinanced,
                 m.tol, m.t)

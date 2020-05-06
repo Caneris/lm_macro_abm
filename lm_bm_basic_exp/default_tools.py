@@ -1,6 +1,5 @@
 import numpy as np
 import numpy.random as rd
-from toolbox import get_unemployed
 
 
 def default_firms(f_arr):
@@ -15,14 +14,14 @@ def surviving_firms(f_arr):
     return np.logical_or(A_arr > 0, y_arr > 0)
 
 
-def firms_pay_employees(f_arr, h_arr, default_fs):
-    unemp_arr = np.array([])
+def firms_pay_employees(f_arr, h_arr, default_fs, emp_mat):
+    unemp_arr = np.array([], dtype=np.int64)
     for f in f_arr:
-        employees = np.concatenate((f.r_employees, f.nr_employees), axis=None)
+        employees = np.nonzero(emp_mat[f.id, :])[0]
         if len(employees) > 0:
             par = np.maximum(f.A + f.s*f.p, 0) / (f.Wr_tot + f.Wnr_tot) # percentage of wage bills paid
             f.par = np.minimum(1, par)
-            for h in h_arr[employees.astype(int)]:
+            for h in h_arr[employees]:
                 h.par = f.par
                 if default_fs[f.id]:
                     unemp_arr = np.append(unemp_arr, h.id)

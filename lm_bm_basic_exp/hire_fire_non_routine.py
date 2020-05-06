@@ -58,49 +58,34 @@ def get_nr_fired_ids(f, emp_ids):
     return f.nr_employees[emp_ids].astype(int)
 
 
-def f_fires_nr_workers(h_arr, fired_ids, emp_ids, f, t):
-    """
-    Firm f fires routine type workers
-    :param h_arr: List of all household objects
-    :param fired_ids: List of the ids that firm f wants to fire
-    :param emp_ids: List of the indices of the fired workers in
-    firm f's "employee array"
-    :param f: firm f as firm object
-    :param t: current period number
-    """
-    # f.nr_employees = np.delete(f.nr_employees, emp_ids)
-    # f.fired_nr_employees = fired_ids
+def f_fires_nr_workers(h_arr, fired_ids, f):
     for h in h_arr[fired_ids]:
         h.fired = True
         h.fired_time_max = 2
         f.n_nr_fired += 1
 
 
-def firms_fire_nr_workers(v_mat, h_arr, f_arr, t):
-    """
-    Firms fire non-routine workers.
-    :param v_mat: Fx3 matrix (F is the number of firms) which
-    includes the firm ids (1. column), number of workers to
-    be hired (if positive) or fired (if negative) w.r.t.
-    routine (2. column) resp. non-routine workers (3.) column.
-    :param H_arr: List of household objects.
-    :param F_arr: List of firm objects.
-    :param t: Current period number
-    """
-    fire_arr = v_mat[v_mat[:, 2] < 0]
-    ids = fire_arr[:, 0]
-    n_fire_arr = fire_arr[:, 2] * (-1)
-    for i in range(len(ids)):
-        # get id of the firm, and number of workers it wants to fire
-        f_id, n = int(ids[i]), int(n_fire_arr[i])
-        # get employees as object
-        emps = h_arr[f_arr[f_id].nr_employees.astype(int)]
-        # look at wages of the employee
-        wages = np.array([h.w for h in emps])
-        # take indices of employees with highest wages
-        emp_ids = np.argsort(wages)[-n:]
-        fired_ids = get_nr_fired_ids(f_arr[f_id], emp_ids)
-        f_fires_nr_workers(h_arr, fired_ids, emp_ids, f_arr[f_id], t)
+def firms_fire_nr_workers(v_mat, h_arr, f_arr, emp_mat, nr_job_arr):
+
+    f_mask = v_mat[:, 2] < 0
+    val = np.sum(f_mask)
+    h_inds = np.arange(len(h_arr))
+    if val > 0:
+        fire_arr = v_mat[f_mask]
+        ids = fire_arr[:, 0]
+        n_fire_arr = fire_arr[:, 2] * (-1)
+        for i in range(len(ids)):
+            # get id of the firm, and number of workers it wants to fire
+            f_id, n = int(ids[i]), int(n_fire_arr[i])
+            emp_mask = emp_mat[f_id, :] > 0
+            # get employees as object
+            emp_ids = h_inds[np.logical_and(emp_mask, nr_job_arr)]
+            # look at wages of the employee
+            wages = np.array([h.w for h in h_arr[emp_ids]])
+            # take indices of employees with highest wages
+            mask = np.argsort(wages)[-n:] # indices in emp array
+            fired_ids = emp_ids[mask]
+            f_fires_nr_workers(h_arr, fired_ids, f_arr[f_id])
 
 
 
@@ -121,63 +106,56 @@ def remove_nr_apps_from_queues(f_arr, chosen_apps, emp_ids):
         if len(f.apps_nr) > 0:
             nr_f_h_app_ids = f.apps_nr[:, 0].astype(int)
             bool_arr = np.array([not app_id in chosen_apps for app_id in nr_f_h_app_ids])
+            # Keep application that are not in "chosen_apps"
             f.apps_nr = f.apps_nr[bool_arr]
 
+        # delete non-routine workers only from routine application queues
+        # if they got a routine job first -> use "not app_id in emp_ids"
         if len(f.apps_r) > 0:
             r_f_h_app_ids = f.apps_r[:, 0].astype(int)
             bool_arr = np.array([not app_id in emp_ids for app_id in r_f_h_app_ids])
             f.apps_r = f.apps_r[bool_arr]
 
 
-def employ_nr_apps(h_arr, f_arr, f, lambda_LM, min_w, t):
-    """
-    Firm f employs non-routine job applicants.
-    :param h_arr: List of household objects
-    :param f: Firm object
-    :param lambda_LM: Sensitivity parameter for switch probability.
-    :param nr_vacancies: Numbers of vacancies per firm for non-routine jobs. (array)
-    :param v_id: Index number of firm f's vacancy number in nr_vacancies.
-    :param t: Current period number.
-    :return: Updated numbers of vacancies for non-routine jobs (nr_vacancies).
-    """
+def employ_nr_apps(h_arr, emp_mat, nr_job_arr, f, lambda_LM, min_w, t):
     emp_ids = np.array([])
     for h in h_arr:
         h.job_offer[t] = 1
         # either they already have a nr job
-        if h.nr_job:
+        if nr_job_arr[h.id]:
             Pr = Pr_LM(h.w, h.d_w, lambda_LM)
             switch = bool(draw_one(Pr))
             if switch:
                 f.v_nr -= 1
-                delete_from_old_nr_job(h, f_arr)
-                h.employer_id = f.id
+                # delete from old nr job
+                emp_mat[:, h.id] = np.zeros(len(emp_mat[:, h.id]))
+                # household gets employed
+                emp_mat[f.id, h.id] = 1
                 h.w = np.maximum(h.d_w, min_w)
-                if h.w > h.d_w:
-                    h.d_w = h.w
-                f.nr_employees = np.append(f.nr_employees, h.id)
+                # update_desired wage in case of a minimum wage
+                h.d_w = h.w
                 emp_ids = np.append(emp_ids, h.id)
         # or they are unemployed or have a routine job
         else:
             f.v_nr -= 1
-            boolean = h.employer_id == None
-            if not boolean:
-                delete_from_old_r_job(h, f_arr)
-            h.employer_id = f.id
+            boolean = np.sum(emp_mat[:, h.id]) > 0
+            if boolean:
+                # delete from old "r" job
+                emp_mat[:, h.id] = np.zeros(len(emp_mat[:, h.id]))
+
             h.u[t] = 0
+            # household gets employed
+            emp_mat[f.id, h.id] = 1
             h.w = np.maximum(h.d_w, min_w)
-            if h.w > h.d_w:
-                h.d_w = h.w
-            h.nr_job = True
-            f.nr_employees = np.append(f.nr_employees, h.id)
+            # update_desired wage in case of a minimum wage
+            h.d_w = h.w
             emp_ids = np.append(emp_ids, h.id)
+            nr_job_arr[h.id] = True
     return emp_ids
 
 
-def delete_from_old_nr_job(h, f_arr):
-    f_id = h.employer_id # get id of old employer
-    emp_arr = f_arr[f_id].nr_employees
-    h_i = np.where(emp_arr == h.id)[0][0] # get index in emp_arr
-    f_arr[f_id].nr_employees = np.delete(emp_arr, h_i)
+def delete_from_old_nr_job(h, emp_mat):
+    emp_mat[:, h.id] = np.zeros(len(emp_mat[:, 0]))
 
 
 def firms_employ_nr_applicants(m):
@@ -210,7 +188,7 @@ def firms_employ_nr_applicants(m):
             if len(f_arr[id].apps_nr) * (v > 0) > 0:
                 h_app_ids = f_arr[id].apps_nr[:, 0].astype(int)
                 chosen_apps = h_app_ids[0:v]
-                emp_ids = employ_nr_apps(h_arr[chosen_apps], f_arr, f_arr[id],
+                emp_ids = employ_nr_apps(h_arr[chosen_apps], emp_matrix, nr_job_arr, f_arr[id],
                                          lambda_LM, min_w, t)
                 remove_nr_apps_from_queues(f_arr[rand_f_ids], chosen_apps, emp_ids)
 
