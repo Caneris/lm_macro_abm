@@ -78,6 +78,14 @@ expectation(z, z_e, lambda_exp)
 ###################### TOOLS FOR HOUSEHOLDS #############################################################
 #########################################################################################################
 
+def h_send_apps(app_mat, H, F, N_app):
+    # on axis 0 are applicant ids and on axis 1 are firm ids
+    f_ids = np.arange(F)
+    # draw N_app firm ids from f_ids without replacing
+    sub_f_ids = lambda : rd.choice(f_ids, N_app, replace=False)
+
+    for i in range(H):
+        app_mat[sub_f_ids(), i] = 1
 
 def get_unemployed(h, nr_job_arr, emp_mat, t):
     emp_mat[:, h.id] = np.zeros(len(emp_mat[:, h.id]))
@@ -189,7 +197,6 @@ def fired_workers_loose_job(h_arr, f_arr, emp_mat, nr_job_arr, t):
             f_arr[f_id].n_nr_fired -= 1
             h.fired = False
             h.fired_time = 0
-            h.fired_time_max = 0
 
 
 def update_p_e(h_arr, lambda_exp):
@@ -229,8 +236,8 @@ def update_N(f_arr, emp_matrix, nr_job_arr):
 
 def update_v(f_arr):
     for f in f_arr:
-        f.v_r = f.d_Nr - (f.Nr - f.n_r_fired)
-        f.v_nr = f.d_Nnr - (f.Nnr - f.n_nr_fired)
+        f.v_r = f.d_Nr - f.Nr
+        f.v_nr = f.d_Nnr - f.Nnr
 
 
 def update_s_e(f_arr, lambda_exp):
@@ -367,16 +374,11 @@ def get_total_costs(Wr_e, Wnr_e, Nr, Nnr):
     return Wr_e*Nr + Wnr_e*Nnr
 
 
-# 2. Case: Budget constraint is binding, B is the firm f's udget
+# 2. Case: Budget constraint is binding, B is the firm f's budget
 def get_d_Nnr_binding(B, Wr_e, Wnr_e, Omega):
     X_1 = Wr_e*Omega
     Nnr = B*((X_1 + Wnr_e)**(-1))
     return Nnr
-
-
-def clear_applications(f_arr):
-    for f in f_arr:
-        f.apps_r, f.apps_nr = np.array([]), np.array([])
 
 
 def update_pi(f_arr):

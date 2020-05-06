@@ -90,7 +90,7 @@ class Household(Agent):
 
         self.fired = False
         self.fired_time = 0
-        self.fired_time_max = 0
+        self.fired_time_max = 3
 
         # unemployed dummy,
         self.u = np.zeros(T)

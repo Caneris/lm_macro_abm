@@ -13,7 +13,7 @@ class Model:
     def __init__(self,
                  # exogenously chosen steady state parameters
                  H = 200, F = 20, Ar = 1, u_r = 0.08, mu_r = 1, W_r = 1, gamma_nr = 0.33,
-                 m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25,
+                 m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25, N_app = 4,
                  # exogenous model parameters
                  lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, min_w = 0, min_realw_t = 0,
                  shock_t = 0, sigma_m = 0.001, sigma_w = 0.005, sigma_delta = 0.001, chi_L = 0.1, chi_C = 0.2, T = 500,
@@ -22,6 +22,7 @@ class Model:
 
         # exogenous parameters
         self.sigma_m, self.sigma_w, self.chi_L, self.chi_C = sigma_m, sigma_w, chi_L, chi_C
+        self.N_app = N_app
         self.sigma_delta = sigma_delta
         self.lambda_LM = lambda_LM
         self.lambda_exp = lambda_exp
@@ -81,8 +82,7 @@ class Model:
         self.nr_job_arr = np.logical_and(employed, self.non_routine_arr)
         update_N(self.f_arr, self.emp_matrix, self.nr_job_arr)
 
-        self.app_r_matrix = np.zeros((F, H))
-        self.app_nr_matrix = np.zeros((F, H))
+        self.app_matrix = np.zeros((F, H))
 
         # Data
 
@@ -128,7 +128,7 @@ class Model:
 
         self.u_n = u_n
 
-        self.u_r_arr[self.t] = u_n / self.H
+        self.u_r_arr[self.t] = (self.H-np.sum(self.emp_matrix))/self.H
         self.ur_r_arr[self.t] = ur_n/self.H_r
         self.unr_r_arr[self.t] = unr_n / self.H_nr
 
@@ -162,18 +162,18 @@ class Model:
 
     def step_function(self):
 
-        if self.t % 20 == 0:
+        if self.t % 1 == 0:
             print("Period: {}".format(self.t))
 
         if self.t == self.shock_t:
             self.min_real_w = self.min_realw_t
 
         # count unemployed households
+        count_fired_time(self.h_arr)
         if self.t > 0:
             count_unemployed_hs(self.h_arr, self.t)
 
         # fired workers loose job
-        count_fired_time(self.h_arr)
         fired_workers_loose_job(self.h_arr, self.f_arr, self.emp_matrix, self.nr_job_arr, self.t)
 
         wage_decisions(self)
@@ -197,7 +197,6 @@ class Model:
             get_unemployed(h, self.nr_job_arr, self.emp_matrix, self.t)
             h.fired = False
             h.fired_time = 0
-            h.fired_time_max = 0
 
         self.data_collector()
 
@@ -213,7 +212,6 @@ class Model:
         if bug_check:
             print("STOP! Here is a bug, defaulted firm still have employees!")
             print("You should check 'default_firms()' and 'hh_refin_firms()'")
-
         self.t += 1
 
     def run(self):

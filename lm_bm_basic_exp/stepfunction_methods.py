@@ -52,10 +52,12 @@ def run_labor_market(m):
     update_N(m.f_arr, m.emp_matrix, m.nr_job_arr)
 
     # households apply
-    hs_send_nr_apps(m.f_arr, m.h_arr[m.non_routine_arr], m.chi_L, m.H_nr, m.H_r, m.beta)
-    hs_send_r_apps(m.f_arr, m.h_arr[m.routine_arr], m.chi_L, m.H_r, m.beta)
+    # hs_send_nr_apps(m.f_arr, m.h_arr[m.non_routine_arr], m.chi_L, m.H_nr, m.H_r, m.beta)
+    # hs_send_r_apps(m.f_arr, m.h_arr[m.routine_arr], m.chi_L, m.H_r, m.beta)
+    h_send_apps(m.app_matrix, m.H, m.F, m.N_app)
 
     # firms hire
+    update_v(m.f_arr)
     firms_employ_nr_applicants(m)
     update_N(m.f_arr, m.emp_matrix, m.nr_job_arr)
     set_W_fs(m.f_arr, m.emp_matrix, m.nr_job_arr, m.h_arr)
@@ -63,8 +65,7 @@ def run_labor_market(m):
     firms_employ_r_applicants(m)
     update_N(m.f_arr, m.emp_matrix, m.nr_job_arr)
     set_W_fs(m.f_arr, m.emp_matrix, m.nr_job_arr, m.h_arr)
-
-    clear_applications(m.f_arr)
+    # m.app_matrix = np.zeros((m.F, m.H))
 
 
 def run_goods_market(m):

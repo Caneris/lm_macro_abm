@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="572e5e4c-9c80-4d4a-ad7f-2656d4296208" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/PAPA_MAMA.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/default_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/default_tools.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/agent_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/agent_class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/goods_market.py" beforeDir="false" afterPath="$PROJECT_DIR$/goods_market.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hire_fire_non_routine.py" beforeDir="false" afterPath="$PROJECT_DIR$/hire_fire_non_routine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hire_fire_routine.py" beforeDir="false" afterPath="$PROJECT_DIR$/hire_fire_routine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_class.py" afterDir="false" />
@@ -58,8 +57,16 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../lm_bm_basic_fire/hire_fire_routine.py" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings>
+        <option name="useSoftWraps" value="true" />
+      </console-settings>
+    </option>
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -71,7 +78,7 @@
       <recent name="C:\Users\PAPA_MAMA\Documents\phd_code\lm_bm_basic_exp" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.model_class">
+  <component name="RunManager" selected="Python.run">
     <configuration name="model_class" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="lm_macro_abm" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -184,7 +191,7 @@
       <workItem from="1588328436132" duration="165000" />
       <workItem from="1588328616325" duration="5474000" />
       <workItem from="1588691551961" duration="15008000" />
-      <workItem from="1588742231044" duration="12441000" />
+      <workItem from="1588742231044" duration="35790000" />
     </task>
     <task id="LOCAL-00001" summary="added small a small feature to plot_tool">
       <created>1587658989572</created>
@@ -214,7 +221,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588715957750</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="improved_employment mechanisms">
+      <created>1588754728865</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1588754728865</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -225,19 +239,56 @@
     <MESSAGE value="added small a small feature to plot_tool" />
     <MESSAGE value="corrected update_delta(), calibrated model" />
     <MESSAGE value="improving employment mechanisms" />
-    <option name="LAST_COMMIT_MESSAGE" value="improving employment mechanisms" />
+    <MESSAGE value="improved_employment mechanisms" />
+    <option name="LAST_COMMIT_MESSAGE" value="improved_employment mechanisms" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="671" y="219" key="CommitChangelistDialog2" timestamp="1588715955262">
+    <state x="707" y="376" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1588767195765">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="671" y="219" key="CommitChangelistDialog2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588715955262" />
+    <state x="707" y="376" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588767195765" />
+    <state x="671" y="219" key="CommitChangelistDialog2" timestamp="1588754726144">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="671" y="219" key="CommitChangelistDialog2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588754726144" />
     <state x="895" y="295" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1587740587590" />
     <state x="796" y="339" key="FileChooserDialogImpl" timestamp="1588711784335">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="796" y="339" key="FileChooserDialogImpl/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588711784335" />
     <state x="1061" y="456" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1587658726060" />
+    <state width="1877" height="432" key="GridCell.Tab.0.bottom" timestamp="1588772419433">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="432" key="GridCell.Tab.0.bottom/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588772419433" />
+    <state width="1877" height="432" key="GridCell.Tab.0.center" timestamp="1588772419433">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="432" key="GridCell.Tab.0.center/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588772419433" />
+    <state width="1877" height="432" key="GridCell.Tab.0.left" timestamp="1588772419433">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="432" key="GridCell.Tab.0.left/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588772419433" />
+    <state width="1877" height="432" key="GridCell.Tab.0.right" timestamp="1588772419433">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="432" key="GridCell.Tab.0.right/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588772419433" />
+    <state width="1877" height="432" key="GridCell.Tab.1.bottom" timestamp="1588772419433">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="432" key="GridCell.Tab.1.bottom/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588772419433" />
+    <state width="1877" height="432" key="GridCell.Tab.1.center" timestamp="1588772419433">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="432" key="GridCell.Tab.1.center/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588772419433" />
+    <state width="1877" height="432" key="GridCell.Tab.1.left" timestamp="1588772419433">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="432" key="GridCell.Tab.1.left/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588772419433" />
+    <state width="1877" height="432" key="GridCell.Tab.1.right" timestamp="1588772419433">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="432" key="GridCell.Tab.1.right/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588772419433" />
     <state x="-1144" y="448" key="RollbackChangesDialog" timestamp="1588339073274">
       <screen x="-1920" y="142" width="1920" height="1040" />
     </state>
@@ -266,10 +317,10 @@
     <state x="817" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588691988404" />
     <state x="1090" y="618" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587708946081" />
     <state x="908" y="512" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/3200.-349.2560.1400/0.0.2133.1160@0.0.2133.1160" timestamp="1587939445101" />
-    <state x="-1033" y="142" width="877" height="748" maximized="true" key="dock-window-1" timestamp="1588743996554">
+    <state x="-1177" y="118" width="877" height="748" maximized="true" key="dock-window-1" timestamp="1588770489505">
       <screen x="-1920" y="142" width="1920" height="1040" />
     </state>
-    <state x="-1033" y="142" width="877" height="748" maximized="true" key="dock-window-1/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588743996554" />
+    <state x="-1177" y="118" width="877" height="748" maximized="true" key="dock-window-1/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588770489505" />
     <state x="93" y="93" width="2375" height="1215" key="dock-window-2" timestamp="1587656825223">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -278,15 +329,18 @@
       <screen x="0" y="0" width="2133" height="1160" />
     </state>
     <state x="731" y="429" key="git4idea.ui.GitUnstashDialog/3200.-349.2560.1400/0.0.2133.1160@0.0.2133.1160" timestamp="1587939434332" />
-    <state x="-1297" y="367" width="672" height="678" key="search.everywhere.popup" timestamp="1588329447061">
-      <screen x="-1920" y="142" width="1920" height="1040" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1588777494375">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1297" y="367" width="672" height="678" key="search.everywhere.popup/-1920.142.1920.1040/0.0.1920.1040@-1920.142.1920.1040" timestamp="1588329447061" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588777494375" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/lm_bm_basic$run.coverage" NAME="run Coverage Results" MODIFIED="1583876013297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/lm_bm_basic_exp$run.coverage" NAME="run Coverage Results" MODIFIED="1588772416695" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/lm_gm_macro_CES$run.coverage" NAME="run Coverage Results" MODIFIED="1583171909133" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/lm_macro_abm$run.coverage" NAME="run Coverage Results" MODIFIED="1581264518147" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/lm_macro_abm$model_class.coverage" NAME="model_class Coverage Results" MODIFIED="1581263374849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/lm_bm_basic_exp$model_class.coverage" NAME="model_class Coverage Results" MODIFIED="1588764661081" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -61,7 +61,6 @@ def get_nr_fired_ids(f, emp_ids):
 def f_fires_nr_workers(h_arr, fired_ids, f):
     for h in h_arr[fired_ids]:
         h.fired = True
-        h.fired_time_max = 2
         f.n_nr_fired += 1
 
 
@@ -117,10 +116,11 @@ def remove_nr_apps_from_queues(f_arr, chosen_apps, emp_ids):
             f.apps_r = f.apps_r[bool_arr]
 
 
-def employ_nr_apps(h_arr, emp_mat, nr_job_arr, f, lambda_LM, min_w, t):
-    emp_ids = np.array([])
+def employ_nr_apps(h_arr, emp_mat, app_mat, nr_job_arr, f, lambda_LM, min_w, t):
     for h in h_arr:
         h.job_offer[t] = 1
+        # delete all applications
+        app_mat[:, h.id] = np.zeros(len(emp_mat[:, h.id]))
         # either they already have a nr job
         if nr_job_arr[h.id]:
             Pr = Pr_LM(h.w, h.d_w, lambda_LM)
@@ -134,7 +134,9 @@ def employ_nr_apps(h_arr, emp_mat, nr_job_arr, f, lambda_LM, min_w, t):
                 h.w = np.maximum(h.d_w, min_w)
                 # update_desired wage in case of a minimum wage
                 h.d_w = h.w
-                emp_ids = np.append(emp_ids, h.id)
+                h.fired_time = 0
+                h.fired = False
+
         # or they are unemployed or have a routine job
         else:
             f.v_nr -= 1
@@ -149,9 +151,7 @@ def employ_nr_apps(h_arr, emp_mat, nr_job_arr, f, lambda_LM, min_w, t):
             h.w = np.maximum(h.d_w, min_w)
             # update_desired wage in case of a minimum wage
             h.d_w = h.w
-            emp_ids = np.append(emp_ids, h.id)
             nr_job_arr[h.id] = True
-    return emp_ids
 
 
 def delete_from_old_nr_job(h, emp_mat):
@@ -161,6 +161,7 @@ def delete_from_old_nr_job(h, emp_mat):
 def firms_employ_nr_applicants(m):
     f_arr, h_arr, lambda_LM, min_w, t = m.f_arr, m.h_arr, m.lambda_LM, m.min_w, m.t
     emp_matrix, routine_arr, nr_job_arr = m.emp_matrix, m.routine_arr, m.nr_job_arr
+    app_matrix = m.app_matrix
     # 1. get vacancies
     # v_arr = np.array([f.v for f in f_arr])
 
@@ -173,30 +174,40 @@ def firms_employ_nr_applicants(m):
     # 4. shuffle vacancies using shuffled ids
     rand_v_arr = np.array([f.v_nr for f in f_arr[rand_f_ids]])
 
-    # 5. extract positive vacancy numbers
-    bool_arr = rand_v_arr > 0
-    # demand_arr = rand_v_arr[bool_arr]
+    # get demanded wages
+    d_wages = np.asarray([h.d_w for h in m.h_arr])
+    h_ids = np.arange(len(h_arr))
 
-    # get total number of applications
-    tot_applicants = np.sum(np.array([len(f.apps_nr) for f in f_arr]))
+    val = True
+    while val:
+        # print("in 'firms_employ_nr_applicants'")
+        v_arr = np.array([f.v_nr if f.v_nr > 0 else 0 for f in f_arr])
+        val_arr = v_arr @ app_matrix[:, m.non_routine_arr]
+        # some_arr = np.array(
+        #     [(f.id, f.v_nr, f.n_nr_fired, f.Nnr, f.d_Nnr) for f in m.f_arr]
+        # )
+        # print("val_arr: {}".format(some_arr))
+        val = np.sum(v_arr @ app_matrix[:, m.non_routine_arr])
 
-    while (tot_applicants > 0) and (np.sum(bool_arr) > 0):
-        # firms choose applicants
         for i in range(len(f_ids)):
 
             id, v = int(rand_f_ids[i]), int(rand_v_arr[i])
-            if len(f_arr[id].apps_nr) * (v > 0) > 0:
-                h_app_ids = f_arr[id].apps_nr[:, 0].astype(int)
-                chosen_apps = h_app_ids[0:v]
-                emp_ids = employ_nr_apps(h_arr[chosen_apps], emp_matrix, nr_job_arr, f_arr[id],
-                                         lambda_LM, min_w, t)
-                remove_nr_apps_from_queues(f_arr[rand_f_ids], chosen_apps, emp_ids)
+            if np.sum(app_matrix[id, m.non_routine_arr]) * (v > 0) > 0:
+                # get app ids
+                applied = app_matrix[id, :] > 0 # look at all applicants
+                # take ids of workers that have applied and are non-routine type
+                mask = np.logical_and(applied, m.non_routine_arr)
+                h_app_ids = h_ids[mask]
+                # sort app ids from lowest to highest wrt to wages
+                sorted_app_ids = np.argsort(d_wages[h_app_ids])
+                # choose cheapest ids
+                sorted_h_ids = h_app_ids[sorted_app_ids] # sort applicant ids
+                chosen_apps = sorted_h_ids[0:v]
+                # set only column app_mat[:, h_id] to zero if worker h_id rejects
+                employ_nr_apps(h_arr[chosen_apps], emp_matrix, app_matrix,
+                               nr_job_arr, f_arr[id], lambda_LM, min_w, t)
 
         update_N(f_arr, emp_matrix, nr_job_arr)
         update_v(f_arr)
         rand_f_ids = rd.choice(f_ids, len(f_ids), replace=False)
         rand_v_arr = np.array([f.v_nr for f in f_arr[rand_f_ids]])
-        bool_arr = rand_v_arr
-
-
-        tot_applicants = np.sum(np.array([len(f.apps_nr) for f in f_arr[rand_f_ids[rand_v_arr > 0]]]))
