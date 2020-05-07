@@ -104,8 +104,7 @@ def hh_refin_firms(m):
     m.default_fs = default_firms(m.f_arr)
 
     # change this later
-    mean_Af = np.mean(np.array([f.A for f in m.f_arr[m.active_fs]]))
-    refin_firms(m.Af, m.f_arr[m.default_fs], m.f_arr[m.active_fs], m.h_arr, m.n_refinanced,
+    refin_firms(m.f_arr[m.default_fs], m.f_arr[m.active_fs], m.h_arr, m.n_refinanced,
                 m.tol, m.t)
 
     m.active_fs = surviving_firms(m.f_arr)
