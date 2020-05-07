@@ -51,7 +51,7 @@ def calibrate_model(H = 200, F = 20, Ah = 1, u_r = 0.08, mu_r = 0.3, W_r = 1, ga
 
     c = Y/H # individual steady state consumption
 
-    print("rho: {}, mu_r: {}, W_nr: {}, Ah: {}, Af: {}, uc: {}, p: {}, y_f: {}".format(rho, mu_nr, W_nr, Ah, Af, uc, p, y_f))
+    print("rho: {}, mu_nr: {}, W_nr: {}, Ah: {}, Af: {}, uc: {}, p: {}, y_f: {}".format(rho, mu_nr, W_nr, Ah, Af, uc, p, y_f))
     print("pi_f: {}, div_h: {}, div_f: {}, c: {}, alpha_1: {}, Nr: {}, Nnr: {}".format(pi_f, div_h, div_f, c, alpha_1, Nr, Nnr))
 
     return mu_nr, W_nr, Af, uc, p, y_f, pi_f, div_h, div_f, c, alpha_1, Nr, Nnr

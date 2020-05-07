@@ -120,15 +120,20 @@ class Model:
 
         self.n_refinanced = np.zeros(T)
 
+        # decile ratios
+        self.nine_to_five, self.five_to_one, self.nine_to_one = np.zeros(T), np.zeros(T), np.zeros(T)
+
+        self.wage_variance = np.zeros(T)
+
     def data_collector(self):
 
-        ur_n = np.sum(np.array([h.u[self.t] for h in self.h_arr[self.routine_arr]]))
-        unr_n = np.sum(np.array([h.u[self.t] for h in self.h_arr[self.non_routine_arr]]))
-        u_n = np.sum(np.array([h.u[self.t] for h in self.h_arr]))
+        ur_n = self.H_r - np.sum(self.emp_matrix[:, self.routine_arr])
+        unr_n = self.H_nr - np.sum(self.emp_matrix[:, self.non_routine_arr])
+        u_n = self.H - np.sum(self.emp_matrix)
 
         self.u_n = u_n
 
-        self.u_r_arr[self.t] = (self.H-np.sum(self.emp_matrix))/self.H
+        self.u_r_arr[self.t] = u_n/self.H
         self.ur_r_arr[self.t] = ur_n/self.H_r
         self.unr_r_arr[self.t] = unr_n / self.H_nr
 
@@ -141,13 +146,19 @@ class Model:
         self.INV_arr[self.t] = np.sum([f.inv for f in self.f_arr])
 
         # get mean wages
-        self.mean_w_arr[self.t] = (np.sum(np.array([h.w for h in self.h_arr]))/(self.H-u_n))/self.mean_p_arr[self.t]
-        self.mean_nominal_w_arr[self.t] = (np.sum(np.array([h.w for h in self.h_arr])) / (self.H - u_n))
+        wages = np.array([h.w for h in self.h_arr])
+        wages = wages[wages > 0]
+        self.mean_w_arr[self.t] = (np.sum(wages)/(self.H-u_n))/self.mean_p_arr[self.t]
+        self.mean_nominal_w_arr[self.t] = (np.sum(wages) / (self.H - u_n))
 
-        self.mean_r_w = np.sum(np.array([h.w for h in self.h_arr[self.routine_arr]]))/(self.H_r-ur_n)
+        r_wages = np.array([h.w for h in self.h_arr[self.routine_arr]])
+        r_wages = r_wages[r_wages > 0]
+        self.mean_r_w = np.sum(r_wages)/(self.H_r-ur_n)
         self.mean_r_w_arr[self.t] = self.mean_r_w/self.mean_p_arr[self.t]
 
-        self.mean_nr_w = np.sum(np.array([h.w for h in self.h_arr[self.non_routine_arr]]))/(self.H_nr-unr_n)
+        nr_wages = np.array([h.w for h in self.h_arr[self.non_routine_arr]])
+        nr_wages = nr_wages[nr_wages > 0]
+        self.mean_nr_w = np.sum(nr_wages)/(self.H_nr-unr_n)
         self.mean_nr_w_arr[self.t] = self.mean_nr_w/self.mean_p_arr[self.t]
 
         # get GDP
@@ -159,6 +170,17 @@ class Model:
         # share of default firms
         n_def = np.sum(self.default_fs)
         self.share_inactive[self.t] = n_def/self.F
+
+        # decile ratios
+        nine_to_five = np.percentile(wages, 90)/np.percentile(wages, 50)
+        five_to_one = np.percentile(wages, 50)/np.percentile(wages, 10)
+        nine_to_one = np.percentile(wages, 90)/np.percentile(wages, 10)
+
+        # wage variance
+        self.wage_variance[self.t] = np.var(wages)
+
+        self.nine_to_five[self.t], self.five_to_one[self.t] = nine_to_five, five_to_one
+        self.nine_to_one[self.t] = nine_to_one
 
     def step_function(self):
 

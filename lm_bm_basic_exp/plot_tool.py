@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 def plot_lm(m, T, periods, steps):
@@ -53,25 +54,22 @@ def plot_lm(m, T, periods, steps):
 
     # Log-differences mean real wages
     axs2[0, 0].grid()
-    axs2[0, 0].set_title("log-diff mean real wages", fontsize=fontsize)
+    axs2[0, 0].set_title("Variance of Wages", fontsize=fontsize)
     log_diff_arr = np.log(m.mean_nr_w_arr[t:T:steps])-np.log(m.mean_r_w_arr[t:T:steps])
     axs2[0, 0].plot(time_array[t:T:steps], log_diff_arr, marker="o", markersize=2, alpha=1,
                    label="log-diff mean real wages", color = "k")
     if m.shock_t > t:
         axs2[0, 0].axvline(x=m.shock_t, color="red")
-    # axs2[0].set(ylim=(-0.1, 1))
 
     # nr and r unemployment rates
     axs2[0, 1].grid()
-    axs2[0, 1].set_title("Share of Nr in R jobs", fontsize=fontsize)
-    axs2[0, 1].bar(np.arange(len(time_array[t:T:steps])), m.share_nr_in_r[t:T:steps], label="share r in nr")
-    # axs2[0, 1].plot(time_array[t:T], m.share_nr_in_r[t:T], marker="o", markersize=2, alpha=1)
-    # axs2[1].plot(time_array[t:T], m.unr_r_arr[t:T], marker="o", markersize=2, alpha=1,
-    #              label="Unemployment rate nr-worker")
+    axs2[0, 1].set_title("Decile Comparison", fontsize=fontsize)
+    axs2[0, 1].plot(time_array[t:T:steps], m.nine_to_five[t:T:steps], label="9/5")
+    axs2[0, 1].plot(time_array[t:T:steps], m.five_to_one[t:T:steps], label="5/1")
+    axs2[0, 1].plot(time_array[t:T:steps], m.nine_to_one[t:T:steps], label="9/1")
+    axs2[0, 1].legend(loc="best")
     if m.shock_t > t:
         axs2[0, 1].axvline(x=m.shock_t, color="red")
-    # axs2[1].legend(loc="best")
-    # axs2[1].set(ylim=(0, 0.25))
 
     axs2[1, 0].grid()
     axs2[1, 0].set_title("Mean prices$ ", fontsize=fontsize)
@@ -98,3 +96,38 @@ def plot_lm(m, T, periods, steps):
 
     return fig, fig2
 
+def get_wage_dist_fig(m):
+
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(30, 10))
+
+    ax1.clear()
+    ax2.clear()
+    ax3.clear()
+    ax1.grid()
+    ax2.grid()
+    ax3.grid()
+
+    fontsize = 10
+    # look only at employed wages
+    wages = np.array([h.w for h in m.h_arr])
+    wages = wages[wages > 0]
+
+    # wages of routine worker
+    r_wages = np.array([h.w for h in m.h_arr[m.routine_arr]])
+    r_wages = r_wages[r_wages > 0]
+
+    # wages of non-routine worker
+    nr_wages = np.array([h.w for h in m.h_arr[m.non_routine_arr]])
+    nr_wages = nr_wages[nr_wages > 0]
+
+    # norm_wages = (1/np.max(wages))*wages
+    sns.distplot(wages, kde=False, ax = ax1)
+    sns.distplot(r_wages, kde=False, ax = ax2)
+    sns.distplot(nr_wages, kde=False, ax = ax3)
+
+    # titles
+    ax1.set_title("Distribution of the wages of all workers", fontsize=fontsize)
+    ax2.set_title("Distribution of the wages of routine workers", fontsize=fontsize)
+    ax3.set_title("Distribution of the wages of non-routine workers", fontsize=fontsize)
+
+    return fig
