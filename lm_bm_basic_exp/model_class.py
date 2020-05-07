@@ -12,16 +12,16 @@ class Model:
 
     def __init__(self,
                  # exogenously chosen steady state parameters
-                 H = 200, F = 20, Ar = 1, u_r = 0.08, mu_r = 1, W_r = 1, gamma_nr = 0.33,
+                 H = 200, F = 20, Ah = 1, u_r = 0.08, mu_r = 0.3, W_r = 1, gamma_nr = 0.33,
                  m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25, N_app = 4,
                  # exogenous model parameters
                  lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, min_w = 0, min_realw_t = 0,
-                 shock_t = 0, sigma_m = 0.001, sigma_w = 0.005, sigma_delta = 0.001, chi_L = 0.1, chi_C = 0.2, T = 500,
+                 shock_t = 0, sigma_m = 0.001, sigma_w = 0.005, sigma_delta = 0.001, chi_C = 0.2, T = 500,
                  tol = 1e-10):
 
 
         # exogenous parameters
-        self.sigma_m, self.sigma_w, self.chi_L, self.chi_C = sigma_m, sigma_w, chi_L, chi_C
+        self.sigma_m, self.sigma_w, self.chi_C = sigma_m, sigma_w, chi_C
         self.N_app = N_app
         self.sigma_delta = sigma_delta
         self.lambda_LM = lambda_LM
@@ -36,20 +36,20 @@ class Model:
         self.tol = tol
 
         # exogenously chosen steady state parameters
-        self.H, self.F, self.Ar = H, F, Ar
+        self.H, self.F, self.Ah = H, F, Ah
         self.mu_r, self.u_r, self.W_r, self.gamma_nr  = mu_r, u_r, W_r, gamma_nr
         self.m, self.sigma, self.delta, self.alpha_2 = m, sigma, delta, alpha_2
 
         # steady state calibration
-        calibration = calibrate_model(H=H, F=F, Ar=Ar, u_r=u_r, mu_r=mu_r, W_r=W_r, gamma_nr=gamma_nr,
+        calibration = calibrate_model(H=H, F=F, Ah=Ah, u_r=u_r, mu_r=mu_r, W_r=W_r, gamma_nr=gamma_nr,
                                       m=m, sigma=sigma, delta=delta, alpha_2=alpha_2)
 
         # parameters derived from steady state model
 
-        mu_nr, W_nr, Anr, Af, uc, p, y, pi_f, DIV_r, DIV_nr, DIV_f, c_r, c_nr, alpha_1, Nr, Nnr = calibration
+        mu_nr, W_nr, Af, uc, p, y_f, pi_f, div_h, div_f, c, alpha_1, Nr, Nnr = calibration
 
-        self.mu_nr, self.W_nr, self.Anr, self.Af, self.uc , self.p, self.y = mu_nr, W_nr, Anr, Af, uc, p, y
-        self.pi_f, self.DIV_r, self.DIV_nr, self.DIV_f, self.c_r, self.c_nr = pi_f, DIV_r, DIV_nr, DIV_f, c_r, c_nr
+        self.mu_nr, self.W_nr, self.Af, self.uc , self.p, self.y = mu_nr, W_nr, Af, uc, p, y_f
+        self.pi_f, self.div_h, self.div_f, self.c = pi_f, div_h, div_f, c
         self.alpha_1, self.Nr, self.Nnr = alpha_1, Nr, Nnr
 
         # Number of routine resp. non-routine households
@@ -61,14 +61,14 @@ class Model:
 
         # create firms
         self.f_arr = np.array([Firm(j, self.Af, T, self.y, self.nu, self.W_r, self.W_nr,
-                                    self.delta, self.p, self.m, self.pi_f, self.DIV_f, self.uc) for j in range(F)])
+                                    self.delta, self.p, self.m, self.pi_f, self.div_f, self.uc) for j in range(F)])
 
         # create households
-        self.h_arr = np.array([Household(j, self.Ar, T,
-                                         routine, self.W_r, self.p, self.c_r, self.DIV_r) for j in range(self.H_r)])
+        self.h_arr = np.array([Household(j, self.Ah, T,
+                                         routine, self.W_r, self.p, self.c, self.div_h) for j in range(self.H_r)])
 
-        self.h_arr = np.append(self.h_arr, np.array([Household(j, self.Anr, T,
-                                                               non_routine, self.W_nr, self.p, self.c_nr, self.DIV_nr)
+        self.h_arr = np.append(self.h_arr, np.array([Household(j, self.Ah, T,
+                                                               non_routine, self.W_nr, self.p, self.c, self.div_h)
                                                      for j in range(self.H_r, self.H_r + self.H_nr)]))
 
         # select routine resp. non routine workers

@@ -355,7 +355,7 @@ def CES_production(Nr, Nnr, mu_r, mu_nr, sigma):
 def get_Omega(Wr_e, Wnr_e, mu_r, mu_nr, sigma):
     rho = (sigma - 1)/sigma
     X_1, X_2, X_3 = Wr_e / mu_r, Wnr_e / mu_nr, mu_nr / mu_r
-    Omega = ((X_1/X_2)**(1/rho-1))*X_3
+    Omega = ((X_1/X_2)**(1/(rho-1)))*X_3
     return Omega
 
 
