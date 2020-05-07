@@ -162,7 +162,7 @@ class Model:
 
     def step_function(self):
 
-        if self.t % 1 == 0:
+        if self.t % 20 == 0:
             print("Period: {}".format(self.t))
 
         if self.t == self.shock_t:

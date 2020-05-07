@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="572e5e4c-9c80-4d4a-ad7f-2656d4296208" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/default_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/default_tools.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/goods_market.py" beforeDir="false" afterPath="$PROJECT_DIR$/goods_market.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_class.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stepfunction_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/stepfunction_methods.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +187,7 @@
       <workItem from="1588691551961" duration="15008000" />
       <workItem from="1588742231044" duration="35790000" />
       <workItem from="1588839740456" duration="1419000" />
-      <workItem from="1588841176640" duration="6984000" />
+      <workItem from="1588841176640" duration="7229000" />
     </task>
     <task id="LOCAL-00001" summary="added small a small feature to plot_tool">
       <created>1587658989572</created>
@@ -227,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588754728865</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="corrected refin function">
+      <created>1588848451535</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1588848451535</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -239,17 +243,18 @@
     <MESSAGE value="corrected update_delta(), calibrated model" />
     <MESSAGE value="improving employment mechanisms" />
     <MESSAGE value="improved_employment mechanisms" />
-    <option name="LAST_COMMIT_MESSAGE" value="improved_employment mechanisms" />
+    <MESSAGE value="corrected refin function" />
+    <option name="LAST_COMMIT_MESSAGE" value="corrected refin function" />
   </component>
   <component name="WindowStateProjectService">
     <state x="707" y="376" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1588767195765">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="707" y="376" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588767195765" />
-    <state x="671" y="219" key="CommitChangelistDialog2" timestamp="1588754726144">
+    <state x="671" y="219" key="CommitChangelistDialog2" timestamp="1588848471033">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="671" y="219" key="CommitChangelistDialog2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588754726144" />
+    <state x="671" y="219" key="CommitChangelistDialog2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588848471033" />
     <state x="895" y="295" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1587740587590" />
     <state x="796" y="339" key="FileChooserDialogImpl" timestamp="1588711784335">
       <screen x="0" y="0" width="1920" height="1040" />
