@@ -7,8 +7,8 @@ def plot_lm(m, T, periods, steps):
 
     t = T - periods
 
-    fig, axs = plt.subplots(2, 2, figsize=(14, 10))
-    fig2, axs2 = plt.subplots(2, 2, figsize=(14, 10))
+    fig, axs = plt.subplots(2, 2, figsize=(12, 8))
+    fig2, axs2 = plt.subplots(2, 2, figsize=(12, 8))
 
     time_array = np.arange(0, T)
 
@@ -17,7 +17,7 @@ def plot_lm(m, T, periods, steps):
     axs[0, 1].clear()
     axs[1, 1].clear()
 
-    fontsize = 10
+    fontsize = 15
 
     # GDP plot
     axs[0, 0].grid()
@@ -72,7 +72,7 @@ def plot_lm(m, T, periods, steps):
         axs2[0, 1].axvline(x=m.shock_t, color="red")
 
     axs2[1, 0].grid()
-    axs2[1, 0].set_title("Mean prices$ ", fontsize=fontsize)
+    axs2[1, 0].set_title("Mean prices", fontsize=fontsize)
     axs2[1, 0].plot(time_array[t:T:steps], m.mean_p_arr[t:T:steps], marker="o",
                     markersize=2, alpha=1, color = "green")
     if m.shock_t > t:
@@ -98,7 +98,7 @@ def plot_lm(m, T, periods, steps):
 
 def get_wage_dist_fig(m):
 
-    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(30, 10))
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(15, 5))
 
     ax1.clear()
     ax2.clear()
@@ -107,7 +107,7 @@ def get_wage_dist_fig(m):
     ax2.grid()
     ax3.grid()
 
-    fontsize = 10
+    fontsize = 15
     # look only at employed wages
     wages = np.array([h.w for h in m.h_arr])
     wages = wages[wages > 0]
