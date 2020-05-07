@@ -92,7 +92,8 @@ def get_unemployed(h, nr_job_arr, emp_mat, t):
     h.u[t] = 1
     nr_job_arr[h.id] = False
     h.w = 0
-    h.last_w = h.w
+    h.fired = False
+    h.fired_time = 0
 
 
 def count_unemployed_hs(h_arr, t):
@@ -119,7 +120,7 @@ def update_exp(h_arr, t, diff):
             h.exp = np.sum(1 - h.u[t - 3: t + 1])
 
 
-def update_d_w(h_arr, sigma_chi, t):
+def update_d_w(h_arr, sigma_chi, tol, t):
 
     for h in h_arr:
 
@@ -129,7 +130,7 @@ def update_d_w(h_arr, sigma_chi, t):
             # note that employed worker's d_w is
             # not increasing fom period to period
             h.d_w = h.d_w*(1 + rd.chisquare(1)*sigma_chi)
-        h.d_w = np.max([h.d_w, 0])
+        h.d_w = np.max([h.d_w, tol])
 
 
 def update_w_e(h_arr, lambda_exp):
@@ -195,8 +196,6 @@ def fired_workers_loose_job(h_arr, f_arr, emp_mat, nr_job_arr, t):
             f_id = np.nonzero(emp_mat[:, h.id])[0][0]
             get_unemployed(h, nr_job_arr, emp_mat, t)
             f_arr[f_id].n_nr_fired -= 1
-            h.fired = False
-            h.fired_time = 0
 
 
 def update_p_e(h_arr, lambda_exp):

@@ -6,6 +6,7 @@ from hire_fire_non_routine import *
 import numpy as np
 from goods_market import gm_matching
 from stepfunction_methods import *
+from sys import exit
 
 
 class Model:
@@ -184,7 +185,7 @@ class Model:
 
     def step_function(self):
 
-        if self.t % 20 == 0:
+        if self.t % 1 == 0:
             print("Period: {}".format(self.t))
 
         if self.t == self.shock_t:
@@ -199,6 +200,7 @@ class Model:
         fired_workers_loose_job(self.h_arr, self.f_arr, self.emp_matrix, self.nr_job_arr, self.t)
 
         wage_decisions(self)
+
         household_decisions(self)
         firm_decisions(self)
 
@@ -217,8 +219,6 @@ class Model:
 
         for h in self.h_arr[unemp_arr]:
             get_unemployed(h, self.nr_job_arr, self.emp_matrix, self.t)
-            h.fired = False
-            h.fired_time = 0
 
         self.data_collector()
 
@@ -234,6 +234,9 @@ class Model:
         if bug_check:
             print("STOP! Here is a bug, defaulted firm still have employees!")
             print("You should check 'default_firms()' and 'hh_refin_firms()'")
+
+        if self.h_arr[66].d_w==0:
+            print(self.h_arr[66].d_w)
         self.t += 1
 
     def run(self):

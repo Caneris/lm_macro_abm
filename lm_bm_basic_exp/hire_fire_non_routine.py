@@ -1,5 +1,6 @@
 from toolbox import *
 from hire_fire_routine import delete_from_old_r_job
+from sys import exit
 
 
 ##################################################################################
@@ -120,7 +121,7 @@ def employ_nr_apps(h_arr, emp_mat, app_mat, nr_job_arr, f, lambda_LM, min_w, t):
     for h in h_arr:
         h.job_offer[t] = 1
         # delete all applications
-        app_mat[:, h.id] = np.zeros(len(emp_mat[:, h.id]))
+        app_mat[:, h.id] = np.zeros(len(app_mat[:, h.id]))
         # either they already have a nr job
         if nr_job_arr[h.id]:
             Pr = Pr_LM(h.w, h.d_w, lambda_LM)
