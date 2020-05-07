@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="572e5e4c-9c80-4d4a-ad7f-2656d4296208" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calibration.py" beforeDir="false" afterPath="$PROJECT_DIR$/calibration.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_class.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_tool.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_tool.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -234,7 +230,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588848451535</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="added decile comparison;&#10;variance of wages;&#10;wages distribution plots;">
+      <created>1588870915511</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1588870915511</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -248,17 +251,18 @@
     <MESSAGE value="improved_employment mechanisms" />
     <MESSAGE value="corrected refin function" />
     <MESSAGE value="redefined calibration; corrected production function" />
-    <option name="LAST_COMMIT_MESSAGE" value="redefined calibration; corrected production function" />
+    <MESSAGE value="added decile comparison;&#10;variance of wages;&#10;wages distribution plots;" />
+    <option name="LAST_COMMIT_MESSAGE" value="added decile comparison;&#10;variance of wages;&#10;wages distribution plots;" />
   </component>
   <component name="WindowStateProjectService">
     <state x="707" y="376" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1588767195765">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="707" y="376" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588767195765" />
-    <state x="671" y="219" key="CommitChangelistDialog2" timestamp="1588848471033">
+    <state x="671" y="177" key="CommitChangelistDialog2" timestamp="1588871131838">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="671" y="219" key="CommitChangelistDialog2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588848471033" />
+    <state x="671" y="177" key="CommitChangelistDialog2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588871131838" />
     <state x="895" y="295" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1587740587590" />
     <state x="796" y="339" key="FileChooserDialogImpl" timestamp="1588711784335">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -308,10 +312,10 @@
     </state>
     <state x="587" y="255" key="SettingsEditor/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588742539891" />
     <state x="782" y="343" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587652150825" />
-    <state x="655" y="322" key="Vcs.Push.Dialog.v2" timestamp="1588862531488">
+    <state x="655" y="322" key="Vcs.Push.Dialog.v2" timestamp="1588870919115">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="655" y="322" key="Vcs.Push.Dialog.v2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588862531488" />
+    <state x="655" y="322" key="Vcs.Push.Dialog.v2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588870919115" />
     <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587740596463" />
     <state x="733" y="390" key="com.intellij.ide.util.TipDialog" timestamp="1588841176635">
       <screen x="0" y="0" width="1920" height="1040" />
