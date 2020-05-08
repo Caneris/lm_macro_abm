@@ -14,16 +14,16 @@ class Model:
     def __init__(self,
                  # exogenously chosen steady state parameters
                  H = 200, F = 20, Ah = 1, u_r = 0.08, mu_r = 0.3, W_r = 1, gamma_nr = 0.33,
-                 m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25, N_app = 4,
+                 m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25,
                  # exogenous model parameters
                  lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, min_w = 0, min_realw_t = 0,
                  shock_t = 0, sigma_m = 0.001, sigma_w = 0.005, sigma_delta = 0.001, chi_C = 0.2, T = 500,
-                 tol = 1e-10):
+                 tol = 1e-10, N_app = 4, nr_to_r = False):
 
 
         # exogenous parameters
         self.sigma_m, self.sigma_w, self.chi_C = sigma_m, sigma_w, chi_C
-        self.N_app = N_app
+        self.N_app, self.nr_to_r = N_app, nr_to_r
         self.sigma_delta = sigma_delta
         self.lambda_LM = lambda_LM
         self.lambda_exp = lambda_exp
@@ -132,6 +132,8 @@ class Model:
         unr_n = self.H_nr - np.sum(self.emp_matrix[:, self.non_routine_arr])
         u_n = self.H - np.sum(self.emp_matrix)
 
+        self.share_nr_in_r[self.t] = np.sum(self.emp_matrix[:, np.logical_and(np.invert(self.nr_job_arr), self.non_routine_arr)])
+
         self.u_n = u_n
 
         self.u_r_arr[self.t] = u_n/self.H
@@ -185,7 +187,7 @@ class Model:
 
     def step_function(self):
 
-        if self.t % 1 == 0:
+        if self.t % 50 == 0:
             print("Period: {}".format(self.t))
 
         if self.t == self.shock_t:
