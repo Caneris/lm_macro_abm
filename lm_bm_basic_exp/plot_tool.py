@@ -68,6 +68,7 @@ def plot_lm(m, T, periods, steps):
     axs2[0, 1].plot(time_array[t:T:steps], m.five_to_one[t:T:steps], label="5/1")
     axs2[0, 1].plot(time_array[t:T:steps], m.nine_to_one[t:T:steps], label="9/1")
     axs2[0, 1].legend(loc="best")
+    axs2[0, 1].set_ylabel("(decile) ratio of income")
     if m.shock_t > t:
         axs2[0, 1].axvline(x=m.shock_t, color="red")
 
@@ -75,12 +76,13 @@ def plot_lm(m, T, periods, steps):
     axs2[1, 0].set_title("Mean prices", fontsize=fontsize)
     axs2[1, 0].plot(time_array[t:T:steps], m.mean_p_arr[t:T:steps], marker="o",
                     markersize=2, alpha=1, color = "green")
+    axs2[0, 1].set_ylabel("mean price")
     if m.shock_t > t:
         axs2[1, 0].axvline(x=m.shock_t, color="red")
 
     axs2[1, 1].grid()
     axs2[1, 1].set_title("default rate", fontsize=fontsize)
-    axs2[1, 1].set_ylabel("share of refin. firms")
+    axs2[1, 1].set_ylabel("share of refin. firms", color = "c")
     ax3 = axs2[1, 1].twinx()
     ax3.set_ylabel("share of inactive firms", color = "orange")
     # axs2[1, 1].plot(time_array[t:T], m.n_refinanced[t:T]/m.F, alpha=1, label = "share of refinanced firms")
@@ -129,5 +131,53 @@ def get_wage_dist_fig(m):
     ax1.set_title("Distribution of the wages of all workers", fontsize=fontsize)
     ax2.set_title("Distribution of the wages of routine workers", fontsize=fontsize)
     ax3.set_title("Distribution of the wages of non-routine workers", fontsize=fontsize)
+
+    return fig
+
+def get_aggregate_regs(m, T, periods):
+
+    t = T - periods
+
+    GDP_growth = [m.GDP[i] / m.GDP[i-1] - 1 if i > 0 else 0 for i in range(m.T)]
+    GDP_growth = GDP_growth[1:]
+
+    unemp_growth = [np.exp(m.u_r_arr[i]-m.u_r_arr[i-1]) - 1 if i > 0 else 0 for i in range(m.T)]
+    unemp_growth = unemp_growth[1:]
+
+    wage_rate = [m.mean_nominal_w_arr[i]/m.mean_nominal_w_arr[i-1] - 1
+                 if i > 0 else 0 for i in range(m.T)]
+    # wage_rate = wage_rate[1:]
+
+
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(15, 5))
+
+    ax1.clear()
+    ax2.clear()
+    ax3.clear()
+    ax1.grid()
+    ax2.grid()
+    ax3.grid()
+
+    fontsize = 15
+    print(m.u_r_arr[t:T].shape)
+    print(m.open_vs[t:T].shape)
+
+    # Beveridge curve
+    ax1.set_title("Beveridge curve", fontsize=fontsize)
+    ax1.scatter(m.u_r_arr[t:T], m.open_vs[t:T], alpha=0.5, color = "red")
+    ax1.set_ylabel("open vacancies")
+    ax1.set_ylabel("unemployment rate")
+
+    # Wage curve
+    ax2.set_title("Wage curve", fontsize=fontsize)
+    ax2.scatter(m.u_r_arr[t:T], wage_rate[t:T], alpha=0.5, color = "orange")
+    ax2.set_xlabel("unemployment rate")
+    ax2.set_ylabel("wage growth")
+
+    # Okun curve
+    ax3.set_title("Okun curve", fontsize=fontsize)
+    ax3.scatter(unemp_growth[t:T], GDP_growth[t:T], alpha=0.5, color = "green")
+    ax3.set_ylabel("(real) GDP growth")
+    ax3.set_xlabel("unemployment growth")
 
     return fig
