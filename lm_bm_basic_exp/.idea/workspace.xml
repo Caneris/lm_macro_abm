@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="572e5e4c-9c80-4d4a-ad7f-2656d4296208" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_tool.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_tool.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hire_fire_non_routine.py" beforeDir="false" afterPath="$PROJECT_DIR$/hire_fire_non_routine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hire_fire_routine.py" beforeDir="false" afterPath="$PROJECT_DIR$/hire_fire_routine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -34,7 +34,7 @@
     </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="nr_can_apply_for_r" />
+        <entry key="$PROJECT_DIR$/.." value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -255,7 +255,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588876292138</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="added aggregate reuglarities">
+      <created>1588949512124</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1588949512124</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,17 +279,18 @@
     <MESSAGE value="added decile comparison;&#10;variance of wages;&#10;wages distribution plots;" />
     <MESSAGE value="tested some parameter settings" />
     <MESSAGE value="changed plot_tool settings" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed plot_tool settings" />
+    <MESSAGE value="added aggregate reuglarities" />
+    <option name="LAST_COMMIT_MESSAGE" value="added aggregate reuglarities" />
   </component>
   <component name="WindowStateProjectService">
     <state x="707" y="376" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1588767195765">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="707" y="376" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588767195765" />
-    <state x="671" y="177" key="CommitChangelistDialog2" timestamp="1588878437292">
+    <state x="671" y="177" key="CommitChangelistDialog2" timestamp="1588949510590">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="671" y="177" key="CommitChangelistDialog2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588878437292" />
+    <state x="671" y="177" key="CommitChangelistDialog2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588949510590" />
     <state x="895" y="295" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1587740587590" />
     <state x="796" y="339" key="FileChooserDialogImpl" timestamp="1588711784335">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -332,10 +340,10 @@
     </state>
     <state x="587" y="255" key="SettingsEditor/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588742539891" />
     <state x="782" y="343" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587652150825" />
-    <state x="655" y="322" key="Vcs.Push.Dialog.v2" timestamp="1588949485989">
+    <state x="655" y="322" key="Vcs.Push.Dialog.v2" timestamp="1588949520002">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="655" y="322" key="Vcs.Push.Dialog.v2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588949485989" />
+    <state x="655" y="322" key="Vcs.Push.Dialog.v2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588949520002" />
     <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587740596463" />
     <state x="733" y="390" key="com.intellij.ide.util.TipDialog" timestamp="1588929556458">
       <screen x="0" y="0" width="1920" height="1040" />

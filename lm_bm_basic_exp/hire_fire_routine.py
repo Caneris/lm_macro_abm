@@ -103,7 +103,7 @@ def remove_r_apps_from_queues(f_arr, chosen_apps):
             f.apps_r = f.apps_r[bool_arr]
 
 
-def employ_r_apps(h_arr, emp_mat, app_mat, f, lambda_LM, min_w, t):
+def employ_r_apps(h_arr, emp_mat, app_mat, nr_job_arr, f, lambda_LM, min_w, t):
 
     for h in h_arr:
         h.job_offer[t] = 1
@@ -123,6 +123,7 @@ def employ_r_apps(h_arr, emp_mat, app_mat, f, lambda_LM, min_w, t):
                 h.d_w = h.w
                 h.fired_time = 0
                 h.fired = False
+                nr_job_arr[h.id] = False
         else:
             f.v_r -= 1
             h.u[t] = 0
@@ -131,6 +132,7 @@ def employ_r_apps(h_arr, emp_mat, app_mat, f, lambda_LM, min_w, t):
             h.w = np.maximum(h.d_w, min_w)
             # update_desired wage in case of a minimum wage
             h.d_w = h.w
+            nr_job_arr[h.id] = False
 
 
 def delete_from_old_r_job(h, f_arr):
@@ -147,7 +149,7 @@ def firms_employ_r_applicants(m):
 
     # determine whether nr workers can apply for r jobs or not
     if m.nr_to_r:
-        bool_arr = np.invert(m.nr_job_arr)  # everyone without a nr job
+        bool_arr = np.ones(m.H) > 0  # everyone
     else:
         bool_arr = m.routine_arr
 
@@ -192,7 +194,7 @@ def firms_employ_r_applicants(m):
                 # choose cheapest ids
                 sorted_h_ids = h_app_ids[sorted_app_ids]  # sort applicant ids
                 chosen_apps = sorted_h_ids[0:v]
-                employ_r_apps(h_arr[chosen_apps], emp_matrix, app_matrix,
+                employ_r_apps(h_arr[chosen_apps], emp_matrix, app_matrix, m.nr_job_arr,
                               f_arr[id], lambda_LM, min_w, t)
 
         update_N(f_arr, emp_matrix, m.nr_job_arr)

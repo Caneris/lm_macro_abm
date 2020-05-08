@@ -122,9 +122,8 @@ def employ_nr_apps(h_arr, emp_mat, app_mat, nr_job_arr, f, lambda_LM, min_w, t):
         h.job_offer[t] = 1
         # delete all applications
         app_mat[:, h.id] = np.zeros(len(app_mat[:, h.id]))
-        # either they already have a nr job
-        if nr_job_arr[h.id]:
-            Pr = Pr_LM(h.w, h.d_w, lambda_LM)
+        if np.sum(emp_mat[:, h.id]) > 0:
+            Pr = Pr_LM(h.w, h.d_w, 3*lambda_LM)
             switch = bool(draw_one(Pr))
             if switch:
                 f.v_nr -= 1
@@ -137,15 +136,9 @@ def employ_nr_apps(h_arr, emp_mat, app_mat, nr_job_arr, f, lambda_LM, min_w, t):
                 h.d_w = h.w
                 h.fired_time = 0
                 h.fired = False
-
-        # or they are unemployed or have a routine job
+                nr_job_arr[h.id] = True
         else:
             f.v_nr -= 1
-            boolean = np.sum(emp_mat[:, h.id]) > 0
-            if boolean:
-                # delete from old "r" job
-                emp_mat[:, h.id] = np.zeros(len(emp_mat[:, h.id]))
-
             h.u[t] = 0
             # household gets employed
             emp_mat[f.id, h.id] = 1
