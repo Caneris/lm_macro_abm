@@ -63,7 +63,7 @@ def refin_firms(def_firms, surviving_firms, h_arr, n_refin, tol, t):
     sigma_Wnr_e = np.std(Wnr_e_arr)
 
     m_arr = np.array([f.m for f in surviving_firms])
-    m_init = np.mean(m_arr)
+    m_init = np.percentile(m_arr, 50)
     sigma_m = np.std(m_arr)
 
     for id in rand_ids:

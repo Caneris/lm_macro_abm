@@ -130,7 +130,7 @@ def update_d_w(h_arr, sigma_chi, tol, t):
             # note that employed worker's d_w is
             # not increasing fom period to period
             h.d_w = h.d_w*(1 + rd.chisquare(1)*sigma_chi)
-        h.d_w = np.max([h.d_w, tol])
+        h.d_w = np.max([h.d_w, 0.01])
 
 
 def update_w_e(h_arr, lambda_exp):

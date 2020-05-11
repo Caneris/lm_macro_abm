@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="572e5e4c-9c80-4d4a-ad7f-2656d4296208" name="Default Changelist" comment="improved default mechanism;">
+    <list default="true" id="572e5e4c-9c80-4d4a-ad7f-2656d4296208" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/default_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/default_tools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hire_fire_non_routine.py" beforeDir="false" afterPath="$PROJECT_DIR$/hire_fire_non_routine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/toolbox.py" beforeDir="false" afterPath="$PROJECT_DIR$/toolbox.py" afterDir="false" />
     </list>
@@ -193,7 +192,7 @@
       <workItem from="1588852628385" duration="7789000" />
       <workItem from="1588873910848" duration="3004000" />
       <workItem from="1588929558234" duration="8279000" />
-      <workItem from="1589200290578" duration="9170000" />
+      <workItem from="1589200290578" duration="12565000" />
     </task>
     <task id="LOCAL-00001" summary="added small a small feature to plot_tool">
       <created>1587658989572</created>
@@ -272,7 +271,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588951132351</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="improved default mechanism;">
+      <created>1589211190777</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1589211190777</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -291,22 +297,23 @@
     <MESSAGE value="changed plot_tool settings" />
     <MESSAGE value="added aggregate reuglarities" />
     <MESSAGE value="implemented more realistic assumptions" />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented more realistic assumptions" />
+    <MESSAGE value="improved default mechanism;" />
+    <option name="LAST_COMMIT_MESSAGE" value="improved default mechanism;" />
   </component>
   <component name="WindowStateProjectService">
     <state x="707" y="376" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1588767195765">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="707" y="376" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588767195765" />
-    <state x="671" y="177" key="CommitChangelistDialog2" timestamp="1589211105257">
+    <state x="671" y="177" key="CommitChangelistDialog2" timestamp="1589211187192">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="671" y="177" key="CommitChangelistDialog2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589211105257" />
+    <state x="671" y="177" key="CommitChangelistDialog2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589211187192" />
     <state x="895" y="295" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1587740587590" />
-    <state x="282" y="151" key="DiffContextDialog" timestamp="1589211101694">
+    <state x="282" y="151" key="DiffContextDialog" timestamp="1589211177768">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="282" y="151" key="DiffContextDialog/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589211101694" />
+    <state x="282" y="151" key="DiffContextDialog/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589211177768" />
     <state x="796" y="339" key="FileChooserDialogImpl" timestamp="1588711784335">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
