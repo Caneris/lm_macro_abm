@@ -285,7 +285,7 @@ def update_m(f_arr, sigma_chi):
             f.m = f.m*(1+rd.chisquare(1)*sigma_chi)
         elif f.inv > f.nu*f.s:
             f.m = f.m*(1-rd.chisquare(1)*sigma_chi)
-        f.m = np.maximum(1e-2, f.m)
+        f.m = np.maximum(0.01, f.m)
 
 
 def update_m2(f_arr, param):

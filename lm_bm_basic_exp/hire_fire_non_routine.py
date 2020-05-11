@@ -123,7 +123,7 @@ def employ_nr_apps(h_arr, emp_mat, app_mat, nr_job_arr, f, lambda_LM, min_w, t):
         # delete all applications
         app_mat[:, h.id] = np.zeros(len(app_mat[:, h.id]))
         if np.sum(emp_mat[:, h.id]) > 0:
-            Pr = Pr_LM(h.w, h.d_w, 3*lambda_LM)
+            Pr = Pr_LM(h.w, h.d_w, lambda_LM)
             switch = bool(draw_one(Pr))
             if switch:
                 f.v_nr -= 1

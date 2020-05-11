@@ -55,8 +55,15 @@ def refin_firms(def_firms, surviving_firms, h_arr, n_refin, tol, t):
     s_e_init = np.percentile(s_e_arr, 50)
     sigma_s_e = np.std(s_e_arr)
 
+    Wr_e_arr = np.array([f.Wr_e for f in surviving_firms])
+    Wnr_e_arr = np.array([f.Wnr_e for f in surviving_firms])
+    Wr_e_init = np.percentile(Wr_e_arr, 50)
+    Wnr_e_init = np.percentile(Wnr_e_arr, 50)
+    sigma_Wr_e = np.std(Wr_e_arr)
+    sigma_Wnr_e = np.std(Wnr_e_arr)
+
     m_arr = np.array([f.m for f in surviving_firms])
-    m_init = np.percentile(s_e_arr, 50)
+    m_init = np.mean(m_arr)
     sigma_m = np.std(m_arr)
 
     for id in rand_ids:
@@ -67,6 +74,8 @@ def refin_firms(def_firms, surviving_firms, h_arr, n_refin, tol, t):
             def_firms[id].default = False
             def_firms[id].s_e = s_e_init + rd.randn()*sigma_s_e
             def_firms[id].m = m_init + rd.randn()*sigma_m
+            def_firms[id].Wr_e = Wr_e_init + rd.randn() * sigma_Wr_e
+            def_firms[id].Wnr_e = Wnr_e_init + rd.randn() * sigma_Wnr_e
             n_refin[t] += 1
 
             pay_refin_cost(h_arr, weights, tol, refin)
