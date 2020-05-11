@@ -20,11 +20,18 @@ print(end - start)
 fig1, fig2 = plot_lm(m, m.t, 300, 1)
 fig3 = get_wage_dist_fig(m)
 fig4 = get_aggregate_regs(m, m.t, m.t)
+
 fig1.show()
+plt.close(fig1)
+
 fig2.show()
+plt.close(fig2)
+
 fig3.show()
+plt.close(fig3)
+
 fig4.show()
-plt.close('all')
+plt.close(fig4)
 
 # show nr in r jobs
 print(np.sum(m.emp_matrix[:,np.logical_and(np.invert(m.nr_job_arr), m.non_routine_arr)]))

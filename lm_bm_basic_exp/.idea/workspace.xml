@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="572e5e4c-9c80-4d4a-ad7f-2656d4296208" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/default_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/default_tools.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toolbox.py" beforeDir="false" afterPath="$PROJECT_DIR$/toolbox.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,7 +190,7 @@
       <workItem from="1588852628385" duration="7789000" />
       <workItem from="1588873910848" duration="3004000" />
       <workItem from="1588929558234" duration="8279000" />
-      <workItem from="1589200290578" duration="12565000" />
+      <workItem from="1589200290578" duration="13953000" />
     </task>
     <task id="LOCAL-00001" summary="added small a small feature to plot_tool">
       <created>1587658989572</created>
@@ -278,7 +276,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589211190777</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="improved default mechanism;">
+      <created>1589214549012</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1589214549012</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -305,10 +310,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="707" y="376" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588767195765" />
-    <state x="671" y="177" key="CommitChangelistDialog2" timestamp="1589211187192">
+    <state x="671" y="177" key="CommitChangelistDialog2" timestamp="1589214546388">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="671" y="177" key="CommitChangelistDialog2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589211187192" />
+    <state x="671" y="177" key="CommitChangelistDialog2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589214546388" />
     <state x="895" y="295" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1587740587590" />
     <state x="282" y="151" key="DiffContextDialog" timestamp="1589211177768">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -362,10 +367,10 @@
     </state>
     <state x="587" y="255" key="SettingsEditor/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588742539891" />
     <state x="782" y="343" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587652150825" />
-    <state x="655" y="322" key="Vcs.Push.Dialog.v2" timestamp="1589211062113">
+    <state x="655" y="322" key="Vcs.Push.Dialog.v2" timestamp="1589214551234">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="655" y="322" key="Vcs.Push.Dialog.v2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589211062113" />
+    <state x="655" y="322" key="Vcs.Push.Dialog.v2/-1920.142.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589214551234" />
     <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587740596463" />
     <state x="733" y="390" key="com.intellij.ide.util.TipDialog" timestamp="1589200844332">
       <screen x="0" y="0" width="1920" height="1040" />
