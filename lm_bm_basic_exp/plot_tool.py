@@ -159,8 +159,6 @@ def get_aggregate_regs(m, T, periods):
     ax3.grid()
 
     fontsize = 15
-    print(m.u_r_arr[t:T].shape)
-    print(m.open_vs[t:T].shape)
 
     # Beveridge curve
     ax1.set_title("Beveridge curve", fontsize=fontsize)
