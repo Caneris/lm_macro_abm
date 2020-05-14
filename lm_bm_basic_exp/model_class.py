@@ -18,7 +18,7 @@ class Model:
                  # exogenous model parameters
                  lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, min_w = 0, min_realw_t = 0,
                  shock_t = 0, sigma_m = 0.001, sigma_w = 0.005, sigma_delta = 0.001, chi_C = 0.2, T = 500,
-                 tol = 1e-10, N_app = 4, nr_to_r = False):
+                 tol = 1e-10, N_app = 4, nr_to_r = False, a = 100):
 
 
         # exogenous parameters
@@ -38,11 +38,11 @@ class Model:
 
         # exogenously chosen steady state parameters
         self.H, self.F, self.Ah = H, F, Ah
-        self.mu_r, self.u_r, self.W_r, self.gamma_nr  = mu_r, u_r, W_r, gamma_nr
+        self.mu_r, self.u_r, self.W_r, self.gamma_nr  = a*mu_r, u_r, W_r, gamma_nr
         self.m, self.sigma, self.delta, self.alpha_2 = m, sigma, delta, alpha_2
 
         # steady state calibration
-        calibration = calibrate_model(H=H, F=F, Ah=Ah, u_r=u_r, mu_r=mu_r, W_r=W_r, gamma_nr=gamma_nr,
+        calibration = calibrate_model(a = a, H=H, F=F, Ah=Ah, u_r=u_r, mu_r=self.mu_r, W_r=W_r, gamma_nr=gamma_nr,
                                       m=m, sigma=sigma, delta=delta, alpha_2=alpha_2)
 
         # parameters derived from steady state model

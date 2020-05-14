@@ -5,7 +5,7 @@ from sys import exit
 # H = 200, F = 20, u_r = 0.08, mu_r = 1, W_r = 1, gamma_nr = 0.33,
 #                  m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25
 
-def calibrate_model(H = 200, F = 20, Ah = 1, u_r = 0.08, mu_r = 0.3, W_r = 1, gamma_nr = 0.33, m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.1):
+def calibrate_model(a = 100, H = 200, F = 20, Ah = 1, u_r = 0.08, mu_r = 0.3, W_r = 1, gamma_nr = 0.33, m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.1):
 
     # get elasticity parameter
     rho = (sigma-1)/sigma
@@ -14,7 +14,7 @@ def calibrate_model(H = 200, F = 20, Ah = 1, u_r = 0.08, mu_r = 0.3, W_r = 1, ga
         print("\nSorry, but mu_r has to be between 0 and 1.")
         exit()
 
-    mu_nr = 1 - mu_r
+    mu_nr = a - mu_r
 
     # 1. get Omega, mu_nr, W_nr
     Omega = (1-gamma_nr)/gamma_nr
