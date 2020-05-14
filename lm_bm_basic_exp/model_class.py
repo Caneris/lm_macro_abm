@@ -31,6 +31,7 @@ class Model:
         self.nu = nu
 
         self.min_w, self.min_realw_t = min_w, min_realw_t
+        self.min_real_w = 0
         self.shock_t = shock_t
 
         self.T, self.t = T, 0
@@ -91,6 +92,7 @@ class Model:
         mean_w = (1 - gamma_nr)*W_r + gamma_nr*W_nr
         self.mean_w, self.u_n = mean_w, 0
         self.mean_r_w, self.mean_nr_w, self.mean_w_arr = W_r, W_nr, np.zeros(T)
+        self.median_w_arr = np.zeros(T)
 
         # unemployment
         self.mean_p_arr = np.zeros(T)
@@ -152,6 +154,7 @@ class Model:
         wages = np.array([h.w for h in self.h_arr])
         wages = wages[wages > 0]
         self.mean_w_arr[self.t] = (np.sum(wages)/(self.H-u_n))/self.mean_p_arr[self.t]
+        self.median_w_arr[self.t] = np.median(wages) / self.mean_p_arr[self.t]
         self.mean_nominal_w_arr[self.t] = (np.sum(wages) / (self.H - u_n))
 
         r_wages = np.array([h.w for h in self.h_arr[self.routine_arr]])
