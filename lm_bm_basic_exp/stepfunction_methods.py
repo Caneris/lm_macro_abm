@@ -7,6 +7,10 @@ from goods_market import gm_matching
 
 def wage_decisions(m):
 
+    emp_arr = np.sum(m.emp_matrix, axis=0) > 0
+    update_w(m.h_arr[emp_arr], m.min_w)
+    set_W_fs(m.f_arr[m.active_fs], m.emp_matrix, m.nr_job_arr, m.h_arr)
+
     # wage decisions
     update_N(m.f_arr, m.emp_matrix, m.nr_job_arr)
     set_W_fs(m.f_arr[m.active_fs], m.emp_matrix, m.nr_job_arr, m.h_arr)  # firms measure average wages paid to employees

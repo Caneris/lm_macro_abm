@@ -30,7 +30,7 @@ def gm_matching(f_arr, h_arr, chi, tol):
                 ind = np.argsort(prices)[0]
                 f = f_arr_shuffled[ind]
                 # buy consumption good
-                c = np.min([h.d_c/1, demand[int(h.id)], supply[int(f.id)]])
+                c = np.min([h.d_c/2, demand[int(h.id)], supply[int(f.id)]])
                 # print(current_rw, demand[h.id], supply[f.id])
                 expenditure = c*f.p
                 if expenditure <= h.A:

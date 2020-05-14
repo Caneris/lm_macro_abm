@@ -22,17 +22,8 @@ def update_wr_wnr_bar(w_bar, mean_w, phi_w):
     return w_bar
 
 def expectation(z, z_e, lambda_exp):
-    """
-    this function returns the expected value for the
-    variable z for the current period.
-
-    :param z: previous period observation
-    :param z_e: previous period expectation
-    :param lambda_exp: adjustment parameter
-    :return: current period observation
-    """
     error = z - z_e
-    return z_e + lambda_exp*error
+    return np.maximum(z_e + lambda_exp*error, 0.00001)
 
 def get_min_w(mean_p, min_r_w):
     return mean_p*min_r_w
@@ -136,6 +127,10 @@ def update_d_w(h_arr, sigma_chi, tol, t):
 def update_w_e(h_arr, lambda_exp):
     for h in h_arr:
         h.w_e = expectation(h.w, h.w_e, lambda_exp)
+
+def update_w(emp_h_arr, min_w):
+    for h in emp_h_arr:
+        h.w = np.maximum(h.w, min_w)
 
 
 def update_Ah(h_arr):
@@ -269,14 +264,14 @@ def update_Wr_e(f_arr, min_w, lambda_exp):
     for f in f_arr:
         if f.Wr > 0:
             f.Wr_e = expectation(f.Wr, f.Wr_e, lambda_exp)
-            f.Wr_e = np.maximum(f.Wr_e, min_w)
+            f.Wr_e = np.max([f.Wr_e, min_w, 0.00001])
 
 
 def update_Wnr_e(f_arr, min_w, lambda_exp):
     for f in f_arr:
         if f.Wr > 0:
             f.Wnr_e = expectation(f.Wnr, f.Wnr_e, lambda_exp)
-            f.Wnr_e = np.maximum(f.Wnr_e, min_w)
+            f.Wnr_e = np.max([f.Wnr_e, min_w, 0.00001])
 
 
 def update_m(f_arr, sigma_chi):

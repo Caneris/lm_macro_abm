@@ -67,7 +67,6 @@ def f_fires_r_workers(h_arr, fired_ids, f):
 
 
 def firms_fire_r_workers(v_mat, h_arr, f_arr, emp_mat, nr_job_arr):
-
     f_mask = v_mat[:, 1] < 0
     val = np.sum(f_mask)
     h_inds = np.arange(len(h_arr))
