@@ -120,7 +120,13 @@ def update_exp(h_arr, t, diff):
             h.exp = np.sum(1 - h.u[t - 3: t + 1])
 
 
-def update_d_w(h_arr, sigma_chi, tol, t):
+def update_w(h_arr, emp_mat, min_w):
+    emp_m = np.sum(emp_mat, axis=0) > 0
+    for h in h_arr[emp_m]:
+        h.w = np.maximum(h.w, min_w)
+
+
+def update_d_w(h_arr, sigma_chi, min_w, t):
 
     for h in h_arr:
 
@@ -130,7 +136,7 @@ def update_d_w(h_arr, sigma_chi, tol, t):
             # note that employed worker's d_w is
             # not increasing fom period to period
             h.d_w = h.d_w*(1 + rd.chisquare(1)*sigma_chi)
-        h.d_w = np.max([h.d_w, 0.01])
+        h.d_w = np.max([h.d_w, min_w])
 
 
 def update_w_e(h_arr, lambda_exp):

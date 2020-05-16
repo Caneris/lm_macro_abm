@@ -72,10 +72,10 @@ def refin_firms(def_firms, surviving_firms, h_arr, n_refin, tol, t):
         if wealth_tot >= 0:
             def_firms[id].A += refin
             def_firms[id].default = False
-            def_firms[id].s_e = s_e_init + rd.randn()*sigma_s_e
-            def_firms[id].m = m_init + rd.randn()*sigma_m
-            def_firms[id].Wr_e = Wr_e_init + rd.randn() * sigma_Wr_e
-            def_firms[id].Wnr_e = Wnr_e_init + rd.randn() * sigma_Wnr_e
+            def_firms[id].s_e = np.maximum(s_e_init + rd.randn()*sigma_s_e, 1)
+            def_firms[id].m = np.maximum(m_init + rd.randn()*sigma_m, 0.01)
+            def_firms[id].Wr_e = np.maximum(Wr_e_init + rd.randn() * sigma_Wr_e, 0.1)
+            def_firms[id].Wnr_e = np.maximum(Wnr_e_init + rd.randn() * sigma_Wnr_e, 0.1)
             n_refin[t] += 1
 
             pay_refin_cost(h_arr, weights, tol, refin)

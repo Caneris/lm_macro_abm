@@ -31,7 +31,6 @@ class Model:
         self.nu = nu
 
         self.min_w, self.min_realw_t = min_w, min_realw_t
-        self.min_real_w = 0
         self.shock_t = shock_t
 
         self.T, self.t = T, 0
@@ -53,6 +52,8 @@ class Model:
         self.mu_nr, self.W_nr, self.Af, self.uc , self.p, self.y = mu_nr, W_nr, Af, uc, p, y_f
         self.pi_f, self.div_h, self.div_f, self.c = pi_f, div_h, div_f, c
         self.alpha_1, self.Nr, self.Nnr = alpha_1, Nr, Nnr
+
+        self.min_real_w = (W_r / p)*0.6
 
         # Number of routine resp. non-routine households
         self.H_r = int(np.round(self.H*(1-self.gamma_nr)))
@@ -193,8 +194,8 @@ class Model:
         if self.t % 50 == 0:
             print("Period: {}".format(self.t))
 
-        if self.t == self.shock_t:
-            self.min_real_w = self.min_realw_t
+        if (self.t == self.shock_t) and (self.min_realw_t):
+            self.min_real_w = self.min_real_w*(1 + self.min_realw_t)
 
         # count unemployed households
         count_fired_time(self.h_arr)
@@ -227,7 +228,7 @@ class Model:
 
         self.data_collector()
 
-        if self.t % 4 == 0:
+        if self.t % 1 == 0:
             self.min_w = get_min_w(self.mean_p_arr[self.t], self.min_real_w)
 
         # firms loose employees
