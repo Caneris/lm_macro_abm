@@ -20,7 +20,7 @@ print(end - start)
 
 fig1, fig2 = plot_lm(m, m.t, m.t, 1)
 fig3 = get_wage_dist_fig(m)
-fig4 = get_aggregate_regs(m, m.t, 200)
+fig4 = get_aggregate_regs(m, m.t, m.t)
 
 fig1.show()
 plt.close(fig1)
