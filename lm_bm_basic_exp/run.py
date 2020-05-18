@@ -9,8 +9,8 @@ import time
 T = 1000
 periods = T
 rd.seed(13521332)
-m = Model(T=T, alpha_2=0.25, chi_C=0.05, lambda_LM=1, sigma_m=0.1, sigma_w= 0.05, sigma_delta=0.001,
-          nu=0.05, u_r=0.08, beta=1, lambda_exp = 1, F = 80, H = 500, N_app=4, sigma=0.5, mu_r=0.4,
+m = Model(T=T, alpha_2=0.25, chi_C=0.05, lambda_LM=1, sigma_m=0.1, sigma_w= 0.1, sigma_delta=0.001,
+          nu=0.05, u_r=0.08, beta=0.8, lambda_exp = 0.5, F = 80, H = 500, N_app=4, sigma=0.25, mu_r=0.4,
           nr_to_r=True, a = 100, shock_t=500, min_realw_t=0.5, gamma_nr=0.4)
 
 start = time.time()
