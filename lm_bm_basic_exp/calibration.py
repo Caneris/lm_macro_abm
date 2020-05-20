@@ -47,7 +47,8 @@ def calibrate_model(a = 100, H = 200, F = 20, Ah = 1, u_r = 0.08, mu_r = 0.3, W_
     # get I, c, C, alpha_1, AF
     AH = H*Ah
     I = Nr*W_r + Nnr*W_nr + DIV
-    alpha_1 = (Y * p - alpha_2 * AH) / I
+    alpha_1 = np.log(Y * p - AH**alpha_2) / np.log(I)
+    # alpha_1 = (Y * p - alpha_2 * AH) / I
 
     c = Y/H # individual steady state consumption
 
