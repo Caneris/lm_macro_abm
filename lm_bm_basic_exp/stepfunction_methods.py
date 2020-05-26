@@ -24,7 +24,7 @@ def household_decisions(m):
 
     # households make consumption decision
     update_p_e(m.h_arr, m.lambda_exp)
-    update_d_c(m.h_arr, m.alpha_1, m.alpha_2)
+    update_d_c(m.h_arr, m.alpha_2)
 
 
 def firm_decisions(m):

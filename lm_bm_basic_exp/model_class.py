@@ -13,7 +13,7 @@ class Model:
 
     def __init__(self,
                  # exogenously chosen steady state parameters
-                 H = 200, F = 20, Ah = 1, u_r = 0.08, mu_r = 0.3, W_r = 1, gamma_nr = 0.33,
+                 H = 200, F = 20, u_r = 0.08, mu_r = 0.3, W_r = 1, gamma_nr = 0.33,
                  m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25,
                  # exogenous model parameters
                  lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, min_w = 0, min_realw_t = 0,
@@ -37,23 +37,25 @@ class Model:
         self.tol = tol
 
         # exogenously chosen steady state parameters
-        self.H, self.F, self.Ah = H, F, Ah
+        self.H, self.F= H, F
         self.mu_r, self.u_r, self.W_r, self.gamma_nr  = a*mu_r, u_r, W_r, gamma_nr
         self.m, self.sigma, self.delta, self.alpha_2 = m, sigma, delta, alpha_2
 
         # steady state calibration
-        calibration = calibrate_model(a = a, H=H, F=F, Ah=Ah, u_r=u_r, mu_r=self.mu_r, W_r=W_r, gamma_nr=gamma_nr,
+        calibration = calibrate_model(a = a, H=H, F=F, u_r=u_r, mu_r=self.mu_r, W_r=W_r, gamma_nr=gamma_nr,
                                       m=m, sigma=sigma, delta=delta, alpha_2=alpha_2)
 
         # parameters derived from steady state model
 
-        mu_nr, W_nr, Af, uc, p, y_f, pi_f, div_h, div_f, c, alpha_1, Nr, Nnr = calibration
+        mu_nr, W_nr, Af, Ah, uc, p, y_f, pi_f, div_h, div_f, c, Nr, Nnr = calibration
 
         self.mu_nr, self.W_nr, self.Af, self.uc , self.p, self.y = mu_nr, W_nr, Af, uc, p, y_f
         self.pi_f, self.div_h, self.div_f, self.c = pi_f, div_h, div_f, c
-        self.alpha_1, self.Nr, self.Nnr = alpha_1, Nr, Nnr
+        self.Nr, self.Nnr = Nr, Nnr
+        self.Ah = Ah
 
-        self.min_real_w = (W_r / p)*minw_init_par
+        self.minw_init_par = minw_init_par
+        self.min_w = W_r*minw_init_par
 
         # Number of routine resp. non-routine households
         self.H_r = int(np.round(self.H*(1-self.gamma_nr)))
@@ -228,8 +230,9 @@ class Model:
 
         self.data_collector()
 
-        if self.t % 8 == 0:
-            self.min_w = get_min_w(self.mean_p_arr[self.t], self.min_real_w)
+        if self.t % 4 == 0:
+            # self.min_w = get_min_w(self.mean_p_arr[self.t], self.min_real_w)
+            self.min_w = self.minw_init_par*np.median([h.w for h in self.h_arr])
 
         # firms loose employees
         for f in self.f_arr[self.default_fs]:

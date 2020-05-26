@@ -149,14 +149,12 @@ def update_Ah(h_arr):
         h.A += (h.par * h.w + h.div)
 
 
-def update_d_c(h_arr, alpha_1, alpha_2):
+def update_d_c(h_arr, alpha_2):
     for h in h_arr:
         # h.d_c = alpha_1*(np.maximum((h.w + h.div - h.refin), 0)/h.p_e) + alpha_2*(h.A/h.p_e)
-        i_h = np.maximum((h.w + h.div - h.refin), 0)
-        w_h = np.maximum(h.A, 0)
-        i_c = np.minimum((i_h)**alpha_1 / h.p_e, i_h / h.p_e)
+        w_h = np.maximum((h.A + h.w + h.div - h.refin), 0)
         w_c = np.minimum((w_h)**alpha_2/ h.p_e, w_h / h.p_e)
-        h.d_c = i_c + w_c
+        h.d_c = w_c
 
 def clear_expenditure(h_arr):
     for h in h_arr:
