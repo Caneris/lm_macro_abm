@@ -37,9 +37,10 @@ def run_perms(ID, NC, T, periods, sigma_w_arr, sigma_m_arr, lambda_LM_arr):
 
         state = rd.get_state()
         rng_states = np.append(rng_states, state)
-        m = Model(T=T, alpha_2=0.1, chi_L=0.4, chi_C=0.4, lambda_LM=lambda_LM, sigma_m=sigma_m,
-                  sigma_w= sigma_w, nu = 0.1, u_r=0.08, beta=1, lambda_exp = 0.5, F = 16, H = 100)
+        m = Model(T=T, alpha_2=0.25, N_app=4, chi_C=0.5, lambda_LM=lambda_LM, sigma_m=sigma_m,
+                  sigma_w= sigma_w, nu = 0.1, u_r=0.08, beta=1, lambda_exp = 0.5, F = 80, H = 500)
         m.run()
+
         with open('run_ID{}.csv'.format(ID), 'a', newline='') as csvfile:
             filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             filewriter.writerow([j, sigma_w, sigma_m, lambda_LM,

@@ -146,6 +146,8 @@ def get_aggregate_regs(m, T, periods):
 
     wage_rate = [m.mean_nominal_w_arr[i]/m.mean_nominal_w_arr[i-1] - 1
                  if i > 0 else 0 for i in range(m.T)]
+
+    wage_level = [m.mean_nominal_w_arr[i]/m.mean_p_arr[i] for i in range(m.T)]
     # wage_rate = wage_rate[1:]
 
 
@@ -168,9 +170,9 @@ def get_aggregate_regs(m, T, periods):
 
     # Wage curve
     ax2.set_title("Wage curve", fontsize=fontsize)
-    ax2.scatter(m.u_r_arr[t:T], wage_rate[t:T], alpha=0.5, color = "orange")
+    ax2.scatter(m.u_r_arr[t:T], wage_level[t:T], alpha=0.5, color = "orange")
     ax2.set_xlabel("unemployment rate")
-    ax2.set_ylabel("wage growth")
+    ax2.set_ylabel("wage level")
 
     # Okun curve
     ax3.set_title("Okun curve", fontsize=fontsize)
