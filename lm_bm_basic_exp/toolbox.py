@@ -126,16 +126,14 @@ def update_w(h_arr, emp_mat, min_w):
         h.w = np.maximum(h.w, min_w)
 
 
-def update_d_w(h_arr, sigma_chi, min_w, t):
-
+def update_d_w(h_arr, emp_mat, sigma_chi, min_w, t):
+    emp_arr = np.sum(emp_mat, axis=0)
     for h in h_arr:
 
-        if h.job_offer[t-1]==0:
+        if emp_arr[h.id]==0 or h.job_offer[t-1]==0:
             h.d_w = h.d_w*(1-rd.chisquare(1)*sigma_chi)
         else:
-            # note that employed worker's d_w is
-            # not increasing fom period to period
-            h.d_w = h.d_w*(1 + rd.chisquare(1)*sigma_chi)
+            h.d_w = h.d_w * (1 + rd.chisquare(1) * sigma_chi)
         h.d_w = np.max([h.d_w, min_w])
 
 

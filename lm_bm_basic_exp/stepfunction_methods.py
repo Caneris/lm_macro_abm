@@ -14,7 +14,7 @@ def wage_decisions(m):
     set_W_fs(m.f_arr[m.active_fs], m.emp_matrix, m.nr_job_arr, m.h_arr)  # firms measure average wages paid to employees
     update_Wr_e(m.f_arr[m.active_fs], m.min_w, m.lambda_exp)  # firms build wage expectations
     update_Wnr_e(m.f_arr[m.active_fs], m.min_w, m.lambda_exp)
-    update_d_w(m.h_arr, m.sigma_w, m.min_w, m.t)  # households decide for desired wages
+    update_d_w(m.h_arr, m.emp_matrix, m.sigma_w, m.min_w, m.t)  # households decide for desired wages
 
 
 def household_decisions(m):
