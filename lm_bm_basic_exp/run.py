@@ -22,7 +22,7 @@ print(np.mean(m.mean_p_arr[400:]))
 
 fig1, fig2 = plot_lm(m, m.t, m.t, 1)
 fig3 = get_wage_dist_fig(m)
-fig4 = get_aggregate_regs(m, m.t, 250)
+fig4 = get_aggregate_regs(m, m.t, 100)
 
 fig1.show()
 plt.close(fig1)
