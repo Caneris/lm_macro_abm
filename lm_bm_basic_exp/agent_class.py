@@ -79,6 +79,8 @@ class Household(Agent):
         # dummy if TRUE -> routine type else -> non-routine
         self.routine = routine
         self.public_worker = False
+        self.alpha_1 = 0.75
+        self.alpha_2 = 0.25
 
         # Dummy: if True -> current job is non routine,
         #        else -> current job is routine
