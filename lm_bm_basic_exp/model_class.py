@@ -18,7 +18,7 @@ class Model:
                  # exogenous model parameters
                  lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, min_w = 0, min_realw_t = 0,
                  shock_t = 0, sigma_m = 0.001, sigma_w = 0.005, sigma_delta = 0.001, chi_C = 0.2, T = 500,
-                 tol = 1e-10, N_app = 4, nr_to_r = False, a = 100):
+                 tol = 1e-10, N_app = 4, nr_to_r = False, a = 100, minw_init_par = 0.6):
 
 
         # exogenous parameters
@@ -53,7 +53,7 @@ class Model:
         self.pi_f, self.div_h, self.div_f, self.c = pi_f, div_h, div_f, c
         self.alpha_1, self.Nr, self.Nnr = alpha_1, Nr, Nnr
 
-        self.min_real_w = (W_r / p)*0.6
+        self.min_real_w = (W_r / p)*minw_init_par
 
         # Number of routine resp. non-routine households
         self.H_r = int(np.round(self.H*(1-self.gamma_nr)))
