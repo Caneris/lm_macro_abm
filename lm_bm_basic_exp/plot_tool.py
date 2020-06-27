@@ -95,7 +95,6 @@ def plot_lm(m, T, periods, steps):
     # axs2[1, 1].legend(loc="best")
     # axs2[1].set(ylim=(0, 0.25))
 
-
     return fig, fig2
 
 def get_wage_dist_fig(m):
@@ -132,6 +131,8 @@ def get_wage_dist_fig(m):
     ax2.set_title("Distribution of the wages of routine workers", fontsize=fontsize)
     ax3.set_title("Distribution of the wages of non-routine workers", fontsize=fontsize)
 
+    fig.show()
+
     return fig
 
 def get_aggregate_regs(m, T, periods):
@@ -151,33 +152,43 @@ def get_aggregate_regs(m, T, periods):
     # wage_rate = wage_rate[1:]
 
 
-    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(15, 5))
+    fig, axs = plt.subplots(2, 2, figsize=(10, 10))
 
-    ax1.clear()
-    ax2.clear()
-    ax3.clear()
-    ax1.grid()
-    ax2.grid()
-    ax3.grid()
+    axs[0,0].clear()
+    axs[0,1].clear()
+    axs[1,0].clear()
+    axs[1,1].clear()
+    axs[0,0].grid()
+    axs[0,1].grid()
+    axs[1,0].grid()
+    axs[1,1].grid()
 
     fontsize = 15
 
     # Beveridge curve
-    ax1.set_title("Beveridge curve", fontsize=fontsize)
-    ax1.scatter(m.u_r_arr[t:T], m.open_vs[t:T], alpha=0.5, color = "red")
-    ax1.set_ylabel("open vacancies")
-    ax1.set_ylabel("unemployment rate")
+    axs[0,0].set_title("Beveridge curve", fontsize=fontsize)
+    axs[0,0].scatter(m.u_r_arr[t:T], m.open_vs[t:T], alpha=0.5, color = "red")
+    axs[0,0].set_ylabel("open vacancies")
+    axs[0,0].set_xlabel("unemployment rate")
 
     # Wage curve
-    ax2.set_title("Wage curve", fontsize=fontsize)
-    ax2.scatter(m.u_r_arr[t:T], wage_level[t:T], alpha=0.5, color = "orange")
-    ax2.set_xlabel("unemployment rate")
-    ax2.set_ylabel("wage level")
+    axs[0,1].set_title("Wage curve", fontsize=fontsize)
+    axs[0,1].scatter(m.u_r_arr[t:T], wage_level[t:T], alpha=0.5, color = "orange")
+    axs[0,1].set_xlabel("unemployment rate")
+    axs[0,1].set_ylabel("wage level")
 
     # Okun curve
-    ax3.set_title("Okun curve", fontsize=fontsize)
-    ax3.scatter(unemp_growth[t:T], GDP_growth[t:T], alpha=0.5, color = "green")
-    ax3.set_ylabel("(real) GDP growth")
-    ax3.set_xlabel("unemployment growth")
+    axs[1,0].set_title("Okun curve", fontsize=fontsize)
+    axs[1,0].scatter(unemp_growth[t:T], GDP_growth[t:T], alpha=0.5, color = "green")
+    axs[1,0].set_ylabel("(real) GDP growth")
+    axs[1,0].set_xlabel("unemployment growth")
+
+    # Wage curve
+    axs[1, 1].set_title("Phillips curve", fontsize=fontsize)
+    axs[1, 1].scatter(m.u_r_arr[t:T], wage_rate[t:T], alpha=0.5, color="magenta")
+    axs[1, 1].set_xlabel("unemployment rate")
+    axs[1, 1].set_ylabel("wage growth")
+
+    fig.show()
 
     return fig
