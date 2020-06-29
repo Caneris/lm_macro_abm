@@ -197,7 +197,7 @@ class Model:
             print("Period: {}".format(self.t))
 
         if (self.t == self.shock_t) and (self.min_realw_t):
-            self.min_real_w = self.min_real_w*(1 + self.min_realw_t)
+            self.minw_init_par = self.minw_init_par*(1 + self.min_realw_t)
 
         # count unemployed households
         count_fired_time(self.h_arr)
