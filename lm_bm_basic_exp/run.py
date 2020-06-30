@@ -8,7 +8,7 @@ import time
 
 T = 800
 periods = T
-rd.seed(1312343)
+rd.seed(131234)
 m = Model(T=T, alpha_2=0.25, chi_C=0.05, lambda_LM=1, sigma_m=0.1, sigma_w= 0.1, sigma_delta=0.001,
           nu=0.1, u_r=0.08, beta=0.8, lambda_exp = 0.5, F = 40, H = 250, N_app=4, sigma=1.5, mu_r=0.4,
           nr_to_r=True, a = 100, shock_t=400, min_realw_t=0.3, gamma_nr=0.4, minw_init_par=0.5)
