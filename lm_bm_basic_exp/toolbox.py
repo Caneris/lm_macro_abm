@@ -149,12 +149,12 @@ def update_Ah(h_arr):
 
 def update_d_c(h_arr, mean_w, mean_A):
     for h in h_arr:
-        alpha_1 = 1/(1+np.tanh(h.w/mean_w)**5)
+        alpha_1 = 1/(1+np.tanh(h.w/mean_w)**7)
         alpha_2 = 1 / (2 + np.tanh(h.A / mean_A)**5)
         param = 0.8
         h.alpha_1 = param*h.alpha_1 + (1-param)*alpha_1
         h.alpha_2 = param * h.alpha_2 + (1-param)* alpha_2
-        h.d_c = np.maximum(h.alpha_1*(np.maximum((h.w + h.div - h.refin) + h.alpha_2*h.A, 0)/h.p_e), 0*h.d_c)
+        h.d_c = np.maximum(h.alpha_1*(np.maximum((h.w + h.div - h.refin + h.A), 0)/h.p_e), 0*h.d_c)
 
 
 def clear_expenditure(h_arr):
