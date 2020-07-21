@@ -23,16 +23,11 @@ def plot_lm(m, T, periods, steps):
     axs[0, 0].grid()
     axs[0, 0].set_title("GDP", fontsize=fontsize)
     axs[0, 0].plot(time_array[t:T:steps], m.GDP[t:T:steps], marker="o", markersize=3, alpha=1, label="GDP")
-    if m.shock_t > t:
-        axs[0, 0].axvline(x=m.shock_t, color="red")
 
     # Unemployment plot
     axs[1, 0].grid()
     axs[1, 0].set_title("Unemployment rate", fontsize=fontsize)
     axs[1, 0].plot(time_array[t:T:steps], m.u_r_arr[t:T:steps], marker="o", markersize=3, alpha=0.5, label="Unemployment")
-    if m.shock_t > t:
-        axs[1, 0].axvline(x=m.shock_t, color="red")
-    # axs[1, 0].set(ylim=(0, 0.25))
 
     # mean wages plot
     axs[0, 1].grid()
@@ -41,9 +36,6 @@ def plot_lm(m, T, periods, steps):
     axs[0, 1].plot(time_array[t:T:steps], m.mean_nr_w_arr[t:T:steps], marker="o", markersize=2, alpha=1,
                    label="Mean wages non-routine")
     axs[0, 1].legend(loc="best")
-    if m.shock_t > t:
-        axs[0, 1].axvline(x=m.shock_t, color="red")
-    # axs[0, 1].set(ylim=(0, 0.25))
 
     # Beveridge curve
     axs[1, 1].grid()
@@ -58,8 +50,6 @@ def plot_lm(m, T, periods, steps):
     log_diff_arr = np.log(m.mean_nr_w_arr[t:T:steps])-np.log(m.mean_r_w_arr[t:T:steps])
     axs2[0, 0].plot(time_array[t:T:steps], log_diff_arr, marker="o", markersize=2, alpha=1,
                    label="log-diff mean real wages", color = "k")
-    if m.shock_t > t:
-        axs2[0, 0].axvline(x=m.shock_t, color="red")
 
     # nr and r unemployment rates
     axs2[0, 1].grid()
@@ -69,16 +59,12 @@ def plot_lm(m, T, periods, steps):
     axs2[0, 1].plot(time_array[t:T:steps], m.nine_to_one[t:T:steps], label="9/1")
     axs2[0, 1].legend(loc="best")
     axs2[0, 1].set_ylabel("(decile) ratio of income")
-    if m.shock_t > t:
-        axs2[0, 1].axvline(x=m.shock_t, color="red")
 
     axs2[1, 0].grid()
     axs2[1, 0].set_title("Mean prices", fontsize=fontsize)
     axs2[1, 0].plot(time_array[t:T:steps], m.mean_p_arr[t:T:steps], marker="o",
                     markersize=2, alpha=1, color = "green")
     axs2[0, 1].set_ylabel("mean price")
-    if m.shock_t > t:
-        axs2[1, 0].axvline(x=m.shock_t, color="red")
 
     axs2[1, 1].grid()
     axs2[1, 1].set_title("default rate", fontsize=fontsize)
@@ -90,10 +76,6 @@ def plot_lm(m, T, periods, steps):
     axs2[1, 1].bar(time_array[t:T:steps], m.n_refinanced[t:T:steps]/m.F, label = "share of refinanced firms", color = "c")
     ax3.bar(time_array[t:T:steps], m.share_inactive[t:T:steps], 10, label="share of inactive firms", color="orange", alpha = 0.3)
     # ax3.plot(time_array[t:T], m.share_inactive[t:T], alpha=1, label = "share of inactive firms", color = "orange")
-    if m.shock_t > t:
-        axs2[1, 1].axvline(x=m.shock_t, color="red")
-    # axs2[1, 1].legend(loc="best")
-    # axs2[1].set(ylim=(0, 0.25))
 
 
     return fig, fig2

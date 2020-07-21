@@ -34,9 +34,6 @@ def expectation(z, z_e, lambda_exp):
     error = z - z_e
     return z_e + lambda_exp*error
 
-def get_min_w(mean_p, min_r_w):
-    return mean_p*min_r_w
-
 # draw 1 with porbability P and 0 with prob. (1-P)
 
 def draw_one(P):
@@ -134,7 +131,7 @@ def update_d_w(h_arr, emp_mat, sigma_chi, min_w, t):
             h.d_w = h.d_w*(1-rd.chisquare(1)*sigma_chi)
         else:
             h.d_w = h.d_w * (1 + rd.chisquare(1) * sigma_chi)
-        h.d_w = np.max([h.d_w, min_w])
+        h.d_w = np.max([h.d_w, min_w, 0.1])
 
 
 def update_w_e(h_arr, lambda_exp):

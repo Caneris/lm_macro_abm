@@ -16,9 +16,9 @@ class Model:
                  H = 200, F = 20, Ah = 1, u_r = 0.08, mu_r = 0.3, W_r = 1, gamma_nr = 0.33,
                  m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25,
                  # exogenous model parameters
-                 lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, min_w = 0, min_realw_t = 0,
-                 shock_t = 0, sigma_m = 0.001, sigma_w = 0.005, sigma_delta = 0.001, chi_C = 0.2, T = 500,
-                 tol = 1e-10, N_app = 4, nr_to_r = False, a = 100):
+                 lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, sigma_m = 0.001, sigma_w = 0.005,
+                 sigma_delta = 0.001, chi_C = 0.2, T = 500,
+                 tol = 1e-10, N_app = 4, nr_to_r = False, a = 100, min_w_par = 0.3):
 
 
         # exogenous parameters
@@ -30,8 +30,8 @@ class Model:
         self.beta = beta
         self.nu = nu
 
-        self.min_w, self.min_realw_t = min_w, min_realw_t
-        self.shock_t = shock_t
+        self.min_w_par = min_w_par
+        self.min_w = min_w_par*W_r
 
         self.T, self.t = T, 0
         self.tol = tol
@@ -42,7 +42,7 @@ class Model:
         self.m, self.sigma, self.delta, self.alpha_2 = m, sigma, delta, alpha_2
 
         # steady state calibration
-        calibration = calibrate_model(a = a, H=H, F=F, Ah=Ah, u_r=u_r, mu_r=self.mu_r, W_r=W_r, gamma_nr=gamma_nr,
+        calibration = calibrate_model(a = a, H=H, F=F, Ah=W_r, u_r=u_r, mu_r=self.mu_r, W_r=W_r, gamma_nr=gamma_nr,
                                       m=m, sigma=sigma, delta=delta, alpha_2=alpha_2)
 
         # parameters derived from steady state model
@@ -52,8 +52,6 @@ class Model:
         self.mu_nr, self.W_nr, self.Af, self.uc , self.p, self.y = mu_nr, W_nr, Af, uc, p, y_f
         self.pi_f, self.div_h, self.div_f, self.c = pi_f, div_h, div_f, c
         self.alpha_1, self.Nr, self.Nnr = alpha_1, Nr, Nnr
-
-        self.min_real_w = (W_r / p)*0.6
 
         # Number of routine resp. non-routine households
         self.H_r = int(np.round(self.H*(1-self.gamma_nr)))
@@ -194,9 +192,6 @@ class Model:
         if self.t % 50 == 0:
             print("Period: {}".format(self.t))
 
-        if (self.t == self.shock_t) and (self.min_realw_t):
-            self.min_real_w = self.min_real_w*(1 + self.min_realw_t)
-
         # count unemployed households
         count_fired_time(self.h_arr)
         if self.t > 0:
@@ -229,7 +224,9 @@ class Model:
         self.data_collector()
 
         if self.t % 1 == 0:
-            self.min_w = get_min_w(self.mean_p_arr[self.t], self.min_real_w)
+            wages = np.array([h.w for h in self.h_arr])
+            median_w = np.median(wages)
+            self.min_w = self.min_w_par*median_w
 
         # firms loose employees
         for f in self.f_arr[self.default_fs]:
