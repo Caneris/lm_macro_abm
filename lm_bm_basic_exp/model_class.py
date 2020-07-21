@@ -18,7 +18,7 @@ class Model:
                  # exogenous model parameters
                  lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, sigma_m = 0.001, sigma_w = 0.005,
                  sigma_delta = 0.001, chi_C = 0.2, T = 500,
-                 tol = 1e-10, N_app = 4, nr_to_r = False, a = 100, min_w_par = 0.3):
+                 tol = 1e-10, N_app = 4, nr_to_r = False, a = 100, min_w_par = 0.3 , f_max = 3):
 
 
         # exogenous parameters
@@ -66,10 +66,11 @@ class Model:
 
         # create households
         self.h_arr = np.array([Household(j, self.Ah, T,
-                                         routine, self.W_r, self.p, self.c, self.div_h) for j in range(self.H_r)])
+                                         routine, self.W_r, self.p, self.c, self.div_h, f_max) for j in range(self.H_r)])
 
         self.h_arr = np.append(self.h_arr, np.array([Household(j, self.Ah, T,
-                                                               non_routine, self.W_nr, self.p, self.c, self.div_h)
+                                                               non_routine, self.W_nr, self.p, self.c,
+                                                               self.div_h, f_max)
                                                      for j in range(self.H_r, self.H_r + self.H_nr)]))
 
         # select routine resp. non routine workers

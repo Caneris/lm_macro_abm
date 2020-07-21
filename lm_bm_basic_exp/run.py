@@ -8,10 +8,10 @@ import time
 
 T = 500
 periods = T
-rd.seed(1336)
-m = Model(T=T, alpha_2=0.25, chi_C=0.05, lambda_LM=10, sigma_m=0.1, sigma_w= 0.2, sigma_delta=0.001,
-          nu=0.1, u_r=0.08, beta=0.8, lambda_exp = 0.5, F = 80, H = 500, N_app=4, sigma=1.5, mu_r=0.4,
-          nr_to_r=True, a = 1, gamma_nr=0.4, min_w_par=0.4, W_r=1)
+rd.seed(133)
+m = Model(T=T, alpha_2=0.25, chi_C=0.05, lambda_LM=0.5, sigma_m=0.1, sigma_w= 0.3, sigma_delta=0.001,
+          nu=0.1, u_r=0.08, beta=1, lambda_exp = 0.5, F = 80, H = 500, N_app=20, sigma=1.5, mu_r=0.4,
+          nr_to_r=False, a = 1, gamma_nr=0.4, min_w_par=0.4, W_r=1, f_max=2)
 
 start = time.time()
 m.run()
@@ -36,3 +36,16 @@ plt.close(fig4)
 
 # show nr in r jobs
 print(np.sum(m.emp_matrix[:,np.logical_and(np.invert(m.nr_job_arr), m.non_routine_arr)]))
+
+
+import seaborn as sns
+
+fig, (ax1) = plt.subplots(1, 1, figsize=(15, 5))
+
+ax1.clear()
+ax1.grid()
+sns.distplot(m.u_r_arr[150:500], kde=False, ax = ax1)
+fig.show()
+
+
+ax = sns.distplot(m.u_r_arr)

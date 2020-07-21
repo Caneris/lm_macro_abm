@@ -73,7 +73,7 @@ class Firm(Agent):
 
 class Household(Agent):
 
-    def __init__(self, _id, A_init, T, routine, w, p, c, div):
+    def __init__(self, _id, A_init, T, routine, w, p, c, div, f_max):
         super(Household, self).__init__(_id, A_init, T)
 
         # dummy if TRUE -> routine type else -> non-routine
@@ -90,7 +90,7 @@ class Household(Agent):
 
         self.fired = False
         self.fired_time = 0
-        self.fired_time_max = 3
+        self.fired_time_max = f_max
 
         # unemployed dummy,
         self.u = np.zeros(T)
