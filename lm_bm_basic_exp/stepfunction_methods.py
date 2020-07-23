@@ -78,7 +78,7 @@ def run_goods_market(m):
     # firms sell goods
     clear_s(m.f_arr)
     clear_expenditure(m.h_arr)
-    gm_matching(m.f_arr, m.h_arr, m.chi_C, m.tol)
+    gm_matching(m.f_arr, m.h_arr, m.N_good, m.tol)
 
     # firms update sales expectations
     update_s_e(m.f_arr[m.active_fs], m.lambda_exp)

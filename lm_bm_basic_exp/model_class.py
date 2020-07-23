@@ -17,12 +17,12 @@ class Model:
                  m = 0.1, sigma = 0.5, delta = 1, alpha_2 = 0.25,
                  # exogenous model parameters
                  lambda_LM = 0.5, lambda_exp = 0.25, beta = 1, nu = 0.1, sigma_m = 0.001, sigma_w = 0.005,
-                 sigma_delta = 0.001, chi_C = 0.2, T = 500,
+                 sigma_delta = 0.001, N_good = 8, T = 500,
                  tol = 1e-10, N_app = 4, nr_to_r = False, a = 100, min_w_par = 0.3 , f_max = 3):
 
 
         # exogenous parameters
-        self.sigma_m, self.sigma_w, self.chi_C = sigma_m, sigma_w, chi_C
+        self.sigma_m, self.sigma_w, self.N_good = sigma_m, sigma_w, N_good
         self.N_app, self.nr_to_r = N_app, nr_to_r
         self.sigma_delta = sigma_delta
         self.lambda_LM = lambda_LM
@@ -125,7 +125,7 @@ class Model:
 
         # decile ratios
         self.nine_to_five, self.five_to_one, self.nine_to_one = np.zeros(T), np.zeros(T), np.zeros(T)
-
+        self.gini_coeff = np.zeros(T)
         self.wage_variance = np.zeros(T)
 
     def data_collector(self):
@@ -153,6 +153,7 @@ class Model:
         # get mean wages
         wages = np.array([h.w for h in self.h_arr])
         wages = wages[wages > 0]
+        self.gini_coeff[self.t] = get_gini(wages)
         self.mean_w_arr[self.t] = (np.sum(wages)/(self.H-u_n))/self.mean_p_arr[self.t]
         self.median_w_arr[self.t] = np.median(wages) / self.mean_p_arr[self.t]
         self.mean_nominal_w_arr[self.t] = (np.sum(wages) / (self.H - u_n))

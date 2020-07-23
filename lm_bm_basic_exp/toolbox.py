@@ -204,6 +204,14 @@ def update_p_e(h_arr, lambda_exp):
         h.p_e = expectation(h.p, h.p_e, lambda_exp)
 
 
+def get_gini(wages):
+    mask = wages > 0
+    wages = wages[mask]
+    wages = np.sort(wages)
+    n = wages.size
+    indices = np.arange(1, n + 1)
+    return ((np.sum((2*indices - n - 1)*wages))/(n*np.sum(wages)))
+
 #########################################################################################################
 ###################### TOOLS FOR FIRMS ##################################################################
 #########################################################################################################

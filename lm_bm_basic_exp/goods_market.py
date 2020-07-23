@@ -2,7 +2,7 @@ import numpy as np
 import numpy.random as rd
 from toolbox import get_N_sub
 
-def gm_matching(f_arr, h_arr, chi, tol):
+def gm_matching(f_arr, h_arr, N_good, tol):
     h_indices = np.array([h.id for h in h_arr])
     f_indices = np.array([f.id for f in f_arr])
 
@@ -22,7 +22,7 @@ def gm_matching(f_arr, h_arr, chi, tol):
 
         for h in h_arr_shuffled[d_m]:
             # observe firms
-            subN = get_N_sub(chi, np.sum(supply>0))
+            subN = np.minimum(N_good, np.sum(supply>0))
             if subN > 0:
                 f_arr_shuffled = f_arr[rd.choice(f_indices[supply>0], subN, replace=False)]
                 # take the one with lowest price
