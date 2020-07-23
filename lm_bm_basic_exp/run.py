@@ -6,12 +6,12 @@ import time
 
 
 
-T = 500
+T = 1000
 periods = T
-rd.seed(133)
-m = Model(T=T, alpha_2=0.25, chi_C=0.05, lambda_LM=0.5, sigma_m=0.1, sigma_w= 0.3, sigma_delta=0.001,
-          nu=0.1, u_r=0.08, beta=1, lambda_exp = 0.5, F = 80, H = 500, N_app=20, sigma=1.5, mu_r=0.4,
-          nr_to_r=False, a = 1, gamma_nr=0.4, min_w_par=0.4, W_r=1, f_max=2)
+rd.seed(132433)
+m = Model(T=T, alpha_2=0.25, chi_C=0.05, lambda_LM=5, sigma_m=0.1, sigma_w= 0.1, sigma_delta=0.001,
+          nu=0.1, u_r=0.08, beta=1, lambda_exp = 0.5, F = 80, H = 500, N_app=4, sigma=1.5, mu_r=0.4,
+          nr_to_r=True, a = 1, gamma_nr=0.4, min_w_par=0.4, W_r=1, f_max=2)
 
 start = time.time()
 m.run()
