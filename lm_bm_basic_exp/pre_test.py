@@ -18,7 +18,7 @@ def run_perms(ID, NC, T):
         N_good = rd.randint(2,11)
         lambda_LM = rd.randint(2, 11)
         sigma_w = rd.uniform(0.05, 0.5)
-        min_w_par = rd.uniform(0.1, 0.6)
+        min_w_par = rd.uniform(0.1, 0.5)
         sigma = rd.choice(np.linspace(0.5, 1.5, num=6),1)[0]
 
         m = Model(T=T, alpha_2=0.25, sigma=sigma, N_app=N_app, N_good=N_good, lambda_LM=lambda_LM, sigma_m=0.1,
