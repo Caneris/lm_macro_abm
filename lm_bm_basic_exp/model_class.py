@@ -240,8 +240,6 @@ class Model:
             print("STOP! Here is a bug, defaulted firm still have employees!")
             print("You should check 'default_firms()' and 'hh_refin_firms()'")
 
-        if self.h_arr[66].d_w==0:
-            print(self.h_arr[66].d_w)
         self.t += 1
 
     def run(self):
