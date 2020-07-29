@@ -6,7 +6,7 @@ import time
 
 
 
-T = 1000
+T = 50
 periods = T
 rd.seed(132433)
 m = Model(T=T, alpha_2=0.25, N_good=8, lambda_LM=5, sigma_m=0.1, sigma_w=0.2, sigma_delta=0.1,

@@ -19,6 +19,7 @@ def run_perms(ID, NC, T):
         lambda_LM = rd.randint(2, 11)
         sigma_w = rd.uniform(0.1, 0.3)
         sigma_m = rd.uniform(0.1, 0.3)
+        sigma_delta = rd.uniform(0.001, 0.1)
         min_w_par = rd.uniform(0.1, 0.6)
         W_r = rd.uniform(1, 50)
         alpha_2 = rd.uniform(0.1, 0.5)
@@ -26,7 +27,7 @@ def run_perms(ID, NC, T):
         u_r = rd.uniform(0,0.4)
         sigma = rd.uniform(1.5,3)
         f_max = rd.randint(1,4)
-        sigma_delta = rd.uniform(0.001, 0.1)
+
 
         m = Model(T=T, alpha_2=alpha_2, sigma=sigma, N_app=N_app, N_good=N_good, lambda_LM=lambda_LM, sigma_m=sigma_m,
                   sigma_w= sigma_w, nu = 0.1, u_r=u_r, beta=1, lambda_exp = lambda_exp, F = 80, H = 500, min_w_par=min_w_par,
@@ -36,6 +37,10 @@ def run_perms(ID, NC, T):
         with open('pretest_robust_unemp_ID{}.csv'.format(ID), 'a', newline='') as csvfile:
             filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             filewriter.writerow(m.u_r_arr)
+
+        with open('pretest_robust_gini_ID{}.csv'.format(ID), 'a', newline='') as csvfile:
+            filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+            filewriter.writerow(m.gini_coeff)
 
         print("ID: {} sim: {} finished".format(ID, j))
 
