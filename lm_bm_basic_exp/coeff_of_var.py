@@ -13,6 +13,11 @@ def run_nc(args):
 
 
 def run_perms(ID, NC, T):
+
+    with open('tt_replicates_unemp_gini_ID{}.csv'.format(ID), 'w+', newline='') as csvfile:
+        filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        filewriter.writerow(["unemp_rate, gini_coeff"])
+
     for j in range(NC):
 
 
@@ -23,7 +28,7 @@ def run_perms(ID, NC, T):
 
         with open('tt_replicates_unemp_gini_ID{}.csv'.format(ID), 'a', newline='') as csvfile:
             filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            filewriter.writerow(np.mean(m.u_r_arr[T-300:T]), np.mean(m.gini_coeff[T-300:T]))
+            filewriter.writerow([np.mean(m.u_r_arr[T-300:T]), np.mean(m.gini_coeff[T-300:T])])
 
         print("ID: {} sim: {} finished".format(ID, j))
 
