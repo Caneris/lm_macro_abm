@@ -6,10 +6,10 @@ import time
 
 
 
-T = 50
+T = 500
 periods = T
-rd.seed(132433)
-m = Model(T=T, alpha_2=0.25, N_good=8, lambda_LM=5, sigma_m=0.1, sigma_w=0.2, sigma_delta=0.1,
+rd.seed(13243)
+m = Model(T=T, alpha_2=0.25, N_good=4, lambda_LM=1, sigma_m=0.1, sigma_w=0.2, sigma_delta=0.001,
           nu=0.1, u_r=0.08, beta=1, lambda_exp=0.5, F=80, H=500, N_app=4, sigma=1.5, mu_r=0.4,
           nr_to_r=True, a=1, gamma_nr=0.4, min_w_par=0.4, W_r=1, f_max=1)
 
@@ -18,7 +18,7 @@ m.run()
 end = time.time()
 print(end - start)
 
-fig1, fig2 = plot_lm(m, m.t, 200, 1)
+fig1, fig2 = plot_lm(m, m.t, 300, 1)
 fig3 = get_wage_dist_fig(m)
 fig4 = get_aggregate_regs(m, m.t, 200)
 
