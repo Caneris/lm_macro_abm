@@ -161,7 +161,7 @@ if __name__ == '__main__':
     par_list = [N_app, N_good, lambda_LM, sigma_w, sigma_m, min_w_par]
 
     # Number of periods per simulation
-    T = 500
+    T = 600
     # Number of replications (cores)
     NR = 6
     # number of cases
