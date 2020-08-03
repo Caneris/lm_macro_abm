@@ -6,17 +6,17 @@ import csv
 
 
 def run_nc(args):
-    ID, NC, T, par_vals = args
+    ID, NC, T, par_vals, par_names = args
     print('start simulation {} with NC = {}'.format(ID, NC))
-    run_perms(ID, NC, T, par_vals)
+    run_perms(ID, NC, T, par_vals, par_names)
 
 
-def run_perms(ID, NC, T, par_vals):
+def run_perms(ID, NC, T, par_vals, par_names):
 
     # N_app
     if ID == 0:
 
-        with open('OFAT_N_app{}.csv'.format(ID), 'w+', newline='') as csvfile:
+        with open('OFAT_{}.csv'.format(par_names[ID]), 'w+', newline='') as csvfile:
             filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             filewriter.writerow(["N_app", "unemployment_rate", "gini_coeff", "mean_price"])
 
@@ -29,7 +29,7 @@ def run_perms(ID, NC, T, par_vals):
                       nr_to_r=True, mu_r = 0.4, gamma_nr = 0.4, sigma_delta=0.001, a = 1, f_max=1, W_r=1)
             m.run()
 
-            with open('OFAT_N_app{}.csv'.format(ID), 'a', newline='') as csvfile:
+            with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
                 filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 filewriter.writerow([N_app, np.mean(m.u_r_arr[T-300:T]), np.mean(m.gini_coeff[T-300:T]),
                                      np.mean(m.mean_p_arr[T-300:T])])
@@ -37,7 +37,7 @@ def run_perms(ID, NC, T, par_vals):
     # N_good
     elif ID == 1:
 
-        with open('OFAT_N_good{}.csv'.format(ID), 'w+', newline='') as csvfile:
+        with open('OFAT_{}.csv'.format(par_names[ID]), 'w+', newline='') as csvfile:
             filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             filewriter.writerow(["N_app", "unemployment_rate", "gini_coeff", "mean_price"])
 
@@ -50,7 +50,7 @@ def run_perms(ID, NC, T, par_vals):
                       nr_to_r=True, mu_r = 0.4, gamma_nr = 0.4, sigma_delta=0.001, a = 1, f_max=1, W_r=1)
             m.run()
 
-            with open('OFAT_N_good{}.csv'.format(ID), 'a', newline='') as csvfile:
+            with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
                 filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 filewriter.writerow([N_good, np.mean(m.u_r_arr[T-300:T]), np.mean(m.gini_coeff[T-300:T]),
                                      np.mean(m.mean_p_arr[T-300:T])])
@@ -58,7 +58,7 @@ def run_perms(ID, NC, T, par_vals):
     # lambda_LM
     elif ID == 2:
 
-        with open('OFAT_lambda_LM{}.csv'.format(ID), 'w+', newline='') as csvfile:
+        with open('OFAT_lambda_LM{}.csv'.format(par_names[ID]), 'w+', newline='') as csvfile:
             filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             filewriter.writerow(["N_app", "unemployment_rate", "gini_coeff", "mean_price"])
 
@@ -71,7 +71,7 @@ def run_perms(ID, NC, T, par_vals):
                       nr_to_r=True, mu_r = 0.4, gamma_nr = 0.4, sigma_delta=0.001, a = 1, f_max=1, W_r=1)
             m.run()
 
-            with open('OFAT_lambda_LM{}.csv'.format(ID), 'a', newline='') as csvfile:
+            with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
                 filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 filewriter.writerow([lambda_LM, np.mean(m.u_r_arr[T-300:T]), np.mean(m.gini_coeff[T-300:T]),
                                      np.mean(m.mean_p_arr[T-300:T])])
@@ -79,7 +79,7 @@ def run_perms(ID, NC, T, par_vals):
     # sigma_w
     elif ID == 3:
 
-        with open('OFAT_sigma_w{}.csv'.format(ID), 'w+', newline='') as csvfile:
+        with open('OFAT_sigma_w{}.csv'.format(par_names[ID]), 'w+', newline='') as csvfile:
             filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             filewriter.writerow(["sigma_w", "unemployment_rate", "gini_coeff", "mean_price"])
 
@@ -92,7 +92,7 @@ def run_perms(ID, NC, T, par_vals):
                       nr_to_r=True, mu_r=0.4, gamma_nr=0.4, sigma_delta=0.001, a=1, f_max=1, W_r=1)
             m.run()
 
-            with open('OFAT_sigma_w{}.csv'.format(ID), 'a', newline='') as csvfile:
+            with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
                 filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 filewriter.writerow([sigma_w, np.mean(m.u_r_arr[T - 300:T]), np.mean(m.gini_coeff[T - 300:T]),
                                      np.mean(m.mean_p_arr[T-300:T])])
@@ -100,7 +100,7 @@ def run_perms(ID, NC, T, par_vals):
     # sigma_m
     elif ID == 4:
 
-        with open('OFAT_sigma_m{}.csv'.format(ID), 'w+', newline='') as csvfile:
+        with open('OFAT_{}.csv'.format(par_names[ID]), 'w+', newline='') as csvfile:
             filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             filewriter.writerow(["sigma_m", "unemployment_rate", "gini_coeff", "mean_price"])
 
@@ -113,7 +113,7 @@ def run_perms(ID, NC, T, par_vals):
                       nr_to_r=True, mu_r=0.4, gamma_nr=0.4, sigma_delta=0.001, a=1, f_max=1, W_r=1)
             m.run()
 
-            with open('OFAT_sigma_m{}.csv'.format(ID), 'a', newline='') as csvfile:
+            with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
                 filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 filewriter.writerow([sigma_m, np.mean(m.u_r_arr[T - 300:T]), np.mean(m.gini_coeff[T - 300:T]),
                                      np.mean(m.mean_p_arr[T-300:T])])
@@ -121,7 +121,7 @@ def run_perms(ID, NC, T, par_vals):
     # min_w_par
     elif ID == 5:
 
-        with open('OFAT_min_w_par{}.csv'.format(ID), 'w+', newline='') as csvfile:
+        with open('OFAT_{}.csv'.format(par_names[ID]), 'w+', newline='') as csvfile:
             filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             filewriter.writerow(["phi_mw", "unemployment_rate", "gini_coeff", "mean_price"])
 
@@ -134,7 +134,7 @@ def run_perms(ID, NC, T, par_vals):
                       nr_to_r=True, mu_r=0.4, gamma_nr=0.4, sigma_delta=0.001, a=1, f_max=1, W_r=1)
             m.run()
 
-            with open('OFAT_min_w_par{}.csv'.format(ID), 'a', newline='') as csvfile:
+            with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
                 filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 filewriter.writerow([min_w_par, np.mean(m.u_r_arr[T - 300:T]), np.mean(m.gini_coeff[T - 300:T]),
                                      np.mean(m.mean_p_arr[T-300:T])])
@@ -157,14 +157,15 @@ def run_nc_with_mp(args_arr):
 
 if __name__ == '__main__':
 
-    N_app = np.linspace(2, 10,10)
-    N_good = np.linspace(2, 10,10)
-    lambda_LM = np.linspace(1, 10,10)
-    sigma_w = np.linspace(0.1, 0.5, 10)
-    sigma_m = np.linspace(0.1, 0.5, 10)
-    min_w_par = np.linspace(0.1, 0.8, 10)
+    N_app_arr = np.linspace(2, 10, 10)
+    N_good_arr = np.linspace(2, 10, 10)
+    lambda_LM_arr = np.linspace(1, 10, 10)
+    sigma_w_arr = np.linspace(0.1, 0.5, 10)
+    sigma_m_arr = np.linspace(0.1, 0.5, 10)
+    min_w_par_arr = np.linspace(0.1, 0.8, 10)
 
-    par_list = [N_app, N_good, lambda_LM, sigma_w, sigma_m, min_w_par]
+    par_list = [N_app_arr, N_good_arr, lambda_LM_arr, sigma_w_arr, sigma_m_arr, min_w_par_arr]
+    par_names = ["N_app", "N_good", "lambda_LM", "sigma_w", "sigma_m", "min_w_par"]
 
     # Number of periods per simulation
     T = 600
@@ -172,5 +173,5 @@ if __name__ == '__main__':
     NR = 6
     # number of cases
     NC = 100
-    args_arr = [(ID, NC, T, par_list[ID]) for ID in range(NR)]
+    args_arr = [(ID, NC, T, par_list[ID], par_names) for ID in range(NR)]
     run_nc_with_mp(args_arr)
