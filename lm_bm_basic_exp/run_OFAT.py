@@ -13,12 +13,12 @@ def run_nc(args):
 
 def run_perms(ID, NC, T, par_vals, par_names):
 
+    with open('OFAT_{}.csv'.format(par_names[ID]), 'w+', newline='') as csvfile:
+        filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        filewriter.writerow([par_names[ID], "unemployment_rate", "gini_coeff", "mean_price"])
+
     # N_app
     if ID == 0:
-
-        with open('OFAT_{}.csv'.format(par_names[ID]), 'w+', newline='') as csvfile:
-            filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            filewriter.writerow(["N_app", "unemployment_rate", "gini_coeff", "mean_price"])
 
         for j in range(NC):
             i = j%len(par_vals)
@@ -37,10 +37,6 @@ def run_perms(ID, NC, T, par_vals, par_names):
     # N_good
     elif ID == 1:
 
-        with open('OFAT_{}.csv'.format(par_names[ID]), 'w+', newline='') as csvfile:
-            filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            filewriter.writerow(["N_app", "unemployment_rate", "gini_coeff", "mean_price"])
-
         for j in range(NC):
             i = j%len(par_vals)
             N_good = par_vals[i]
@@ -54,90 +50,74 @@ def run_perms(ID, NC, T, par_vals, par_names):
                 filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 filewriter.writerow([N_good, np.mean(m.u_r_arr[T-300:T]), np.mean(m.gini_coeff[T-300:T]),
                                      np.mean(m.mean_p_arr[T-300:T])])
-
-    # lambda_LM
-    elif ID == 2:
-
-        with open('OFAT_lambda_LM{}.csv'.format(par_names[ID]), 'w+', newline='') as csvfile:
-            filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            filewriter.writerow(["N_app", "unemployment_rate", "gini_coeff", "mean_price"])
-
-        for j in range(NC):
-            i = j%len(par_vals)
-            lambda_LM = par_vals[i]
-
-            m = Model(T=T, alpha_2=0.25, sigma=1.5, N_app=4, N_good=4, lambda_LM=lambda_LM, sigma_m=0.1,
-                      sigma_w= 0.2, nu = 0.1, u_r=0.08, beta=1, lambda_exp = 0.5, F = 80, H = 500, min_w_par=0.4,
-                      nr_to_r=True, mu_r = 0.4, gamma_nr = 0.4, sigma_delta=0.001, a = 1, f_max=1, W_r=1)
-            m.run()
-
-            with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
-                filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                filewriter.writerow([lambda_LM, np.mean(m.u_r_arr[T-300:T]), np.mean(m.gini_coeff[T-300:T]),
-                                     np.mean(m.mean_p_arr[T-300:T])])
-
-    # sigma_w
-    elif ID == 3:
-
-        with open('OFAT_sigma_w{}.csv'.format(par_names[ID]), 'w+', newline='') as csvfile:
-            filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            filewriter.writerow(["sigma_w", "unemployment_rate", "gini_coeff", "mean_price"])
-
-        for j in range(NC):
-            i = j % len(par_vals)
-            sigma_w = par_vals[i]
-
-            m = Model(T=T, alpha_2=0.25, sigma=1.5, N_app=4, N_good=4, lambda_LM=1, sigma_m=0.1,
-                      sigma_w=sigma_w, nu=0.1, u_r=0.08, beta=1, lambda_exp=0.5, F=80, H=500, min_w_par=0.4,
-                      nr_to_r=True, mu_r=0.4, gamma_nr=0.4, sigma_delta=0.001, a=1, f_max=1, W_r=1)
-            m.run()
-
-            with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
-                filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                filewriter.writerow([sigma_w, np.mean(m.u_r_arr[T - 300:T]), np.mean(m.gini_coeff[T - 300:T]),
-                                     np.mean(m.mean_p_arr[T-300:T])])
-
-    # sigma_m
-    elif ID == 4:
-
-        with open('OFAT_{}.csv'.format(par_names[ID]), 'w+', newline='') as csvfile:
-            filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            filewriter.writerow(["sigma_m", "unemployment_rate", "gini_coeff", "mean_price"])
-
-        for j in range(NC):
-            i = j % len(par_vals)
-            sigma_m = par_vals[i]
-
-            m = Model(T=T, alpha_2=0.25, sigma=1.5, N_app=4, N_good=4, lambda_LM=1, sigma_m=sigma_m,
-                      sigma_w=0.2, nu=0.1, u_r=0.08, beta=1, lambda_exp=0.5, F=80, H=500, min_w_par=0.4,
-                      nr_to_r=True, mu_r=0.4, gamma_nr=0.4, sigma_delta=0.001, a=1, f_max=1, W_r=1)
-            m.run()
-
-            with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
-                filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                filewriter.writerow([sigma_m, np.mean(m.u_r_arr[T - 300:T]), np.mean(m.gini_coeff[T - 300:T]),
-                                     np.mean(m.mean_p_arr[T-300:T])])
-
-    # min_w_par
-    elif ID == 5:
-
-        with open('OFAT_{}.csv'.format(par_names[ID]), 'w+', newline='') as csvfile:
-            filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            filewriter.writerow(["phi_mw", "unemployment_rate", "gini_coeff", "mean_price"])
-
-        for j in range(NC):
-            i = j % len(par_vals)
-            min_w_par = par_vals[i]
-
-            m = Model(T=T, alpha_2=0.25, sigma=1.5, N_app=4, N_good=N_good, lambda_LM=1, sigma_m=0.1,
-                      sigma_w=0.2, nu=0.1, u_r=0.08, beta=1, lambda_exp=0.5, F=80, H=500, min_w_par=min_w_par,
-                      nr_to_r=True, mu_r=0.4, gamma_nr=0.4, sigma_delta=0.001, a=1, f_max=1, W_r=1)
-            m.run()
-
-            with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
-                filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                filewriter.writerow([min_w_par, np.mean(m.u_r_arr[T - 300:T]), np.mean(m.gini_coeff[T - 300:T]),
-                                     np.mean(m.mean_p_arr[T-300:T])])
+    #
+    # # lambda_LM
+    # elif ID == 2:
+    #
+    #     for j in range(NC):
+    #         i = j%len(par_vals)
+    #         lambda_LM = par_vals[i]
+    #
+    #         m = Model(T=T, alpha_2=0.25, sigma=1.5, N_app=4, N_good=4, lambda_LM=lambda_LM, sigma_m=0.1,
+    #                   sigma_w= 0.2, nu = 0.1, u_r=0.08, beta=1, lambda_exp = 0.5, F = 80, H = 500, min_w_par=0.4,
+    #                   nr_to_r=True, mu_r = 0.4, gamma_nr = 0.4, sigma_delta=0.001, a = 1, f_max=1, W_r=1)
+    #         m.run()
+    #
+    #         with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
+    #             filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    #             filewriter.writerow([lambda_LM, np.mean(m.u_r_arr[T-300:T]), np.mean(m.gini_coeff[T-300:T]),
+    #                                  np.mean(m.mean_p_arr[T-300:T])])
+    #
+    # # sigma_w
+    # elif ID == 3:
+    #
+    #     for j in range(NC):
+    #         i = j % len(par_vals)
+    #         sigma_w = par_vals[i]
+    #
+    #         m = Model(T=T, alpha_2=0.25, sigma=1.5, N_app=4, N_good=4, lambda_LM=1, sigma_m=0.1,
+    #                   sigma_w=sigma_w, nu=0.1, u_r=0.08, beta=1, lambda_exp=0.5, F=80, H=500, min_w_par=0.4,
+    #                   nr_to_r=True, mu_r=0.4, gamma_nr=0.4, sigma_delta=0.001, a=1, f_max=1, W_r=1)
+    #         m.run()
+    #
+    #         with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
+    #             filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    #             filewriter.writerow([sigma_w, np.mean(m.u_r_arr[T - 300:T]), np.mean(m.gini_coeff[T - 300:T]),
+    #                                  np.mean(m.mean_p_arr[T-300:T])])
+    #
+    # # sigma_m
+    # elif ID == 4:
+    #
+    #     for j in range(NC):
+    #         i = j % len(par_vals)
+    #         sigma_m = par_vals[i]
+    #
+    #         m = Model(T=T, alpha_2=0.25, sigma=1.5, N_app=4, N_good=4, lambda_LM=1, sigma_m=sigma_m,
+    #                   sigma_w=0.2, nu=0.1, u_r=0.08, beta=1, lambda_exp=0.5, F=80, H=500, min_w_par=0.4,
+    #                   nr_to_r=True, mu_r=0.4, gamma_nr=0.4, sigma_delta=0.001, a=1, f_max=1, W_r=1)
+    #         m.run()
+    #
+    #         with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
+    #             filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    #             filewriter.writerow([sigma_m, np.mean(m.u_r_arr[T - 300:T]), np.mean(m.gini_coeff[T - 300:T]),
+    #                                  np.mean(m.mean_p_arr[T-300:T])])
+    #
+    # # min_w_par
+    # elif ID == 5:
+    #
+    #     for j in range(NC):
+    #         i = j % len(par_vals)
+    #         min_w_par = par_vals[i]
+    #
+    #         m = Model(T=T, alpha_2=0.25, sigma=1.5, N_app=4, N_good=4, lambda_LM=1, sigma_m=0.1,
+    #                   sigma_w=0.2, nu=0.1, u_r=0.08, beta=1, lambda_exp=0.5, F=80, H=500, min_w_par=min_w_par,
+    #                   nr_to_r=True, mu_r=0.4, gamma_nr=0.4, sigma_delta=0.001, a=1, f_max=1, W_r=1)
+    #         m.run()
+    #
+    #         with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
+    #             filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    #             filewriter.writerow([min_w_par, np.mean(m.u_r_arr[T - 300:T]), np.mean(m.gini_coeff[T - 300:T]),
+    #                                  np.mean(m.mean_p_arr[T-300:T])])
 
 
 
@@ -157,20 +137,20 @@ def run_nc_with_mp(args_arr):
 
 if __name__ == '__main__':
 
-    N_app_arr = np.linspace(2, 10, 10)
-    N_good_arr = np.linspace(2, 10, 10)
+    N_app_arr = np.linspace(2, 11, 10).astype(int)
+    N_good_arr = np.linspace(2, 11, 10).astype(int)
     lambda_LM_arr = np.linspace(1, 10, 10)
     sigma_w_arr = np.linspace(0.1, 0.5, 10)
     sigma_m_arr = np.linspace(0.1, 0.5, 10)
     min_w_par_arr = np.linspace(0.1, 0.8, 10)
 
-    par_list = [N_app_arr, N_good_arr, lambda_LM_arr, sigma_w_arr, sigma_m_arr, min_w_par_arr]
-    par_names = ["N_app", "N_good", "lambda_LM", "sigma_w", "sigma_m", "min_w_par"]
+    par_list = [N_app_arr, N_good_arr]
+    par_names = ["N_app", "N_good"]
 
     # Number of periods per simulation
     T = 600
     # Number of replications (cores)
-    NR = 6
+    NR = 2
     # number of cases
     NC = 100
     args_arr = [(ID, NC, T, par_list[ID], par_names) for ID in range(NR)]
