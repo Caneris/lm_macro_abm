@@ -137,20 +137,20 @@ def run_nc_with_mp(args_arr):
 
 if __name__ == '__main__':
 
-    N_app_arr = np.linspace(2, 11, 10).astype(int)
-    N_good_arr = np.linspace(2, 11, 10).astype(int)
-    lambda_LM_arr = np.linspace(1, 10, 10)
-    sigma_w_arr = np.linspace(0.1, 0.5, 10)
-    sigma_m_arr = np.linspace(0.1, 0.5, 10)
-    min_w_par_arr = np.linspace(0.1, 0.8, 10)
+    N_app_arr = np.linspace(2, 21, 20).astype(int)
+    N_good_arr = np.linspace(2, 21, 20).astype(int)
+    lambda_LM_arr = np.linspace(1, 20, 20)
+    sigma_w_arr = np.linspace(0.01, 0.8, 20)
+    sigma_m_arr = np.linspace(0.01, 0.8, 20)
+    min_w_par_arr = np.round(np.linspace(0.01, 1, 20), 2)
 
-    par_list = [N_app_arr, N_good_arr]
-    par_names = ["N_app", "N_good"]
+    par_list = [N_app_arr, N_good_arr, lambda_LM_arr, sigma_m_arr, sigma_w_arr, min_w_par_arr]
+    par_names = ["N_app", "N_good", "lambda_LM", "sigma_m", "sigma_w", "min_w_par"]
 
     # Number of periods per simulation
-    T = 600
+    T = 1000
     # Number of replications (cores)
-    NR = 2
+    NR = 6
     # number of cases
     NC = 100
     args_arr = [(ID, NC, T, par_list[ID], par_names) for ID in range(NR)]
