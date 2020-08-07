@@ -142,8 +142,8 @@ class Model:
         self.ur_r_arr[self.t] = ur_n/self.H_r
         self.unr_r_arr[self.t] = unr_n / self.H_nr
 
-        self.Y_arr[self.t] = np.sum(np.array([f.y + f.inv for f in self.f_arr]))
-        self.mean_p_arr[self.t] = np.sum(np.array([f.p * (f.y + f.inv) for f in self.f_arr])) / self.Y_arr[self.t]
+        self.Y_arr[self.t] = np.sum(np.array([f.y for f in self.f_arr]))
+        self.mean_p_arr[self.t] = np.sum(np.array([f.p * f.y for f in self.f_arr])) / self.Y_arr[self.t]
 
         self.DC_arr[self.t] = np.sum([h.d_c for h in self.h_arr])
         self.C_arr[self.t] = np.sum([h.c for h in self.h_arr])
@@ -155,7 +155,7 @@ class Model:
         wages = wages[wages > 0]
         self.gini_coeff[self.t] = get_gini(wages)
         self.mean_w_arr[self.t] = (np.sum(wages)/(self.H-u_n))/self.mean_p_arr[self.t]
-        self.median_w_arr[self.t] = np.median(wages) / self.mean_p_arr[self.t]
+        self.median_w_arr[self.t] = np.median(wages)
         self.mean_nominal_w_arr[self.t] = (np.sum(wages) / (self.H - u_n))
 
         r_wages = np.array([h.w for h in self.h_arr[self.routine_arr]])
