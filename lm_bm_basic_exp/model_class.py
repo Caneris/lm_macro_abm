@@ -112,6 +112,7 @@ class Model:
         self.Y_arr = np.zeros(T)
         self.DC_arr, self.C_arr, self.DY_arr = np.zeros(T), np.zeros(T), np.zeros(T)
         self.INV_arr = np.zeros(T)
+        self.mean_m_arr = np.zeros(T)
 
 
         # surviving and default firm masks
@@ -142,8 +143,14 @@ class Model:
         self.ur_r_arr[self.t] = ur_n/self.H_r
         self.unr_r_arr[self.t] = unr_n / self.H_nr
 
+        # get GDP
+        self.GDP[self.t] = np.sum(np.array([f.y * f.p for f in self.f_arr]))
+
         self.Y_arr[self.t] = np.sum(np.array([f.y for f in self.f_arr]))
-        self.mean_p_arr[self.t] = np.sum(np.array([f.p * f.y for f in self.f_arr])) / self.Y_arr[self.t]
+        self.mean_p_arr[self.t] = self.GDP[self.t] / self.Y_arr[self.t]
+        # mean mark ups
+        self.mean_m_arr[self.t] = np.sum([f.m*f.y for f in self.f_arr])/self.Y_arr[self.t]
+
 
         self.DC_arr[self.t] = np.sum([h.d_c for h in self.h_arr])
         self.C_arr[self.t] = np.sum([h.c for h in self.h_arr])
@@ -167,9 +174,6 @@ class Model:
         nr_wages = nr_wages[nr_wages > 0]
         self.mean_nr_w = np.sum(nr_wages)/(self.H_nr-unr_n)
         self.mean_nr_w_arr[self.t] = self.mean_nr_w/self.mean_p_arr[self.t]
-
-        # get GDP
-        self.GDP[self.t] = np.sum(np.array([f.y*f.p for f in self.f_arr]))
 
         # open vacancies
         self.open_vs[self.t] = np.sum(np.array([(f.v_r>0)*f.v_r + (f.v_nr>0)*f.v_nr for f in self.f_arr ]))
