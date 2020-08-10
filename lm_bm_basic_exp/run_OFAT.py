@@ -1,6 +1,8 @@
 import numpy as np
+import numpy.random as rd
 import time
 from multiprocessing import Pool
+from setting_generator import pick_element
 from model_class import Model
 import csv
 
@@ -22,8 +24,10 @@ def run_perms(ID, NC, T, par_vals, par_names):
     # N_app
     if ID == 0:
 
+        perm_seq = rd.permutation(NC)
         for j in range(NC):
-            i = j%len(par_vals)
+            num = perm_seq[j]
+            i = pick_element(par_vals, num)[0]
             N_app = par_vals[i]
 
             m = Model(T=T, alpha_2=0.25, sigma=1.5, N_app=N_app, N_good=4, lambda_LM=10, sigma_m=0.1,
@@ -43,8 +47,10 @@ def run_perms(ID, NC, T, par_vals, par_names):
     # N_good
     elif ID == 1:
 
+        perm_seq = rd.permutation(NC)
         for j in range(NC):
-            i = j%len(par_vals)
+            num = perm_seq[j]
+            i = pick_element(par_vals, num)[0]
             N_good = par_vals[i]
 
             m = Model(T=T, alpha_2=0.25, sigma=1.5, N_app=4, N_good=N_good, lambda_LM=10, sigma_m=0.1,
@@ -64,8 +70,10 @@ def run_perms(ID, NC, T, par_vals, par_names):
     # lambda_LM
     elif ID == 2:
 
+        perm_seq = rd.permutation(NC)
         for j in range(NC):
-            i = j%len(par_vals)
+            num = perm_seq[j]
+            i = pick_element(par_vals, num)[0]
             lambda_LM = par_vals[i]
 
             m = Model(T=T, alpha_2=0.25, sigma=1.5, N_app=4, N_good=4, lambda_LM=lambda_LM, sigma_m=0.1,
@@ -85,8 +93,10 @@ def run_perms(ID, NC, T, par_vals, par_names):
     # sigma_w
     elif ID == 3:
 
+        perm_seq = rd.permutation(NC)
         for j in range(NC):
-            i = j % len(par_vals)
+            num = perm_seq[j]
+            i = pick_element(par_vals, num)[0]
             sigma_w = par_vals[i]
 
             m = Model(T=T, alpha_2=0.25, sigma=1.5, N_app=4, N_good=4, lambda_LM=10, sigma_m=0.1,
@@ -106,8 +116,10 @@ def run_perms(ID, NC, T, par_vals, par_names):
     # sigma_m
     elif ID == 4:
 
+        perm_seq = rd.permutation(NC)
         for j in range(NC):
-            i = j % len(par_vals)
+            num = perm_seq[j]
+            i = pick_element(par_vals, num)[0]
             sigma_m = par_vals[i]
 
             m = Model(T=T, alpha_2=0.25, sigma=1.5, N_app=4, N_good=4, lambda_LM=10, sigma_m=sigma_m,
@@ -127,8 +139,10 @@ def run_perms(ID, NC, T, par_vals, par_names):
     # min_w_par
     elif ID == 5:
 
+        perm_seq = rd.permutation(NC)
         for j in range(NC):
-            i = j % len(par_vals)
+            num = perm_seq[j]
+            i = pick_element(par_vals, num)[0]
             min_w_par = par_vals[i]
 
             m = Model(T=T, alpha_2=0.25, sigma=1.5, N_app=4, N_good=4, lambda_LM=10, sigma_m=0.1,
@@ -178,6 +192,6 @@ if __name__ == '__main__':
     # Number of replications (cores)
     NR = 6
     # number of cases
-    NC = 100
+    NC = 400
     args_arr = [(ID, NC, T, par_list[ID], par_names) for ID in range(NR)]
     run_nc_with_mp(args_arr)
