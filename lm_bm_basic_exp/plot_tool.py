@@ -129,7 +129,7 @@ def get_aggregate_regs(m, T, periods):
     wage_rate = [m.mean_nominal_w_arr[i]/m.mean_nominal_w_arr[i-1] - 1
                  if i > 0 else 0 for i in range(m.T)]
 
-    wage_level = [m.mean_nominal_w_arr[i]/m.mean_p_arr[i] for i in range(m.T)]
+    wage_level = [m.mean_nominal_w_arr[i] for i in range(m.T)]
     # wage_rate = wage_rate[1:]
 
 

@@ -39,6 +39,9 @@ def run_perms(ID, NC, T, par_vals, par_names):
                 filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 filewriter.writerow([N_app,
                                      np.mean(m.u_r_arr[T-300:T]), np.std(m.u_r_arr[T-300:T]),
+                                     np.mean(m.ur_r_arr[T - 300:T]), np.std(m.ur_r_arr[T - 300:T]),
+                                     np.mean(m.unr_r_arr[T - 300:T]), np.std(m.unr_r_arr[T - 300:T]),
+                                     np.mean(m.share_inactive[T - 300:T]), np.std(m.share_inactive[T - 300:T]),
                                      np.mean(m.gini_coeff[T-300:T]), np.std(m.gini_coeff[T-300:T]),
                                      np.mean(m.mean_p_arr[T-300:T]), np.std(m.mean_p_arr[T-300:T]),
                                      np.mean(m.mean_nominal_w_arr[T-300:T]), np.std(m.mean_nominal_w_arr[T-300:T]),
@@ -67,12 +70,22 @@ def run_perms(ID, NC, T, par_vals, par_names):
 
             with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
                 filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                filewriter.writerow([N_good, np.mean(m.u_r_arr[T-300:T]), np.mean(m.gini_coeff[T-300:T]),
-                                     np.mean(m.mean_p_arr[T-300:T]), np.mean(m.mean_nominal_w_arr[T-300:T]),
-                                     np.mean(m.median_w_arr[T-300:T]), np.mean(m.mean_m_arr[T-300:T]),
-                                     np.mean(m.Y_arr[T-300:T]), np.mean(m.DY_arr[T-300:T]),
-                                     np.mean(m.C_arr[T-300:T]), np.mean(m.DC_arr[T-300:T]),
-                                     np.mean(m.INV_arr[T-300:T]), np.mean(m.GDP[T-300:T])])
+                filewriter.writerow([N_good,
+                                     np.mean(m.u_r_arr[T - 300:T]), np.std(m.u_r_arr[T - 300:T]),
+                                     np.mean(m.ur_r_arr[T - 300:T]), np.std(m.ur_r_arr[T - 300:T]),
+                                     np.mean(m.unr_r_arr[T - 300:T]), np.std(m.unr_r_arr[T - 300:T]),
+                                     np.mean(m.share_inactive[T - 300:T]), np.std(m.share_inactive[T - 300:T]),
+                                     np.mean(m.gini_coeff[T - 300:T]), np.std(m.gini_coeff[T - 300:T]),
+                                     np.mean(m.mean_p_arr[T - 300:T]), np.std(m.mean_p_arr[T - 300:T]),
+                                     np.mean(m.mean_nominal_w_arr[T - 300:T]), np.std(m.mean_nominal_w_arr[T - 300:T]),
+                                     np.mean(m.median_w_arr[T - 300:T]), np.std(m.median_w_arr[T - 300:T]),
+                                     np.mean(m.mean_m_arr[T - 300:T]), np.std(m.mean_m_arr[T - 300:T]),
+                                     np.mean(m.Y_arr[T - 300:T]), np.std(m.Y_arr[T - 300:T]),
+                                     np.mean(m.DY_arr[T - 300:T]), np.std(m.DY_arr[T - 300:T]),
+                                     np.mean(m.C_arr[T - 300:T]), np.std(m.C_arr[T - 300:T]),
+                                     np.mean(m.DC_arr[T - 300:T]), np.std(m.DC_arr[T - 300:T]),
+                                     np.mean(m.INV_arr[T - 300:T]), np.std(m.INV_arr[T - 300:T]),
+                                     np.mean(m.GDP[T - 300:T]), np.std(m.GDP[T - 300:T])])
 
     # lambda_LM
     elif ID == 2:
@@ -90,12 +103,22 @@ def run_perms(ID, NC, T, par_vals, par_names):
 
             with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
                 filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                filewriter.writerow([lambda_LM, np.mean(m.u_r_arr[T-300:T]), np.mean(m.gini_coeff[T-300:T]),
-                                     np.mean(m.mean_p_arr[T-300:T]), np.mean(m.mean_nominal_w_arr[T-300:T]),
-                                     np.mean(m.median_w_arr[T-300:T]), np.mean(m.mean_m_arr[T-300:T]),
-                                     np.mean(m.Y_arr[T-300:T]), np.mean(m.DY_arr[T-300:T]),
-                                     np.mean(m.C_arr[T-300:T]), np.mean(m.DC_arr[T-300:T]),
-                                     np.mean(m.INV_arr[T-300:T]), np.mean(m.GDP[T-300:T])])
+                filewriter.writerow([lambda_LM,
+                                     np.mean(m.u_r_arr[T - 300:T]), np.std(m.u_r_arr[T - 300:T]),
+                                     np.mean(m.ur_r_arr[T - 300:T]), np.std(m.ur_r_arr[T - 300:T]),
+                                     np.mean(m.unr_r_arr[T - 300:T]), np.std(m.unr_r_arr[T - 300:T]),
+                                     np.mean(m.share_inactive[T - 300:T]), np.std(m.share_inactive[T - 300:T]),
+                                     np.mean(m.gini_coeff[T - 300:T]), np.std(m.gini_coeff[T - 300:T]),
+                                     np.mean(m.mean_p_arr[T - 300:T]), np.std(m.mean_p_arr[T - 300:T]),
+                                     np.mean(m.mean_nominal_w_arr[T - 300:T]), np.std(m.mean_nominal_w_arr[T - 300:T]),
+                                     np.mean(m.median_w_arr[T - 300:T]), np.std(m.median_w_arr[T - 300:T]),
+                                     np.mean(m.mean_m_arr[T - 300:T]), np.std(m.mean_m_arr[T - 300:T]),
+                                     np.mean(m.Y_arr[T - 300:T]), np.std(m.Y_arr[T - 300:T]),
+                                     np.mean(m.DY_arr[T - 300:T]), np.std(m.DY_arr[T - 300:T]),
+                                     np.mean(m.C_arr[T - 300:T]), np.std(m.C_arr[T - 300:T]),
+                                     np.mean(m.DC_arr[T - 300:T]), np.std(m.DC_arr[T - 300:T]),
+                                     np.mean(m.INV_arr[T - 300:T]), np.std(m.INV_arr[T - 300:T]),
+                                     np.mean(m.GDP[T - 300:T]), np.std(m.GDP[T - 300:T])])
 
     # sigma_w
     elif ID == 3:
@@ -113,12 +136,22 @@ def run_perms(ID, NC, T, par_vals, par_names):
 
             with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
                 filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                filewriter.writerow([sigma_w, np.mean(m.u_r_arr[T-300:T]), np.mean(m.gini_coeff[T-300:T]),
-                                     np.mean(m.mean_p_arr[T-300:T]), np.mean(m.mean_nominal_w_arr[T-300:T]),
-                                     np.mean(m.median_w_arr[T-300:T]), np.mean(m.mean_m_arr[T-300:T]),
-                                     np.mean(m.Y_arr[T-300:T]), np.mean(m.DY_arr[T-300:T]),
-                                     np.mean(m.C_arr[T-300:T]), np.mean(m.DC_arr[T-300:T]),
-                                     np.mean(m.INV_arr[T-300:T]), np.mean(m.GDP[T-300:T])])
+                filewriter.writerow([sigma_w,
+                                     np.mean(m.u_r_arr[T - 300:T]), np.std(m.u_r_arr[T - 300:T]),
+                                     np.mean(m.ur_r_arr[T - 300:T]), np.std(m.ur_r_arr[T - 300:T]),
+                                     np.mean(m.unr_r_arr[T - 300:T]), np.std(m.unr_r_arr[T - 300:T]),
+                                     np.mean(m.share_inactive[T - 300:T]), np.std(m.share_inactive[T - 300:T]),
+                                     np.mean(m.gini_coeff[T - 300:T]), np.std(m.gini_coeff[T - 300:T]),
+                                     np.mean(m.mean_p_arr[T - 300:T]), np.std(m.mean_p_arr[T - 300:T]),
+                                     np.mean(m.mean_nominal_w_arr[T - 300:T]), np.std(m.mean_nominal_w_arr[T - 300:T]),
+                                     np.mean(m.median_w_arr[T - 300:T]), np.std(m.median_w_arr[T - 300:T]),
+                                     np.mean(m.mean_m_arr[T - 300:T]), np.std(m.mean_m_arr[T - 300:T]),
+                                     np.mean(m.Y_arr[T - 300:T]), np.std(m.Y_arr[T - 300:T]),
+                                     np.mean(m.DY_arr[T - 300:T]), np.std(m.DY_arr[T - 300:T]),
+                                     np.mean(m.C_arr[T - 300:T]), np.std(m.C_arr[T - 300:T]),
+                                     np.mean(m.DC_arr[T - 300:T]), np.std(m.DC_arr[T - 300:T]),
+                                     np.mean(m.INV_arr[T - 300:T]), np.std(m.INV_arr[T - 300:T]),
+                                     np.mean(m.GDP[T - 300:T]), np.std(m.GDP[T - 300:T])])
 
     # sigma_m
     elif ID == 4:
@@ -136,12 +169,22 @@ def run_perms(ID, NC, T, par_vals, par_names):
 
             with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
                 filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                filewriter.writerow([sigma_m, np.mean(m.u_r_arr[T-300:T]), np.mean(m.gini_coeff[T-300:T]),
-                                     np.mean(m.mean_p_arr[T-300:T]), np.mean(m.mean_nominal_w_arr[T-300:T]),
-                                     np.mean(m.median_w_arr[T-300:T]), np.mean(m.mean_m_arr[T-300:T]),
-                                     np.mean(m.Y_arr[T-300:T]), np.mean(m.DY_arr[T-300:T]),
-                                     np.mean(m.C_arr[T-300:T]), np.mean(m.DC_arr[T-300:T]),
-                                     np.mean(m.INV_arr[T-300:T]), np.mean(m.GDP[T-300:T])])
+                filewriter.writerow([sigma_m,
+                                     np.mean(m.u_r_arr[T - 300:T]), np.std(m.u_r_arr[T - 300:T]),
+                                     np.mean(m.ur_r_arr[T - 300:T]), np.std(m.ur_r_arr[T - 300:T]),
+                                     np.mean(m.unr_r_arr[T - 300:T]), np.std(m.unr_r_arr[T - 300:T]),
+                                     np.mean(m.share_inactive[T - 300:T]), np.std(m.share_inactive[T - 300:T]),
+                                     np.mean(m.gini_coeff[T - 300:T]), np.std(m.gini_coeff[T - 300:T]),
+                                     np.mean(m.mean_p_arr[T - 300:T]), np.std(m.mean_p_arr[T - 300:T]),
+                                     np.mean(m.mean_nominal_w_arr[T - 300:T]), np.std(m.mean_nominal_w_arr[T - 300:T]),
+                                     np.mean(m.median_w_arr[T - 300:T]), np.std(m.median_w_arr[T - 300:T]),
+                                     np.mean(m.mean_m_arr[T - 300:T]), np.std(m.mean_m_arr[T - 300:T]),
+                                     np.mean(m.Y_arr[T - 300:T]), np.std(m.Y_arr[T - 300:T]),
+                                     np.mean(m.DY_arr[T - 300:T]), np.std(m.DY_arr[T - 300:T]),
+                                     np.mean(m.C_arr[T - 300:T]), np.std(m.C_arr[T - 300:T]),
+                                     np.mean(m.DC_arr[T - 300:T]), np.std(m.DC_arr[T - 300:T]),
+                                     np.mean(m.INV_arr[T - 300:T]), np.std(m.INV_arr[T - 300:T]),
+                                     np.mean(m.GDP[T - 300:T]), np.std(m.GDP[T - 300:T])])
 
     # min_w_par
     elif ID == 5:
@@ -159,12 +202,22 @@ def run_perms(ID, NC, T, par_vals, par_names):
 
             with open('OFAT_{}.csv'.format(par_names[ID]), 'a', newline='') as csvfile:
                 filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                filewriter.writerow([min_w_par, np.mean(m.u_r_arr[T-300:T]), np.mean(m.gini_coeff[T-300:T]),
-                                     np.mean(m.mean_p_arr[T-300:T]), np.mean(m.mean_nominal_w_arr[T-300:T]),
-                                     np.mean(m.median_w_arr[T-300:T]), np.mean(m.mean_m_arr[T-300:T]),
-                                     np.mean(m.Y_arr[T-300:T]), np.mean(m.DY_arr[T-300:T]),
-                                     np.mean(m.C_arr[T-300:T]), np.mean(m.DC_arr[T-300:T]),
-                                     np.mean(m.INV_arr[T-300:T]), np.mean(m.GDP[T-300:T])])
+                filewriter.writerow([min_w_par,
+                                     np.mean(m.u_r_arr[T - 300:T]), np.std(m.u_r_arr[T - 300:T]),
+                                     np.mean(m.ur_r_arr[T - 300:T]), np.std(m.ur_r_arr[T - 300:T]),
+                                     np.mean(m.unr_r_arr[T - 300:T]), np.std(m.unr_r_arr[T - 300:T]),
+                                     np.mean(m.share_inactive[T - 300:T]), np.std(m.share_inactive[T - 300:T]),
+                                     np.mean(m.gini_coeff[T - 300:T]), np.std(m.gini_coeff[T - 300:T]),
+                                     np.mean(m.mean_p_arr[T - 300:T]), np.std(m.mean_p_arr[T - 300:T]),
+                                     np.mean(m.mean_nominal_w_arr[T - 300:T]), np.std(m.mean_nominal_w_arr[T - 300:T]),
+                                     np.mean(m.median_w_arr[T - 300:T]), np.std(m.median_w_arr[T - 300:T]),
+                                     np.mean(m.mean_m_arr[T - 300:T]), np.std(m.mean_m_arr[T - 300:T]),
+                                     np.mean(m.Y_arr[T - 300:T]), np.std(m.Y_arr[T - 300:T]),
+                                     np.mean(m.DY_arr[T - 300:T]), np.std(m.DY_arr[T - 300:T]),
+                                     np.mean(m.C_arr[T - 300:T]), np.std(m.C_arr[T - 300:T]),
+                                     np.mean(m.DC_arr[T - 300:T]), np.std(m.DC_arr[T - 300:T]),
+                                     np.mean(m.INV_arr[T - 300:T]), np.std(m.INV_arr[T - 300:T]),
+                                     np.mean(m.GDP[T - 300:T]), np.std(m.GDP[T - 300:T])])
 
 
 

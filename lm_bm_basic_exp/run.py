@@ -18,9 +18,9 @@ m.run()
 end = time.time()
 print(end - start)
 
-fig1, fig2 = plot_lm(m, m.t, 2000, 1)
+fig1, fig2 = plot_lm(m, m.t, 400, 1)
 fig3 = get_wage_dist_fig(m)
-fig4 = get_aggregate_regs(m, m.t, 500)
+fig4 = get_aggregate_regs(m, m.t, 300)
 
 fig1.show()
 plt.close(fig1)
