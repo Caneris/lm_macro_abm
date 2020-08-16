@@ -1,8 +1,7 @@
-import numpy as np
 from hire_fire_routine import *
 from hire_fire_non_routine import *
 from default_tools import *
-from goods_market import gm_matching
+import goods_market
 
 
 def wage_decisions(m):
@@ -78,7 +77,25 @@ def run_goods_market(m):
     # firms sell goods
     clear_s(m.f_arr)
     clear_expenditure(m.h_arr)
-    gm_matching(m.f_arr, m.h_arr, m.N_good, m.tol)
+    # gm_matching(m.f_arr, m.h_arr, m.N_good, m.tol)
+    Ah_arr = np.array([h.A for h in m.h_arr]).astype(np.float)
+    d_c_arr = np.array([h.d_c for h in m.h_arr]).astype(np.float)
+    demand = np.copy(d_c_arr).astype(np.float)
+
+    prices = np.array([f.p for f in m.f_arr]).astype(np.float)
+    supply = np.array([(f.y + f.inv)*(not f.default) for f in m.f_arr]).astype(np.float)
+
+    expenditure_arr, Ah_arr, c_arr, sales_arr = goods_market.gm_matching(Ah_arr, d_c_arr, prices, demand, supply,
+                                                                         m.F, m.H, m.N_good, m.tol)
+
+
+    for h in m.h_arr:
+        h.expenditure = expenditure_arr[h.id]
+        h.A = Ah_arr[h.id]
+        h.c = c_arr[h.id]
+
+    for f in m.f_arr:
+        f.s = sales_arr[f.id]
 
     # firms update sales expectations
     update_s_e(m.f_arr[m.active_fs], m.lambda_exp)
