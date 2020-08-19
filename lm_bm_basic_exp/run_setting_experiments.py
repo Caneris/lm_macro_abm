@@ -71,21 +71,24 @@ def run_nc_with_mp(args_arr):
 if __name__ == '__main__':
 
     # Parameter values
-    sigma_m_arr = np.array([0.001, 0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009, 0.01])
-    sigma_w_arr = np.array([0.001, 0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009, 0.01])
-    lambda_LM_arr = np.array([1, 3, 5, 8, 10])
+    N_app_arr = np.arange(2, 12, 2).astype(int)
+    N_good_arr = np.arange(2, 12, 2).astype(int)
+    lambda_LM_arr = np.arange(2, 12, 2).astype(int)
+    sigma_w_arr = np.round(np.linspace(0.01, 0.4, 5), 2)
+    sigma_m_arr = np.round(np.linspace(0.01, 0.4, 5), 2)
+    min_w_par_arr = np.round(np.linspace(0.01, 0.6, 5), 2)
 
     print('sigma_m array: {}'.format(sigma_m_arr))
     print('sigma_w array: {}'.format(sigma_w_arr))
     print('lambda_LM array: {}'.format(lambda_LM_arr))
 
     # Number of periods per simulation
-    T = 500
-    periods = 200
+    T = 1000
+    periods = 300
     tt = T - periods
     # Number of replications
     NR = 10
     # number of cases
-    NC = 500
+    NC = 2
     args_arr = [(ID, NC, T, periods, sigma_m_arr, sigma_w_arr, lambda_LM_arr) for ID in range(NR)]
     run_nc_with_mp(args_arr)
