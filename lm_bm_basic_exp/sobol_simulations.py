@@ -79,6 +79,7 @@ if __name__ == '__main__':
     param_settings = np.loadtxt('C:/Users/atecan00/Desktop/saltelli/param_settings.csv', delimiter=',')
 
     n_Core = 10
+
     N_sim = param_settings.shape[0] / n_Core
 
     params_list = [0 for i in range(n_Core)]
@@ -95,8 +96,6 @@ if __name__ == '__main__':
     T = 1000
     periods = 300
     tt = T - periods
-    # Number of replications
-    NR = 10
 
-    args_arr = [(ID, N_sim, T, periods, params_list[ID]) for ID in range(NR)]
+    args_arr = [(ID, N_sim, T, periods, params_list[ID]) for ID in range(n_Core)]
     run_nc_with_mp(args_arr)
