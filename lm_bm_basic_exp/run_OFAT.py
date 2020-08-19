@@ -252,6 +252,6 @@ if __name__ == '__main__':
     # Number of replications (cores)
     NR = 6
     # number of cases
-    NC = 400
+    NC = 1000
     args_arr = [(ID, NC, T, par_list[ID], par_names) for ID in range(NR)]
     run_nc_with_mp(args_arr)
