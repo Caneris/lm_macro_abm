@@ -168,12 +168,12 @@ class Model:
         r_wages = np.array([h.w for h in self.h_arr[self.routine_arr]])
         r_wages = r_wages[r_wages > 0]
         self.mean_r_w = np.sum(r_wages)/(self.H_r-ur_n)
-        self.mean_r_w_arr[self.t] = self.mean_r_w/self.mean_p_arr[self.t]
+        self.mean_r_w_arr[self.t] = self.mean_r_w
 
         nr_wages = np.array([h.w for h in self.h_arr[self.non_routine_arr]])
         nr_wages = nr_wages[nr_wages > 0]
         self.mean_nr_w = np.sum(nr_wages)/(self.H_nr-unr_n)
-        self.mean_nr_w_arr[self.t] = self.mean_nr_w/self.mean_p_arr[self.t]
+        self.mean_nr_w_arr[self.t] = self.mean_nr_w
 
         # open vacancies
         self.open_vs[self.t] = np.sum(np.array([(f.v_r>0)*f.v_r + (f.v_nr>0)*f.v_nr for f in self.f_arr ]))
